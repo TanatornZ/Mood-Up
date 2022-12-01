@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import Chart from "../components/chart";
 import React, { useState, useEffect } from "react";
 import { Data } from "../interface/data";
+import Chart from "../components/Chart";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
