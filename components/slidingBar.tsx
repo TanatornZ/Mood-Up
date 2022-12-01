@@ -15,7 +15,7 @@ function SlidingBar() {
 
   return (
     <div
-      className={`bg-menu w-7/12 h-screen absolute top-0 transition-all duration-300	 ${
+      className={`bg-secondary w-7/12 h-screen absolute top-0 transition-all duration-300	 ${
         isOpen ? "right-0" : " right-[-100%]"
       } p-5 items-center flex flex-col text-dark `}
     >

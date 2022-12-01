@@ -4,8 +4,8 @@ import SlidingBar from "./SlidingBar";
 import Image from "next/image";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 function Navbar() {
-  // get date form context api
-  const { isOpen , openMenu } = useContext<MenuSlide>(MenuSlideContext);
+
+  const { openMenu } = useContext<MenuSlide>(MenuSlideContext);
 
   return (
     <div className="relative z-10">

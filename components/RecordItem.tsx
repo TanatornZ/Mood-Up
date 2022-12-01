@@ -4,6 +4,7 @@ import { Data } from "../interface/data";
 
 const RecordItem: FC<any> = ({ item }) => {
   const date = new Date(item.date);
+
   const thaiDate = date.toLocaleDateString("th-TH", {
     year: "numeric",
     month: "long",
@@ -12,7 +13,7 @@ const RecordItem: FC<any> = ({ item }) => {
   });
 
   return (
-    <div className="h-20 rounded-lg border-4 mt-5 bg-white flex items-center justify-between p-5">
+    <div className="h-20 rounded-xl  mt-5 bg-white flex items-center justify-between p-3 drop-shadow-md">
       <div className="relative h-12 w-12">
         <Image
           src={`/images/emotion/${item.motion}.png`}
@@ -20,14 +21,14 @@ const RecordItem: FC<any> = ({ item }) => {
           layout="fill"
         />
       </div>
-      <div className="grow pl-5">
-        <p className="text-lg">{thaiDate}</p>
+      <div className="grow pl-3">
+        <p className="text-md font-bold">{thaiDate}</p>
         <div className=" flex justify-between">
           <p>
-            อารมณ์ : <span>{item.motion}</span>
+            อารมณ์ : <span className="font-semibold">{item.motion}</span>
           </p>
           <p className="grow pl-12">
-            การทำงาน : <span>{item.performance}</span>
+            การทำงาน : <span className="font-semibold">{item.performance}</span>
           </p>
         </div>
       </div>
