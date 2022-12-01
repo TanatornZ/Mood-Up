@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div className="">
-      <h1 className="text-center text-3xl mb-5">กราฟความรู้สึก</h1>
+      <h1 className="text-center text-3xl mb-10">กราฟความรู้สึก</h1>
       <Chart
         motion={data.map((data: Data) => data.motion)}
         performance={data.map((data: Data) => data.performance)}

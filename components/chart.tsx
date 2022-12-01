@@ -35,7 +35,7 @@ function Chart({ motion, performance }: props) {
         position: "top" as const,
       },
       title: {
-        display: true,
+        display: false,
         text: "Chart.js Line Chart",
       },
     },
