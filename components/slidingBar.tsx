@@ -1,23 +1,27 @@
 import Link from "next/link";
-import React from "react";
+import React , {useContext} from "react";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
+import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 
 interface SlidingBar {
   showSlide: boolean;
   setShowSlide: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SlidingBar(props: SlidingBar) {
+function SlidingBar() {
+
+  const { isOpen , closeMenu } = useContext<MenuSlide>(MenuSlideContext);
+
   return (
     <div
       className={`bg-menu w-7/12 h-screen absolute top-0 transition-all duration-300	 ${
-        props.showSlide ? "right-0" : " right-[-100%]"
+        isOpen ? "right-0" : " right-[-100%]"
       } p-5 items-center flex flex-col text-dark `}
     >
       <BsFillArrowRightCircleFill
         className=" text-4xl absolute top-4 right-4 "
-        onClick={() => props.setShowSlide(false)}
+        onClick={closeMenu}
       />
 
       <div className="flex flex-col items-center mt-12">

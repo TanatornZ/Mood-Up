@@ -1,24 +1,21 @@
-import React, { useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import React, { useState, useContext } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import SlidingBar from "./slidingBar";
 import Image from "next/image";
+import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 function Navbar() {
-  const [showSlide, setShowSlide] = useState<boolean>(false);
+  // get date form context api
+  const { isOpen , openMenu } = useContext<MenuSlide>(MenuSlideContext);
 
   return (
-    <div className="relative">
+    <div className="relative z-10">
       <div className="w-full h-20 bg-white p-5 flex justify-between items-center drop-shadow-lg">
         <div className="w-10 h-10 relative">
           <Image src="/images/mood.png" layout="fill" alt="mood" />
         </div>
-        <AiOutlineMenu
-          className="text-3xl"
-          onClick={() => setShowSlide(true)}
-        />
+        <AiOutlineMenu className="text-3xl" onClick={openMenu} />
       </div>
-      <SlidingBar showSlide={showSlide} setShowSlide={setShowSlide} />
+      <SlidingBar />
     </div>
   );
 }
