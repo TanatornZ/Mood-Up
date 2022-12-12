@@ -2,12 +2,16 @@ import useSWR from "swr";
 import React, { useState, useEffect } from "react";
 import { Data } from "../interface/data";
 import Chart from "../components/Chart";
+import { useDispatch, useSelector } from "react-redux";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
   const { data, error } = useSWR("/api/data", fetcher);
 
+  const user = useSelector((state: any) => state.user);
+
+  console.log("user", user);
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
