@@ -10,3 +10,4 @@ export const authSlice = createSlice({
   },
 });
 
+export const actions = authSlice.actions;

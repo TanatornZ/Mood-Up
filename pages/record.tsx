@@ -10,9 +10,9 @@ function Record() {
   console.log(data)
   return (
     <div>
-      {/* {data.map((item: any, key: any) => (
+      {data.map((item: any, key: any) => (
         <RecordItem key={key} item={item} />
-      ))} */}
+      ))}
     </div>
   );
 }
