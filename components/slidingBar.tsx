@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React , {useContext} from "react";
+import React, { useContext } from "react";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
@@ -9,9 +9,8 @@ interface SlidingBar {
   setShowSlide: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SlidingBar() {
-
-  const { isOpen , closeMenu } = useContext<MenuSlide>(MenuSlideContext);
+const SlidingBar = () => {
+  const { isOpen, closeMenu } = useContext<MenuSlide>(MenuSlideContext);
 
   return (
     <div
@@ -41,6 +40,6 @@ function SlidingBar() {
       </ul>
     </div>
   );
-}
+};
 
 export default SlidingBar;

@@ -4,8 +4,7 @@ import Image from "next/image";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 import SlidingBar from "./SlidingBar";
 
-function Navbar() {
-
+const Navbar = () => {
   const { openMenu } = useContext<MenuSlide>(MenuSlideContext);
 
   return (
@@ -19,6 +18,6 @@ function Navbar() {
       <SlidingBar />
     </div>
   );
-}
+};
 
 export default Navbar;
