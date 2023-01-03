@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC } from "react";
-
+import { Data } from "../interface/data";
 
 const RecordItem: FC<any> = ({ item }) => {
   const date = new Date(item.date);
@@ -27,7 +27,9 @@ const RecordItem: FC<any> = ({ item }) => {
           <p>
             อารมณ์ : <span className="font-semibold">{item.motion}</span>
           </p>
-          
+          <p className="grow pl-12">
+            การทำงาน : <span className="font-semibold">{item.performance}</span>
+          </p>
         </div>
       </div>
     </div>

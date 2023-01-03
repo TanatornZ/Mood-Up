@@ -26,7 +26,7 @@ function SlidingBar() {
 
       <div className="flex flex-col items-center mt-12">
         <FaUserCircle className="text-[7em] " />
-        <h1 className="text-xl p-5 mb-5 font-bold">User</h1>
+        <h1 className="text-xl p-5 mb-5 font-bold">User Name</h1>
       </div>
       <ul className="leading-[5em] text-center text-md">
         <li>
