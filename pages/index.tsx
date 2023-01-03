@@ -11,8 +11,6 @@ export default function Home() {
 
   const user = useSelector((state: any) => state.auth.user);
 
-  console.log("user",user);
-
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 

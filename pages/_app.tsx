@@ -5,8 +5,28 @@ import Layout from "../components/Layout";
 import { AuthProvider } from "../context/AuthProvider";
 import { Provider } from "react-redux";
 import store from "../store";
+import { useEffect } from "react";
+import liff from "@line/liff";
+
+// const liffId = "1657785397-LVBe6BkX";
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const loadLine = async () => {
+      await liff
+        .init({ liffId: "1657785397-LVBe6BkX" })
+        .then(() => {
+          // Start to use liff's api
+          console.log("success");
+        })
+        .catch((err) => {
+          // Error happens during initialization
+          console.log(err.code, err.message);
+        });
+    };
+    loadLine();
+  }, []);
+
   return (
     <Provider store={store}>
       <AuthProvider>
