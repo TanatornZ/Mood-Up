@@ -3,6 +3,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Image from "next/image";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 import SlidingBar from "./SlidingBar";
+
 function Navbar() {
 
   const { openMenu } = useContext<MenuSlide>(MenuSlideContext);

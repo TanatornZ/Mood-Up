@@ -10,12 +10,11 @@ function Record() {
 
   const user = useSelector((state: any) => state.auth.user);
 
-  console.log(data);
+  console.log(typeof data);
   return (
     <div>
-      {data.map((item: any, key: any) => (
-        <RecordItem key={key} item={item} />
-      ))}
+      <h1 className='text-center'>mood</h1>
+      
     </div>
   );
 }
