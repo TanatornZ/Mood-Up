@@ -34,9 +34,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     loadLine();
-    console.log("line " + line);
   }, []);
-
+  
+  console.log("line " + line);
+  
   return (
     <Provider store={store}>
       <AuthProvider>
