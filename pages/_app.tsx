@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import { AuthContext, AuthProvider, AuthType } from "../context/AuthProvider";
 import { Provider } from "react-redux";
 import store from "../store";
-import { useContext, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { user, changeUser } = useContext<AuthType>(AuthContext);
@@ -18,8 +18,11 @@ export default function App({ Component, pageProps }: AppProps) {
         .then(async () => {
           if (liff.isLoggedIn()) {
             console.log("login");
-            const profile = await liff.getProfile();
-            setLine(profile);
+            const profile = await liff
+              .getProfile()
+              .then((profile: { userId: SetStateAction<undefined> }) => {
+                setLine(profile.userId);
+              });
           } else {
             liff.login();
             console.log("not login");
@@ -35,9 +38,9 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     loadLine();
   }, []);
-  
+
   console.log("line " + line);
-  
+
   return (
     <Provider store={store}>
       <AuthProvider>
