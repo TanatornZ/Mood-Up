@@ -15,14 +15,13 @@ export default function App({ Component, pageProps }: AppProps) {
     await import("@line/liff").then((liff) => {
       liff
         .init({ liffId: "1657785397-LVBe6BkX" })
-        .then(() => {
+        .then(async () => {
           if (liff.isLoggedIn()) {
             console.log("login");
+            const profile = await liff.getProfile();
+            setLine(profile);
           } else {
-            liff.login().then(async () => {
-              const profile = await liff.getProfile();
-              setLine(profile);
-            });
+            liff.login();
             console.log("not login");
           }
         })
