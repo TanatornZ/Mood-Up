@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC } from "react";
-import { Data } from "../interface/data";
+
 
 const RecordItem: FC<any> = ({ item }) => {
   const date = new Date(item.date);

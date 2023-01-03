@@ -4,7 +4,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 
-interface SlidingBar {
+interface SlidingBarType {
   showSlide: boolean;
   setShowSlide: React.Dispatch<React.SetStateAction<boolean>>;
 }

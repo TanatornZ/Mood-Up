@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Data } from "../interface/data";
 import Chart from "../components/Chart";
 import {  useSelector } from "react-redux";

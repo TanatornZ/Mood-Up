@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
-import RecordItem from "../components/RecordItem";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
