@@ -19,8 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
           if (liff.isLoggedIn()) {
             console.log("login");
           } else {
-            liff.login().then(() => {
-              setLine(liff.getProfile);
+            liff.login().then(async () => {
+              const profile = await liff.getProfile();
+              setLine(profile);
             });
             console.log("not login");
           }
@@ -34,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     loadLine();
-    console.log('line' + line);
+    console.log("line " + line);
   });
 
   return (
