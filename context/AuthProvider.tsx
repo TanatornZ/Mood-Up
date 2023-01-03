@@ -1,30 +1,29 @@
 import {
-    Dispatch,
-    SetStateAction,
-    createContext,
-    FC,
-    ReactNode,
-    useState,
-  } from "react";
-  
-  export interface MenuSlide {
-    user: string;
-    changeUser?: () => void
-  }
-  
-  export const AuthContext = createContext<MenuSlide>({ user: '' });
-  
-  export const AuthProvider: FC<any> = ({ children }) => {
-    const [user, Setuser] = useState<string>('');
-  
-    const changeUser = () => {
-        Setuser('user2')
-    }
-  
-    return (
-      <AuthContext.Provider value={{ user , changeUser  }}>
-        {children}
-      </AuthContext.Provider>
-    );
+  Dispatch,
+  SetStateAction,
+  createContext,
+  FC,
+  ReactNode,
+  useState,
+} from "react";
+
+export interface AuthType {
+  user: string;
+  changeUser?: (id: string) => void;
+}
+
+export const AuthContext = createContext<AuthType>({ user: "" });
+
+export const AuthProvider: FC<any> = ({ children }) => {
+  const [user, setUser] = useState<string>("");
+
+  const changeUser = (id: string) => {
+    setUser(id);
   };
-  
+
+  return (
+    <AuthContext.Provider value={{ user, changeUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
