@@ -6,24 +6,25 @@ import { AuthProvider } from "../context/AuthProvider";
 import { Provider } from "react-redux";
 import store from "../store";
 import { useEffect } from "react";
-import liff from "@line/liff";
-
-// const liffId = "1657785397-LVBe6BkX";
 
 export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    const loadLine = async () => {
-      await liff
+  const loadLine = async () => {
+    await import("@line/liff").then((liff) => {
+      liff
         .init({ liffId: "1657785397-LVBe6BkX" })
         .then(() => {
-          // Start to use liff's api
           console.log("success");
         })
-        .catch((err) => {
-          // Error happens during initialization
-          console.log(err.code, err.message);
+        .catch(() => {
+          console.log("error");
         });
-    };
+      // liff.login();
+      // lib is error
+      console.log(liff.isLoggedIn);
+    });
+  };
+
+  useEffect(() => {
     loadLine();
   }, []);
 
