@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import SlidingBar from "./SlidingBar";
 import Image from "next/image";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
+import SlidingBar from "./SlidingBar";
 function Navbar() {
 
   const { openMenu } = useContext<MenuSlide>(MenuSlideContext);
