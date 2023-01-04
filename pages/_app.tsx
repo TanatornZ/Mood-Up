@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 setLine(profile.userId);
               });
           } else {
-            liff.login();
+            // liff.login();
             console.log("not login");
           }
         })
