@@ -41,7 +41,7 @@ const TeamMood = () => {
     console.log(userContext?.user)
     checkRegister(userContext?.user).then((value) => {
       setRegister(value);
-      console.log(`value ${value}`);
+      // console.log(`value ${value}`);
     });
   });
 
