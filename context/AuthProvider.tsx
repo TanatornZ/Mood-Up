@@ -7,22 +7,18 @@ import {
   useState,
 } from "react";
 
-export interface AuthType {
+interface AuthType {
   user: string;
-  changeUser?: (id: string) => void;
+  setUser: Dispatch<SetStateAction<string>>;
 }
 
-export const AuthContext = createContext<AuthType>({ user: "" });
+export const AuthContext = createContext<AuthType | null>(null);
 
 export const AuthProvider: FC<any> = ({ children }) => {
-  const [user, setUser] = useState<string>("");
-
-  const changeUser = (id: string) => {
-    setUser(id);
-  };
+  const [user, setUser] = useState<string>("123");
 
   return (
-    <AuthContext.Provider value={{ user, changeUser }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );

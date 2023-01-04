@@ -1,26 +1,30 @@
 import useSWR from "swr";
-import React from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { Data } from "../interface/data";
 import Chart from "../components/Chart";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { AuthContext } from "../context/AuthProvider";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
-  const { data, error } = useSWR("/api/data", fetcher);
+  
+  const userContext = useContext(AuthContext);
+  const [user, setUser] = useState<string>("");
 
-  const user = useSelector((state: any) => state.auth.user);
+  useEffect(() => {
+    userContext?.setUser("id123");
+  });
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+
 
   return (
     <div className="">
-      <h1 className="text-center text-3xl mb-10">กราฟความรู้สึก</h1>
+      {/* <h1 className="text-center text-3xl mb-10">กราฟความรู้สึก</h1>
       <Chart
         motion={data.map((data: Data) => data.motion)}
         performance={data.map((data: Data) => data.performance)}
-      />
+      /> */}
     </div>
   );
 }
