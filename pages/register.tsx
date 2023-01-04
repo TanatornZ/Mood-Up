@@ -1,12 +1,15 @@
 import { calculateSizeAdjustValues } from "next/dist/server/font-utils";
 import React from "react";
 import { Form, Field } from "react-final-form";
-import InputField from "../components/InputField";
+import DateField from "../components/inputField/DateField";
+import TextField from "../components/inputField/TextField";
 
 function Register() {
   const register = async (values: any): Promise<void> => {
     console.log(values);
   };
+
+  const roleOptions = ["test", "test1"];
 
   return (
     <div className="flex justify-center flex-col p-7">
@@ -23,7 +26,7 @@ function Register() {
             >
               <Field name="first_name">
                 {({ input, meta }) => (
-                  <InputField
+                  <TextField
                     name="first_name"
                     label={"ชื่อ"}
                     input={input}
@@ -34,7 +37,7 @@ function Register() {
               </Field>
               <Field name="last_name">
                 {({ input, meta }) => (
-                  <InputField
+                  <TextField
                     name="last_name"
                     label={"สกุล"}
                     input={input}
@@ -45,7 +48,7 @@ function Register() {
               </Field>
               <Field name="date">
                 {({ input, meta }) => (
-                  <InputField
+                  <DateField
                     name="date"
                     label={"วัน/เดือน/ปีเกิด"}
                     input={input}
@@ -56,7 +59,7 @@ function Register() {
               </Field>
               <Field name="job">
                 {({ input, meta }) => (
-                  <InputField
+                  <TextField
                     name="job"
                     label={"ตำแหน่งงาน"}
                     input={input}
@@ -65,16 +68,20 @@ function Register() {
                   />
                 )}
               </Field>
-              <Field name="company">
-                {({ input, meta }) => (
-                  <InputField
-                    name="company"
-                    label={"บริษัท"}
-                    input={input}
-                    placeholder="บริษัท"
-                    meta={meta}
-                  />
-                )}
+              <p className="mt-4  py-2 px-2 text-xl ">บริษัท</p>
+              <Field
+                name="company"
+                component="select"
+                className="w-full rounded-xl p-3 bg-white border-2"
+              >
+                <option />
+                {roleOptions.map((option) => {
+                  return (
+                    <>
+                      <option value={option}>{option}</option>
+                    </>
+                  );
+                })}
               </Field>
               <button
                 className={`mx-auto mt-8 flex rounded-md bg-paybtn py-3 px-8 border-2 `}
