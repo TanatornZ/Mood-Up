@@ -9,6 +9,8 @@ import { SetStateAction, useContext, useEffect, useState } from "react";
 import Register from "./register";
 import First from "./first";
 
+import Admin from "./admin";
+
 export default function App({ Component, pageProps }: AppProps) {
   const userContext = useContext(AuthContext);
 
@@ -37,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
   //   });
   // };
 
-  if (Component === Register || Component === First) {
+  if (Component === Register || Component === First || Component === Admin) {
     return (
       <Provider store={store}>
         <AuthProvider>
@@ -53,9 +55,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <AuthProvider>
         <MenuSlideProvider>
-          <Layout>
+          {/* <Layout> */}
             <Component {...pageProps} />
-          </Layout>
+          {/* </Layout> */}
         </MenuSlideProvider>
       </AuthProvider>
     </Provider>

@@ -6,7 +6,6 @@ import TextField from "../components/inputField/TextField";
 import { AuthContext } from "../context/AuthProvider";
 import { db } from "../firebase/firebaseConfig";
 
-
 function Register() {
   const userContext = useContext(AuthContext);
   const [error, setError] = useState("");
@@ -19,6 +18,7 @@ function Register() {
       line_id: userContext?.user,
       company: values.company,
       gender: values.gender,
+      accept_company: false,
     };
 
     try {
