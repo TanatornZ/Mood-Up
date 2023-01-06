@@ -5,12 +5,10 @@ export const adminAuthSlice = createSlice({
   initialState: { islogin: false, adminId: "", companyId: "" },
   reducers: {
     setAdmin(state, action) {
-      state.adminId = action.payload;
-    },
-    setCompany(state, action) {
-      state.companyId = action.payload;
+      state.adminId = action.payload.admin;
+      state.companyId = action.payload.company;
     },
   },
 });
 
-export const { setAdmin ,setCompany } = adminAuthSlice.actions;
+export const { setAdmin  } = adminAuthSlice.actions;

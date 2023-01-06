@@ -2,6 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { ReactElement, useEffect } from "react";
 import { useSelector } from "react-redux";
+import AdminNavber from "../../components/admin/AdminNavber";
 import AdminLayout from "../../components/layout/AdminLayout";
 import { db } from "../../firebase/firebaseConfig";
 
@@ -11,7 +12,7 @@ export default function Manage() {
 
   useEffect(() => {
     if (admin.adminId === "") {
-      // router.push("/admin");
+      router.push("/admin");
     }
   });
 
@@ -26,7 +27,12 @@ export default function Manage() {
 
   getCompanyName();
 
-  return <div>{admin.adminId}</div>;
+  return (
+    <div className="flex w-screen">
+      <AdminNavber />
+      <div className="">asdfa</div>
+    </div>
+  );
 }
 
 Manage.getLayout = function getLayout(manage: ReactElement) {

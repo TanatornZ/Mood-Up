@@ -2,49 +2,45 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import TextField from "../inputField/TextField";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, User } from "firebase/auth";
 import PasswordField from "../inputField/PasswordField";
 import { useDispatch, useSelector } from "react-redux";
-import { setAdmin, setCompany } from "../../store/adminAuth-slice";
+import { setAdmin } from "../../store/adminAuth-slice";
 import { useRouter } from "next/router";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
-import { ROUTES_MANIFEST } from "next/dist/shared/lib/constants";
 
 function AdminLogin() {
   const router = useRouter();
   const auth = getAuth();
-
   const [error, setError] = useState<boolean>(false);
+  const admin = useSelector((state: any) => state.adminAuth);
 
-  const adminAuth = useSelector((state: any) => state.adminAuth.adminId);
-  const companyId = useSelector((state: any) => state.adminAuth.companyId);
   const dispatch = useDispatch();
 
-  const getCompanyName = async () => {
+  useEffect(() => {
+    if (admin.companyId !== "") {
+      router.push("/admin/manage");
+    }
+  });
+
+  const getCompanyName = async (user: string) => {
     const querySnapshot = await getDocs(collection(db, "admin"));
     querySnapshot.forEach((doc) => {
-      console.log("pass to get company " + adminAuth);
-      //check id
-      if (doc.data().UID === adminAuth) {
-        console.log("company id " + doc.data().company_id);
-        dispatch(setCompany(doc.data().company_id));
-        // console.log(companyId);
+      // check id
+      if (doc.data().UID === user) {
+        dispatch(setAdmin({ admin: user, company: doc.data().company_id }));
       }
     });
   };
 
-  const Login = (values: any) => {
-    signInWithEmailAndPassword(auth, values.email, values.password)
+  const Login = async (values: any) => {
+    await signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // keep admin Id
-        dispatch(setAdmin(user.uid));
 
-        await getCompanyName();
-
-        router.push("/admin/manage");
+        getCompanyName(user.uid);
       })
       .catch((error) => {
         const errorCode = error.code;
