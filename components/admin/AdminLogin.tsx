@@ -1,16 +1,56 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import TextField from "../inputField/TextField";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import PasswordField from "../inputField/PasswordField";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdmin, setCompany } from "../../store/adminAuth-slice";
+import { useRouter } from "next/router";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
+import { ROUTES_MANIFEST } from "next/dist/shared/lib/constants";
 
 function AdminLogin() {
-  const Login = (values: any) => {
-    const data = {
-      email: values.email,
-      password: values.password,
-    };
+  const router = useRouter();
+  const auth = getAuth();
 
-    console.log(data);
+  const [error, setError] = useState<boolean>(false);
+
+  const adminAuth = useSelector((state: any) => state.adminAuth.adminId);
+  const companyId = useSelector((state: any) => state.adminAuth.companyId);
+  const dispatch = useDispatch();
+
+  const getCompanyName = async () => {
+    const querySnapshot = await getDocs(collection(db, "admin"));
+    querySnapshot.forEach((doc) => {
+      console.log("pass to get company " + adminAuth);
+      //check id
+      if (doc.data().UID === adminAuth) {
+        console.log("company id " + doc.data().company_id);
+        dispatch(setCompany(doc.data().company_id));
+        // console.log(companyId);
+      }
+    });
+  };
+
+  const Login = (values: any) => {
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then(async (userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // keep admin Id
+        dispatch(setAdmin(user.uid));
+
+        await getCompanyName();
+
+        router.push("/admin/manage");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
   };
 
   return (
@@ -44,7 +84,7 @@ function AdminLogin() {
 
                 <Field name="password">
                   {({ input, meta }) => (
-                    <TextField
+                    <PasswordField
                       name="password"
                       key={"password"}
                       label={"รหัสผ่าน"}
@@ -54,7 +94,9 @@ function AdminLogin() {
                     />
                   )}
                 </Field>
-
+                {error && (
+                  <h1 className="text-red-500 text-center mt-3">{error}</h1>
+                )}
                 <button
                   className={`mx-auto mt-8 flex rounded-md bg-paybtn py-3 px-8 border-2 hover:bg-slate-100`}
                   type="submit"

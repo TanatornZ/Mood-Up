@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { AuthContext } from "../context/AuthProvider";
-import { Line } from "react-chartjs-2";
 
 const TeamMood = () => {
   const userContext = useContext(AuthContext);
