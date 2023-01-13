@@ -18,13 +18,14 @@ function AdminLogin() {
 
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    if (admin.companyId !== "") {
+    if (auth.currentUser) {
       router.push("/admin/manage");
     }
   });
 
-  const getCompanyName = async (user: string) => {
+  const getAdminId = async (user: string) => {
     const querySnapshot = await getDocs(collection(db, "admin"));
     querySnapshot.forEach((doc) => {
       // check id
@@ -39,11 +40,9 @@ function AdminLogin() {
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-
-        getCompanyName(user.uid);
+        getAdminId(user.uid);
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         setError(errorMessage);
       });
