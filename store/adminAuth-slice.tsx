@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface AuthAdmin {
+  isLogin: boolean;
+  adminId: string;
+  companyId: string;
+}
+
 export const adminAuthSlice = createSlice({
   name: "adminAuth",
   initialState: { islogin: false, adminId: "", companyId: "", companyName: "" },

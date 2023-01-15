@@ -5,7 +5,7 @@ import TextField from "../inputField/TextField";
 import { getAuth, signInWithEmailAndPassword, User } from "firebase/auth";
 import PasswordField from "../inputField/PasswordField";
 import { useDispatch, useSelector } from "react-redux";
-import { setAdmin } from "../../store/adminAuth-slice";
+import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 import { useRouter } from "next/router";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
@@ -14,13 +14,13 @@ function AdminLogin() {
   const router = useRouter();
   const auth = getAuth();
   const [error, setError] = useState<boolean>(false);
-  const admin = useSelector((state: any) => state.adminAuth);
+  const admin : AuthAdmin = useSelector((state: any) => state.adminAuth);
 
   const dispatch = useDispatch();
 
 
   useEffect(() => {
-    if (auth.currentUser) {
+    if (admin.companyId !== '') {
       router.push("/admin/manage");
     }
   });
@@ -50,7 +50,7 @@ function AdminLogin() {
 
   return (
     <div className="bg-secondary h-screen flex  items-center flex-col">
-      <div className="w-52 h-60 relative mt-10">
+      <div className="w-60 h-72  relative mt-10">
         <Image src="/images/logo.png" layout="fill" alt="mood" />
       </div>
       <div className="bg-white w-2/6 p-5 rounded-xl shadow-xl mt-3">

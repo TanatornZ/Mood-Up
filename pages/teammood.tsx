@@ -55,7 +55,7 @@ const TeamMood = () => {
     });
   };
 
-  return <div>{register ? <h1>pass</h1> : <h1>error</h1>}</div>;
+  return <div>{register ? <h1>pass</h1> : <h1>team</h1>}</div>;
 };
 
 export default TeamMood;

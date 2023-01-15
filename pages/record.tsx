@@ -12,7 +12,7 @@ function Record() {
   console.log(typeof data);
   return (
     <div>
-      <h1 className="text-center">mood</h1>
+      <h1 className="">record</h1>
     </div>
   );
 }

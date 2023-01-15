@@ -8,7 +8,7 @@ function Conclusion() {
   return (
     <div className="flex w-screen">
       <AdminNavber />
-      <div className="">asdfa</div>
+      <div className="">Conclusion</div>
     </div>
   );
 }

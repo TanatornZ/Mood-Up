@@ -30,11 +30,7 @@ export default function Manage() {
   return (
     <div className="flex w-screen">
       <AdminNavber />
-      <div className="">asdfa</div>
+      <div className="">Manage</div>
     </div>
   );
 }
-
-Manage.getLayout = function getLayout(manage: ReactElement) {
-  return <AdminLayout>{manage}</AdminLayout>;
-};

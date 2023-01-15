@@ -2,14 +2,14 @@ import { getAuth } from "firebase/auth";
 import React from "react";
 import AdminNavber from "../../components/admin/AdminNavber";
 
-function Teammood() {
+function TeamMoodAdmin() {
   console.log(getAuth().currentUser);
   return (
     <div className="flex w-screen">
       <AdminNavber />
-      <div className="">asdfa</div>
+      <div className="">TeamMoodAdmin</div>
     </div>
   );
 }
 
-export default Teammood;
+export default TeamMoodAdmin;

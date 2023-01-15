@@ -10,36 +10,20 @@ import Register from "./register";
 import First from "./first";
 
 import Admin from "./admin";
+import Manage from "./admin/manage";
+import Conclusion from "./admin/conclusion";
+import TeamMoodAdmin from "./admin/teammood";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const userContext = useContext(AuthContext);
 
-  // const [line, setLine] = useState();
-  // const loadLine = async () => {
-  //   await import("@line/liff").then((liff) => {
-  //     liff
-  //       .init({ liffId: "1657785397-LVBe6BkX" })
-  //       .then(async () => {
-  //         if (liff.isLoggedIn()) {
-  //           console.log("login");
-  //           const profile = await liff
-  //             .getProfile()
-  //             .then((profile: { userId: SetStateAction<undefined> }) => {
-  //               setLine(profile.userId);
-  //             });
-  //         } else {
-  //           // liff.login();
-  //           console.log("not login");
-  //         }
-  //       })
-  //       .catch(() => {
-  //         console.log("error");
-  //       });
-  //     // lib is error
-  //   });
-  // };
-
-  if (Component === Register || Component === First || Component === Admin) {
+  if (
+    Component === Register ||
+    Component === First ||
+    Component === Admin ||
+    Component === Conclusion ||
+    Component === Manage ||
+    Component === TeamMoodAdmin
+  ) {
     return (
       <Provider store={store}>
         <AuthProvider>
@@ -55,9 +39,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <AuthProvider>
         <MenuSlideProvider>
-          {/* <Layout> */}
+          <Layout>
             <Component {...pageProps} />
-          {/* </Layout> */}
+          </Layout>
         </MenuSlideProvider>
       </AuthProvider>
     </Provider>
