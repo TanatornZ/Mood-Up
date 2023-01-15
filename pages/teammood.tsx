@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { AuthContext } from "../context/AuthProvider";
-import { Line } from "react-chartjs-2";
 
 const TeamMood = () => {
   const userContext = useContext(AuthContext);
@@ -41,7 +40,7 @@ const TeamMood = () => {
     console.log(userContext?.user)
     checkRegister(userContext?.user).then((value) => {
       setRegister(value);
-      console.log(`value ${value}`);
+      // console.log(`value ${value}`);
     });
   });
 
@@ -56,7 +55,7 @@ const TeamMood = () => {
     });
   };
 
-  return <div>{register ? <h1>pass</h1> : <h1>error</h1>}</div>;
+  return <div>{register ? <h1>pass</h1> : <h1>team</h1>}</div>;
 };
 
 export default TeamMood;
