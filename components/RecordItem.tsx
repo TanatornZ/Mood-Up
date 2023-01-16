@@ -27,9 +27,7 @@ const RecordItem: FC<any> = ({ item }) => {
           <p>
             อารมณ์ : <span className="font-semibold">{item.motion}</span>
           </p>
-          <p className="grow pl-12">
-            การทำงาน : <span className="font-semibold">{item.performance}</span>
-          </p>
+          
         </div>
       </div>
     </div>

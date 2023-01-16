@@ -9,7 +9,6 @@ import {
   Legend,
 } from "chart.js";
 import React from "react";
-import { faker } from "@faker-js/faker";
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(
@@ -24,15 +23,15 @@ ChartJS.register(
 
 interface props {
   motion: number[];
-  performance: number[];
 }
 
-function Chart({ motion, performance }: props) {
+function Chart({ motion }: props) {
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: "top" as const,
+        display: false,
       },
       title: {
         display: false,
@@ -47,12 +46,6 @@ function Chart({ motion, performance }: props) {
     labels,
     datasets: [
       {
-        label: "ประสิทธิภาพการทำงาน",
-        data: performance,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
         label: "อารมณ์",
         data: motion,
         borderColor: "rgb(53, 162, 235)",
@@ -62,7 +55,7 @@ function Chart({ motion, performance }: props) {
   };
 
   console.log(motion);
-  
+
   return <Line options={options} data={data} />;
 }
 
