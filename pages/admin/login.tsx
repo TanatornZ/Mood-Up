@@ -46,7 +46,7 @@ function Login() {
   };
 
   return (
-    <div className="bg-secondary h-screen flex  items-center flex-col">
+    <div className="bg-gray-100 h-screen flex  items-center flex-col">
       <div className="w-60 h-72  relative mt-10">
         <Image src="/images/logo.png" layout="fill" alt="mood" />
       </div>

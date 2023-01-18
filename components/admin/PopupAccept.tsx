@@ -3,16 +3,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebaseConfig";
-import { employee } from "../../interface/interface";
+import { employee, employeeNid } from "../../interface/interface";
 import ListWaitToAccept from "./ListWaitToAccept";
 
-interface user {
-  id: string;
-  information: employee;
-}
+
 interface Props {
   showAccept: boolean;
-  user: user[];
+  user: employeeNid[];
 }
 
 function PopupAccept(props: Props) {
@@ -25,7 +22,7 @@ function PopupAccept(props: Props) {
       }`}
     >
       <h1 className="text-xl text-center">คำร้อง</h1>
-      {user.map((items: user) => {
+      {user.map((items: employeeNid) => {
         if (!items.information.accept_company) {
           return (
             <ListWaitToAccept

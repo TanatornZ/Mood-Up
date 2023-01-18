@@ -15,6 +15,7 @@ import AdminNavber from "../../components/admin/AdminNavber";
 import EmployeeList from "../../components/admin/EmployeeList";
 import PopupAccept from "../../components/admin/PopupAccept";
 import { db } from "../../firebase/firebaseConfig";
+import { employee, employeeNid } from "../../interface/interface";
 import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 
 export default function Admin() {
@@ -23,14 +24,14 @@ export default function Admin() {
   const auth = getAuth();
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<employeeNid[]>([]);
 
   const getUser = useCallback(async () => {
     const querySnapshot = await getDocs(collection(db, "user"));
-    let data: any = [];
+    let data: employeeNid[] = [];
     querySnapshot.forEach((doc) => {
       if (doc.data().company_id === admin.companyId) {
-        data.push({ id: doc.id, information: doc.data() });
+        data.push({ id: doc.id, information: doc.data() as employee });
       }
     });
 

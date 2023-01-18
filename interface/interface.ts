@@ -1,3 +1,5 @@
+import { DocumentData } from "firebase/firestore";
+
 export interface employee {
   accept_company: boolean;
   company_id: string;
@@ -7,4 +9,9 @@ export interface employee {
   job_position: string;
   last_name: string;
   line_id: string;
+}
+
+export interface employeeNid {
+  id: string;
+  information: employee ;
 }
