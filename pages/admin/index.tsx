@@ -4,6 +4,7 @@ import { AiOutlineBell } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import AdminLogin from "../../components/admin/AdminLogin";
 import AdminNavber from "../../components/admin/AdminNavber";
+import EmployeeList from "../../components/admin/EmployeeList";
 import PopupAccept from "../../components/admin/PopupAccept";
 import { db } from "../../firebase/firebaseConfig";
 import { AuthAdmin } from "../../store/adminAuth-slice";
@@ -12,14 +13,14 @@ export default function Admin() {
   const [showAccept, setShowAccept] = useState<boolean>(false);
   const admin: AuthAdmin = useSelector((state: any) => state.adminAuth);
 
-  const [user, setUser] = useState<DocumentData[]>([]);
+  const [user, setUser] = useState([]);
 
   const getUser = useCallback(async () => {
     const querySnapshot = await getDocs(collection(db, "user"));
-    let data: DocumentData[] = [];
+    let data: any = [];
     querySnapshot.forEach((doc) => {
       if (doc.data().company_id === admin.companyId) {
-        data.push(doc.data());
+        data.push({ id: doc.id, information: doc.data() });
       }
     });
 
@@ -53,14 +54,18 @@ export default function Admin() {
           </select>
         </div>
 
-        <div className="bg-white p-5 mt-8 rounded-xl flex justify-between px-20">
-          <div className="">
-            <h1>first last</h1>
-            <h1>position</h1>
-          </div>
-          <div className="p-3 bg-slate-600 rounded-xl cursor-pointer text-white">
-            <h1 className="text-lg">edit</h1>
-          </div>
+        <div className="bg-white rounded-xl mt-8 ">
+          {user.map((employee: any) => {
+            if (employee.information.accept_company) {
+              return (
+                <EmployeeList
+                  key={employee.id}
+                  information={employee.information}
+                  docId={employee.id}
+                />
+              );
+            }
+          })}
         </div>
       </div>
 
@@ -70,7 +75,7 @@ export default function Admin() {
       >
         <AiOutlineBell size={40} />
         <div className="bg-red-600 rounded-full w-5 h-5 absolute top-0 right-[-0.2em]">
-          <h1 className="text-center text-sm text-white">2</h1>
+          <h1 className="text-center text-sm text-white">!</h1>
         </div>
       </div>
 
