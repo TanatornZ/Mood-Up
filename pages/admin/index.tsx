@@ -1,17 +1,26 @@
+import { getAuth } from "firebase/auth";
 import { collection, DocumentData, getDocs } from "firebase/firestore";
-import React, { ReactElement, useCallback, useEffect, useState } from "react";
+import Router from "next/router";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { AiOutlineBell } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import AdminLogin from "../../components/admin/AdminLogin";
+import { useDispatch, useSelector } from "react-redux";
 import AdminNavber from "../../components/admin/AdminNavber";
 import EmployeeList from "../../components/admin/EmployeeList";
 import PopupAccept from "../../components/admin/PopupAccept";
 import { db } from "../../firebase/firebaseConfig";
-import { AuthAdmin } from "../../store/adminAuth-slice";
+import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 
 export default function Admin() {
   const [showAccept, setShowAccept] = useState<boolean>(false);
   const admin: AuthAdmin = useSelector((state: any) => state.adminAuth);
+  const auth = getAuth();
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState([]);
 
@@ -27,16 +36,28 @@ export default function Admin() {
     return data;
   }, [admin.companyId]);
 
+  const getAdminId = async (user: string) => {
+    const querySnapshot = await getDocs(collection(db, "admin"));
+    querySnapshot.forEach((doc) => {
+      // check id
+      if (doc.data().UID === user) {
+        dispatch(setAdmin({ admin: user, company: doc.data().company_id }));
+      }
+    });
+  };
+
   useEffect(() => {
+    
     const data = getUser();
     data.then((item) => {
       setUser(item);
     });
   }, [getUser]);
 
-  if (admin.adminId === "") {
-    return <AdminLogin />;
+  if (auth.currentUser?.uid) {
+    getAdminId(auth.currentUser?.uid);
   }
+
 
   return (
     <div className="flex bg-gray-100 w-screen">

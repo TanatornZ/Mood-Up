@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import React, { ReactElement, useEffect } from "react";
 import { useSelector } from "react-redux";
 import AdminNavber from "../../components/admin/AdminNavber";
-import AdminLayout from "../../components/layout/AdminLayout";
 import { db } from "../../firebase/firebaseConfig";
 
 export default function Manage() {

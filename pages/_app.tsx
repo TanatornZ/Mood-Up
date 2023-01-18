@@ -13,16 +13,17 @@ import Admin from "./admin";
 import Manage from "./admin/manage";
 import Conclusion from "./admin/conclusion";
 import TeamMoodAdmin from "./admin/teammood";
+import Login from "./admin/login";
 
 export default function App({ Component, pageProps }: AppProps) {
-
   if (
     Component === Register ||
     Component === First ||
     Component === Admin ||
     Component === Conclusion ||
     Component === Manage ||
-    Component === TeamMoodAdmin
+    Component === TeamMoodAdmin ||
+    Component === Login
   ) {
     return (
       <Provider store={store}>

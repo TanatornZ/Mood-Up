@@ -33,7 +33,7 @@ function AdminNavber() {
   }, [admin.companyId, dispatch, path, router.asPath]);
 
   const logout = () => {
-    getAuth().signOut;
+    getAuth().signOut();
     dispatch(setAdmin({ admin: "", company: "" }));
     Router.push("/admin");
   };

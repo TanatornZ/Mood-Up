@@ -1,16 +1,16 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { Field, Form } from "react-final-form";
-import TextField from "../inputField/TextField";
-import { getAuth, signInWithEmailAndPassword, User } from "firebase/auth";
-import PasswordField from "../inputField/PasswordField";
-import { useDispatch, useSelector } from "react-redux";
-import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
-import { useRouter } from "next/router";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { Field, Form } from "react-final-form";
+import { useDispatch, useSelector } from "react-redux";
+import PasswordField from "../../components/inputField/PasswordField";
+import TextField from "../../components/inputField/TextField";
 import { db } from "../../firebase/firebaseConfig";
+import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 
-function AdminLogin() {
+function Login() {
   const router = useRouter();
   const auth = getAuth();
   const [error, setError] = useState<boolean>(false);
@@ -19,7 +19,6 @@ function AdminLogin() {
   const dispatch = useDispatch();
 
   console.log(`${auth.currentUser?.uid} login`);
-  
 
   const getAdminId = async (user: string) => {
     const querySnapshot = await getDocs(collection(db, "admin"));
@@ -37,6 +36,7 @@ function AdminLogin() {
         // Signed in
         const user = userCredential.user;
         getAdminId(user.uid);
+        router.push('/admin')
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -103,4 +103,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default Login;
