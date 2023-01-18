@@ -16,11 +16,7 @@ function AdminNavber() {
   const [path, setPath] = useState<string>("");
 
   useEffect(() => {
-    if (!getAuth().currentUser) {
-      Router.push("/admin");
-    }
     setPath(router.asPath.slice(7));
-
     const getCompanyName = async () => {
       const querySnapshot = await getDocs(collection(db, "company"));
       querySnapshot.forEach((doc) => {
@@ -35,7 +31,7 @@ function AdminNavber() {
   const logout = () => {
     getAuth().signOut();
     dispatch(setAdmin({ admin: "", company: "" }));
-    Router.push("/admin");
+    Router.push("/admin/login");
   };
 
   return (

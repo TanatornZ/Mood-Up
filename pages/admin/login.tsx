@@ -10,15 +10,16 @@ import TextField from "../../components/inputField/TextField";
 import { db } from "../../firebase/firebaseConfig";
 import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 
+interface AuthEmail {
+  email: string;
+  password: string;
+}
 function Login() {
   const router = useRouter();
   const auth = getAuth();
   const [error, setError] = useState<boolean>(false);
-  const admin: AuthAdmin = useSelector((state: any) => state.adminAuth);
 
   const dispatch = useDispatch();
-
-  console.log(`${auth.currentUser?.uid} login`);
 
   const getAdminId = async (user: string) => {
     const querySnapshot = await getDocs(collection(db, "admin"));
@@ -30,13 +31,13 @@ function Login() {
     });
   };
 
-  const Login = async (values: any) => {
+  const Login = async (values: AuthEmail) => {
     await signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
         getAdminId(user.uid);
-        router.push('/admin')
+        router.push("/admin");
       })
       .catch((error) => {
         const errorMessage = error.message;

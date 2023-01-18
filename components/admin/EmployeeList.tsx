@@ -1,8 +1,9 @@
 import React from "react";
+import { employee } from "../../interface/interface";
 
 interface Props {
-  information: any;
-  docId: any;
+  information: employee;
+  docId: string;
 }
 function EmployeeList(props: Props) {
   const information = props.information;

@@ -8,6 +8,7 @@ import React, {
   useLayoutEffect,
   useState,
 } from "react";
+import { Toaster } from "react-hot-toast";
 import { AiOutlineBell } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import AdminNavber from "../../components/admin/AdminNavber";
@@ -47,7 +48,6 @@ export default function Admin() {
   };
 
   useEffect(() => {
-    
     const data = getUser();
     data.then((item) => {
       setUser(item);
@@ -58,9 +58,11 @@ export default function Admin() {
     getAdminId(auth.currentUser?.uid);
   }
 
-
   return (
     <div className="flex bg-gray-100 w-screen">
+      <div>
+        <Toaster />
+      </div>
       <AdminNavber />
       <div className="p-8 w-[80%]">
         <h1 className="text-3xl text-center">จัดการพนักงาน</h1>

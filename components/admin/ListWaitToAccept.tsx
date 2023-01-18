@@ -1,10 +1,12 @@
 import { collection, doc, DocumentData, updateDoc } from "firebase/firestore";
 import React from "react";
+import toast from "react-hot-toast";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { db } from "../../firebase/firebaseConfig";
+import { employee } from "../../interface/interface";
 
 interface Props {
-  information: any;
+  information: employee;
   docId: string;
 }
 
@@ -16,7 +18,10 @@ function ListWaitToAccept(props: Props) {
     await updateDoc(employeeRef, {
       accept_company: true,
     }).then(() => {
-      window.location.reload();
+      toast.success("เพิ่มเรียบร้อย");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     });
   };
 
