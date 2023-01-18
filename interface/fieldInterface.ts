@@ -7,4 +7,5 @@ export type fieldType = {
   name: string;
   input: FieldInputProps<any, HTMLElement>;
   meta: FieldMetaState<any>;
+  disable?: boolean;
 };

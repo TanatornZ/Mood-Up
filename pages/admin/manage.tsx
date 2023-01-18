@@ -10,11 +10,7 @@ export default function Manage() {
   const router = useRouter();
   const admin = useSelector((state: any) => state.adminAuth);
 
-  useEffect(() => {
-    if (admin.adminId === "") {
-      router.push("/admin");
-    }
-  });
+
 
   const getCompanyName = async () => {
     const querySnapshot = await getDocs(collection(db, "company"));

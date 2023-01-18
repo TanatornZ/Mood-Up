@@ -20,6 +20,7 @@ function AdminNavber() {
       Router.push("/admin");
     }
     setPath(router.asPath.slice(7));
+
     const getCompanyName = async () => {
       const querySnapshot = await getDocs(collection(db, "company"));
       querySnapshot.forEach((doc) => {
@@ -48,10 +49,7 @@ function AdminNavber() {
       </div>
       <ul className="text-center text-lg">
         <li className="hover:text-gray-300 cursor-pointer ">
-          <Link
-            href={"/admin/manage"}
-            className={`${path === "manage" ? "underline" : ""}`}
-          >
+          <Link href={"/admin"} className={`${path === "" ? "underline" : ""}`}>
             จัดการพนักงาน
           </Link>
         </li>
