@@ -1,6 +1,6 @@
 import { getAuth } from "firebase/auth";
 import { collection, DocumentData, getDocs } from "firebase/firestore";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import React, {
   ReactElement,
   useCallback,
@@ -23,6 +23,7 @@ export default function Admin() {
   const admin: AuthAdmin = useSelector((state: any) => state.adminAuth);
   const auth = getAuth();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [user, setUser] = useState<employeeNid[]>([]);
 
@@ -34,7 +35,6 @@ export default function Admin() {
         data.push({ id: doc.id, information: doc.data() as employee });
       }
     });
-
     return data;
   }, [admin.companyId]);
 
@@ -53,11 +53,17 @@ export default function Admin() {
     data.then((item) => {
       setUser(item);
     });
-  }, [getUser]);
+    const auth = getAuth();
+    setTimeout(() => {
+      if (!auth.currentUser) {
+        router.push('/admin/login')
+      }
+    },500)
+  }, [auth.currentUser, getUser, router]);
 
   if (auth.currentUser?.uid) {
     getAdminId(auth.currentUser?.uid);
-  }
+  } 
 
   return (
     <div className="flex bg-gray-100 w-screen">
@@ -73,6 +79,7 @@ export default function Admin() {
             id="job_select"
             className="ml-3 bg-white border rounded-lg p-1"
           >
+            <option value="1"> All </option>
             <option value="1"> front-end </option>
             <option value="2"> back-end </option>
           </select>

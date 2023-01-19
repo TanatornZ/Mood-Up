@@ -2,7 +2,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import PasswordField from "../../components/inputField/PasswordField";
@@ -21,12 +21,22 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const getAdminId = async (user: string) => {
+  useEffect(() => {
+    const auth = getAuth();
+
+    setTimeout(() => {
+      if (auth.currentUser) {
+        router.push("/admin");
+      }
+    }, 400);
+  });
+
+  const getAdminId = async (userId: string) => {
     const querySnapshot = await getDocs(collection(db, "admin"));
     querySnapshot.forEach((doc) => {
       // check id
-      if (doc.data().UID === user) {
-        dispatch(setAdmin({ admin: user, company: doc.data().company_id }));
+      if (doc.data().UID === userId) {
+        dispatch(setAdmin({ admin: userId, company: doc.data().company_id }));
       }
     });
   };

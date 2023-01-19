@@ -8,7 +8,7 @@ export interface AuthAdmin {
 
 export const adminAuthSlice = createSlice({
   name: "adminAuth",
-  initialState: { islogin: false, adminId: "", companyId: "", companyName: "" },
+  initialState: { adminId: "", companyId: "", companyName: "" },
   reducers: {
     setAdmin(state, action) {
       state.adminId = action.payload.admin;
