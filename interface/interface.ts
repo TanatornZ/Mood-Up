@@ -15,3 +15,10 @@ export interface employeeNid {
   id: string;
   information: employee ;
 }
+
+export interface emotion {
+  line_id : string
+  date : Object
+  comment? : string
+  emotion : number
+}
