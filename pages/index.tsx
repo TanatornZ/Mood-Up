@@ -6,11 +6,14 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useRouter } from "next/router";
 import { setUser } from "../store/user-slice";
+import { emotion } from "../interface/interface";
+import { getArrayEmotion } from "../utils/getArrayEmotion";
 export default function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
+  const [emotion, setEmotion] = useState<emotion[]>([]);
 
   const checkUserRegister = async (lineId: string) => {
     const querySnapshot = await getDocs(collection(db, "user"));
@@ -58,11 +61,20 @@ export default function Home() {
           console.log("error");
         });
     });
+
+    const fetchData = async () => {
+      const data = await getArrayEmotion(lineAuth.userId);
+      setEmotion(data);
+    };
+
+    fetchData();
   }, []);
 
   if (lineAuth.userId !== "") {
     checkUserRegister(lineAuth.userId);
   }
+
+  console.log(emotion);
 
   return (
     <div className="">
