@@ -74,9 +74,12 @@ export default function Home() {
     checkUserRegister(lineAuth.userId);
   }
 
-  const average =
-    emotion.reduce((a, b) => a.emotion + b.emotion, 0) / emotion.length;
+  const allEmotion = emotion.filter((emotion) => emotion.emotion);
 
+  const average = allEmotion.reduce((a, b) => a + b, 0) / allEmotion.length;
+
+  console.log("allEmotion " + allEmotion);
+  console.log("average " + average);
   return (
     <div className="">
       {/* <h1>home</h1> */}
