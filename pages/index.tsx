@@ -17,8 +17,9 @@ export default function Home() {
             console.log("login");
             const profile = await liff.getProfile().then((profile: any) => {
               setLine(profile);
+
+              console.log(`profile ${profile}`)
             });
-            console.log(`profile ${line}`)
             console.log(`liff ${liff}`)
           } else {
             liff.login();
@@ -45,7 +46,7 @@ export default function Home() {
     <div className="">
       {/* <h1>home</h1> */}
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-2xl py-3">{user}</h1>
+        <h1 className="text-2xl py-3">{line.userId}</h1>
         <p className="text-xl ">อารมณ์ของคุณอยู่ในระดับ : {emotion}</p>
         <div className="w-32 h-32 relative my-5">
           <Image
