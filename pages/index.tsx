@@ -11,8 +11,9 @@ export default function Home() {
 
   const checkUserRegister = async (lineId: string) => {
     const querySnapshot = await getDocs(collection(db, "user"));
-
+    console.log(lineAuth.userId);
     querySnapshot.forEach((doc) => {
+      console.log(doc.data().line_id);
       // check id
       if (doc.data().line_id === lineId) {
         console.log("is register");
@@ -42,12 +43,10 @@ export default function Home() {
         .catch(() => {
           console.log("error");
         });
-      // lib is error
     });
-
-    setTimeout(() => checkUserRegister(lineAuth.userId), 1000);
   }, []);
 
+  setTimeout(() => checkUserRegister(lineAuth.userId), 1000);
   return (
     <div className="">
       {/* <h1>home</h1> */}
