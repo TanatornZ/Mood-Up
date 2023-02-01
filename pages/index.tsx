@@ -19,7 +19,7 @@ export default function Home() {
         console.log(`check user pass`);
       }
     });
-    console.log(`check user pass`);
+    console.log(`check user fail`);
     return false;
   };
 
@@ -38,7 +38,7 @@ export default function Home() {
               })
             );
 
-            checkUserRegister(lineAuth.userId)
+            checkUserRegister(lineAuth.userId);
           } else {
             liff.login();
           }
