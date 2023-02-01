@@ -68,24 +68,27 @@ export default function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [dispatch, lineAuth.userId]);
 
   if (lineAuth.userId !== "") {
     checkUserRegister(lineAuth.userId);
   }
 
-  console.log(emotion);
+  const average =
+    emotion.reduce((a, b) => a.emotion + b.emotion, 0) / emotion.length;
 
   return (
     <div className="">
       {/* <h1>home</h1> */}
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-2xl py-3">{`${user.firstName} ${user.lastName}`}</h1>
-        <p className="text-xl ">อารมณ์ของคุณอยู่ในระดับ : 4</p>
+        <p className="text-xl ">อารมณ์ของคุณอยู่ในระดับ : {average}</p>
         <div className="w-32 h-32 relative my-5">
           <Image src={`/images/emotion/4.png`} alt="emotion" layout="fill" />
         </div>
-        <p className="text-red-600">*เฉลี่ยจากการบันทึกจำนวน...ครั้ง</p>
+        <p className="text-red-600">
+          *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้ง
+        </p>
       </div>
       {/* {data && <Chart motion={data?.map((data: Data) => data.motion)} />} */}
     </div>
