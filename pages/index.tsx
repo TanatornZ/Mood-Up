@@ -16,7 +16,7 @@ export default function Home() {
             const profile = await liff.getProfile();
             dispatch(
               setLineUser({
-                line_id: profile.userId,
+                line_id: profile.userId as string,
                 picture: profile.pictureUrl,
               })
             );
@@ -30,6 +30,8 @@ export default function Home() {
       // lib is error
     });
   }, []);
+
+  console.log(lineAuth)
 
   return (
     <div className="">
