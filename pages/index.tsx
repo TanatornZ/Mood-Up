@@ -11,15 +11,19 @@ export default function Home() {
 
   const checkUserRegister = async (lineId: string) => {
     const querySnapshot = await getDocs(collection(db, "user"));
-    console.log(lineAuth.userId);
+    let registered = false;
     querySnapshot.forEach((doc) => {
       console.log(doc.data().line_id);
       // check id
       if (doc.data().line_id === lineId) {
-        return console.log("is register");
+        registered = true;
       }
     });
-    console.log("isn't register");
+    if (registered) {
+      console.log("is registered")
+    } else {
+      console.log("isn't registered");
+    }
   };
 
   useEffect(() => {
