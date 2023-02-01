@@ -21,6 +21,7 @@ function Register() {
       company_id: values.company,
       gender: values.gender,
       accept_company: false,
+      pictureUrl: lineAuth.pictureUrl,
     };
 
     try {

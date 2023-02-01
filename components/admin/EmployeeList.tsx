@@ -5,10 +5,11 @@ interface Props {
   information: employee;
   docId: string;
 }
+
 function EmployeeList(props: Props) {
   const information = props.information;
   return (
-    <div className="p-5  flex justify-between px-20">
+    <div className="p-5  flex justify-between px-20 border-b">
       <div className="">
         <h1>
           {information.first_name} {information.last_name}
