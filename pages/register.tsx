@@ -79,7 +79,7 @@ function Register() {
   return (
     <div className="flex justify-center flex-col p-7">
       <h1 className="mx-auto text-2xl">กรุณากรอกข้อมูลเบื้องต้น</h1>
-      <div className="relative w-32 h-32 py-3 mx-auto rounded-full overflow-hidden">
+      <div className="relative w-32 h-32 mt-3 mx-auto rounded-full overflow-hidden">
         <Image
           src={lineAuth.pictureUrl}
           layout="fill"
