@@ -2,10 +2,26 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { setLineUser } from "../store/auth-slice";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 export default function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
 
   const dispatch = useDispatch();
+
+  const checkUserRegister = async (lineId: string) => {
+    const querySnapshot = await getDocs(collection(db, "user"));
+
+    querySnapshot.forEach((doc) => {
+      // check id
+      if (doc.data().line_id === lineId) {
+        return true;
+        console.log(`check user pass`);
+      }
+    });
+    console.log(`check user pass`);
+    return false;
+  };
 
   useEffect(() => {
     import("@line/liff").then((liff) => {
@@ -21,6 +37,8 @@ export default function Home() {
                 pictureUrl: profile.pictureUrl,
               })
             );
+
+            checkUserRegister(lineAuth.userId)
           } else {
             liff.login();
           }
@@ -38,7 +56,7 @@ export default function Home() {
     <div className="">
       {/* <h1>home</h1> */}
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-2xl py-3">{lineAuth.line_id}</h1>
+        <h1 className="text-2xl py-3">user name</h1>
         <p className="text-xl ">อารมณ์ของคุณอยู่ในระดับ : 4</p>
         <div className="w-32 h-32 relative my-5">
           <Image src={`/images/emotion/4.png`} alt="emotion" layout="fill" />
