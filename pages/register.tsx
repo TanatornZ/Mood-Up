@@ -4,11 +4,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import DateField from "../components/inputField/DateField";
 import TextField from "../components/inputField/TextField";
-import { AuthContext } from "../context/AuthProvider";
 import { db } from "../firebase/firebaseConfig";
 
 function Register() {
-  const userContext = useContext(AuthContext);
   const [error, setError] = useState("");
   const register = async (values: any): Promise<void> => {
     const data = {
@@ -16,7 +14,7 @@ function Register() {
       last_name: values.last_name,
       date_of_birth: values.date,
       job_position: values.job,
-      line_id: 'id122',
+      line_id: "id122",
       company_id: values.company,
       gender: values.gender,
       accept_company: false,
@@ -28,7 +26,7 @@ function Register() {
         accept_company: false,
       });
       console.log("Document written with ID: ", docRef.id);
-      Router.push('/')
+      Router.push("/");
     } catch (e) {
       setError("กรุณากรอกข้อมูลให้ครบถ้วนและสมัครอีกครั้ง");
     }
@@ -49,6 +47,17 @@ function Register() {
   };
 
   const genderOption = ["ชาย", "หญิง"];
+  const jobOption = [
+    "Fornt-end developer",
+    "Back-end developer",
+    "Project Manager",
+    "Tester",
+    "Ux/Ui designer",
+    "Fullstack developer",
+    "Software Engineer",
+    "HR",
+  ];
+
   useEffect(() => {
     getCompany();
   }, []);
@@ -131,17 +140,21 @@ function Register() {
                   />
                 )}
               </Field>
-              <Field name="job">
-                {({ input, meta }) => (
-                  <TextField
-                    name="job"
-                    key={"job"}
-                    label={"ตำแหน่งงาน"}
-                    input={input}
-                    placeholder="ตำแหน่งงาน"
-                    meta={meta}
-                  />
-                )}
+              <p className="mt-4  py-2 px-2 text-xl ">ตำแหน่งงาน</p>
+              <Field
+                key={"job"}
+                name="job"
+                component="select"
+                className="w-full rounded-xl p-3 bg-white border-2"
+              >
+                <option />
+                {jobOption.map((option: any) => {
+                  return (
+                    <>
+                      <option value={option}>{option}</option>
+                    </>
+                  );
+                })}
               </Field>
               <p className="mt-4  py-2 px-2 text-xl ">บริษัท</p>
               <Field
