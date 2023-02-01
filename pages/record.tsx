@@ -11,9 +11,9 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 function Record() {
   const { data } = useSWR("/api/data", fetcher);
   const [emotion, setEmotion] = useState<emotion[]>([]);
-  const user = useSelector((state: any) => state.auth.line_id);
+  const user = useSelector((state: any) => state.auth.userId);
 
-  const getEmotion = async (lineId: string) => {
+  const getArrayEmotion = async (lineId: string) => {
     const querySnapshot = await getDocs(collection(db, "emotion"));
     const emotionArray: emotion[] = [];
     querySnapshot.forEach((doc) => {
@@ -28,13 +28,15 @@ function Record() {
   };
 
   useEffect(() => {
+    console.log("user " + user);
     const fetchData = async () => {
-      const data = await getEmotion(user);
+      const data = await getArrayEmotion(user);
       setEmotion(data);
     };
 
     fetchData();
-  });
+    console.log(emotion);
+  }, []);
 
   return (
     <div>
