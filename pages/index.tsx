@@ -16,8 +16,7 @@ export default function Home() {
       console.log(doc.data().line_id);
       // check id
       if (doc.data().line_id === lineId) {
-        console.log("is register");
-        return;
+        return console.log("is register");
       }
     });
     console.log("isn't register");
