@@ -9,4 +9,7 @@ module.exports = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images : {
+    domains: ['profile.line-scdn.net'],
+  }
 };

@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 
 interface SlidingBarType {
@@ -11,6 +13,7 @@ interface SlidingBarType {
 
 const SlidingBar = () => {
   const { isOpen, closeMenu } = useContext<MenuSlide>(MenuSlideContext);
+  const user = useSelector((state: any) => state.user);
 
   return (
     <div
@@ -24,8 +27,17 @@ const SlidingBar = () => {
       />
 
       <div className="flex flex-col items-center mt-12">
-        <FaUserCircle className="text-[7em] " />
-        <h1 className="text-xl p-5 mb-5 font-bold">User Name</h1>
+        <div className="relative w-32 h-32 rounded-full overflow-hidden">
+          <Image
+            src={
+              "https://profile.line-scdn.net/0hi90K76b8NhYdMiPyUfxIaW1iNXw-Q28EZAQrdn0yPCEkUHVGZlZ_cio2aXZyBCFDNVEqdS40YSQRIUFwA2TKIhoCaCEkBHdJNVZx9g"
+            }
+            layout="fill"
+            objectFit="cover"
+            alt="user"
+          />
+        </div>
+        <h1 className="text-xl p-5 mb-5 font-bold">{user.firstName}</h1>
       </div>
       <ul className="leading-[5em] text-center text-md">
         <li>

@@ -2,14 +2,15 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DateField from "../components/inputField/DateField";
 import TextField from "../components/inputField/TextField";
 import { db } from "../firebase/firebaseConfig";
+import { setUser } from "../store/user-slice";
 
 function Register() {
   const lineAuth = useSelector((state: any) => state.auth);
-
+  const dispatch = useDispatch();
   const [error, setError] = useState("");
   const register = async (values: any): Promise<void> => {
     const data = {
@@ -30,6 +31,14 @@ function Register() {
         accept_company: false,
       });
       console.log("Document written with ID: ", docRef.id);
+      dispatch(
+        setUser({
+          firstName: values.first_name,
+          lastName: values.last_name,
+          pictureUrl: lineAuth.pictureUrl,
+          userId: docRef.id,
+        })
+      );
       Router.push("/");
     } catch (e) {
       setError("กรุณากรอกข้อมูลให้ครบถ้วนและสมัครอีกครั้ง");

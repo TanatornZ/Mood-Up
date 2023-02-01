@@ -28,26 +28,26 @@ export default function Home() {
   };
 
   useEffect(() => {
-    import("@line/liff").then((liff) => {
-      liff
-        .init({ liffId: "1657785397-LVBe6BkX" })
-        .then(async () => {
-          if (liff.isLoggedIn()) {
-            const profile = await liff.getProfile();
-            dispatch(
-              setLineUser({
-                userId: profile.userId as string,
-                pictureUrl: profile.pictureUrl,
-              })
-            );
-          } else {
-            liff.login();
-          }
-        })
-        .catch(() => {
-          console.log("error");
-        });
-    });
+    // import("@line/liff").then((liff) => {
+    //   liff
+    //     .init({ liffId: "1657785397-LVBe6BkX" })
+    //     .then(async () => {
+    //       if (liff.isLoggedIn()) {
+    //         const profile = await liff.getProfile();
+    //         dispatch(
+    //           setLineUser({
+    //             userId: profile.userId as string,
+    //             pictureUrl: profile.pictureUrl,
+    //           })
+    //         );
+    //       } else {
+    //         liff.login();
+    //       }
+    //     })
+    //     .catch(() => {
+    //       console.log("error");
+    //     });
+    // });
   }, []);
 
   if (lineAuth.userId !== "") {
