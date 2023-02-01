@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLineUser } from "../store/auth-slice";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-export default function Home() {
+export default async function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
 
   const dispatch = useDispatch();
@@ -35,12 +35,6 @@ export default function Home() {
                 pictureUrl: profile.pictureUrl,
               })
             );
-
-            if (await checkUserRegister(lineAuth.userId)) {
-              console.log("is register");
-            } else {
-              console.log("isn't register");
-            }
           } else {
             liff.login();
           }
@@ -52,8 +46,11 @@ export default function Home() {
     });
   }, []);
 
-  console.log(lineAuth);
-
+  if (await checkUserRegister(lineAuth.userId)) {
+    console.log("is register");
+  } else {
+    console.log("isn't register");
+  }
   return (
     <div className="">
       {/* <h1>home</h1> */}
