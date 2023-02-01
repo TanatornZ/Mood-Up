@@ -74,7 +74,7 @@ export default function Home() {
     checkUserRegister(lineAuth.userId);
   }
 
-  const allEmotion = emotion.filter((emotion) => emotion.emotion);
+  const allEmotion = emotion.map((item) => item.emotion);
 
   const average = allEmotion.reduce((a, b) => a + b, 0) / allEmotion.length;
 
