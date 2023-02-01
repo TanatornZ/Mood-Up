@@ -10,7 +10,7 @@ export default function Home() {
           if (liff.isLoggedIn()) {
             const profile = await liff.getProfile();
             console.log("login");
-            console.log(`profile ${profile}`);
+            console.log(`profile ${profile.userId}`);
             console.log(`liff ${liff}`);
           } else {
             liff.login();
