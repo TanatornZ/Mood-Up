@@ -15,11 +15,9 @@ export default function Home() {
     querySnapshot.forEach((doc) => {
       // check id
       if (doc.data().line_id === lineId) {
-        console.log(`check user pass`);
         return true;
       }
     });
-    console.log(`check user fail`);
     return false;
   };
 
@@ -38,7 +36,11 @@ export default function Home() {
               })
             );
 
-            checkUserRegister(lineAuth.userId);
+            if (await checkUserRegister(lineAuth.userId)) {
+              console.log("is register");
+            } else {
+              console.log("isn't register");
+            }
           } else {
             liff.login();
           }
