@@ -21,7 +21,7 @@ export default function Home() {
             console.log(`profile ${line}`)
             console.log(`liff ${liff}`)
           } else {
-            // liff.login();
+            liff.login();
             console.log("not login");
           }
         })
