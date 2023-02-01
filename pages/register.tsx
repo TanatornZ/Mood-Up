@@ -2,11 +2,14 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
+import { useSelector } from "react-redux";
 import DateField from "../components/inputField/DateField";
 import TextField from "../components/inputField/TextField";
 import { db } from "../firebase/firebaseConfig";
 
 function Register() {
+  const lineAuth = useSelector((state: any) => state.auth);
+
   const [error, setError] = useState("");
   const register = async (values: any): Promise<void> => {
     const data = {
@@ -14,7 +17,7 @@ function Register() {
       last_name: values.last_name,
       date_of_birth: values.date,
       job_position: values.job,
-      line_id: "id122",
+      line_id: lineAuth.userId,
       company_id: values.company,
       gender: values.gender,
       accept_company: false,
@@ -82,7 +85,7 @@ function Register() {
                     key={"line_id"}
                     label={"line_id"}
                     input={input}
-                    placeholder="line_id"
+                    placeholder={lineAuth.userId}
                     meta={meta}
                     disable={true}
                   />

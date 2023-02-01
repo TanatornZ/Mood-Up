@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLineUser } from "../store/auth-slice";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { useRouter } from "next/router";
 export default function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
-
+  const router = useRouter()
   const dispatch = useDispatch();
 
   const checkUserRegister = async (lineId: string) => {
@@ -22,7 +23,7 @@ export default function Home() {
     if (registered) {
       console.log("is registered")
     } else {
-      console.log("isn't registered");
+      router.push('/first')
     }
   };
 
@@ -52,6 +53,7 @@ export default function Home() {
   if (lineAuth.userId !== "") {
     checkUserRegister(lineAuth.userId);
   }
+
   return (
     <div className="">
       {/* <h1>home</h1> */}
