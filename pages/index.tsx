@@ -15,8 +15,8 @@ export default function Home() {
     querySnapshot.forEach((doc) => {
       // check id
       if (doc.data().line_id === lineId) {
-        return true;
         console.log(`check user pass`);
+        return true;
       }
     });
     console.log(`check user fail`);
