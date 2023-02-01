@@ -14,11 +14,11 @@ export default function Home() {
         .then(async () => {
           if (liff.isLoggedIn()) {
             const profile = await liff.getProfile();
-            console.log(profile)
+            console.log(profile);
             dispatch(
               setLineUser({
-                line_id: 'test',
-                picture: profile.pictureUrl,
+                userId: profile.userId as string,
+                pictureUrl: profile.pictureUrl,
               })
             );
           } else {
@@ -32,7 +32,7 @@ export default function Home() {
     });
   }, []);
 
-  console.log(lineAuth)
+  console.log(lineAuth);
 
   return (
     <div className="">
