@@ -13,29 +13,36 @@ function Record() {
   const [emotion, setEmotion] = useState<emotion[]>([]);
   const user = useSelector((state: any) => state.auth.line_id);
 
-  const getEmotion = async () => {
+  const getEmotion = async (lineId: string) => {
     const querySnapshot = await getDocs(collection(db, "emotion"));
     const emotionArray: emotion[] = [];
     querySnapshot.forEach((doc) => {
       // check id
-      if (doc.data().line_id === user) {
+      if (doc.data().line_id === lineId) {
         emotionArray.push(doc.data() as emotion);
         // console.log(doc.data())
       }
     });
 
-    setEmotion(emotionArray);
+    return emotionArray;
   };
 
   useEffect(() => {
-    getEmotion();
+    const fetchData = async () => {
+      const data = await getEmotion(user);
+      setEmotion(data);
+    };
+
+    fetchData();
   });
 
   return (
     <div>
       <h1 className="text-center text-xl font-bold">ประวัติการบันทึก</h1>
       {data
-        ? emotion.map((item: any, i: number) => <RecordItem key={i} item={item} />)
+        ? emotion.map((item: any, i: number) => (
+            <RecordItem key={i} item={item} />
+          ))
         : "test2"}
     </div>
   );
