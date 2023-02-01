@@ -16,11 +16,10 @@ export default function Home() {
       // check id
       if (doc.data().line_id === lineId) {
         console.log("is register");
-        return 
+        return;
       }
     });
     console.log("isn't register");
-    
   };
 
   useEffect(() => {
@@ -45,8 +44,8 @@ export default function Home() {
         });
       // lib is error
     });
-    
-    checkUserRegister(lineAuth.userId)
+
+    setTimeout(() => checkUserRegister(lineAuth.userId), 1000);
   }, []);
 
   return (
