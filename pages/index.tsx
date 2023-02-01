@@ -15,9 +15,9 @@ export default function Home() {
           if (liff.isLoggedIn()) {
             const profile = await liff.getProfile();
             console.log(profile)
-            await dispatch(
+            dispatch(
               setLineUser({
-                line_id: profile.userId as string,
+                line_id: 'test',
                 picture: profile.pictureUrl,
               })
             );
