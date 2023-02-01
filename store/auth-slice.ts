@@ -1,12 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface Auth {
+  line_id: string;
+  picture: string;
+}
+
 export const authSlice = createSlice({
   name: "auth",
-  initialState: { islogin: true, line_id: "id123" },
+  initialState: { line_id: "", picture: "" },
   reducers: {
-    change(state, action) {
-      state.line_id = action.payload.user;
+    setLineUser(state, action) {
+      state.line_id = action.payload.userId;
+      state.picture = action.payload.pictureUrl;
     },
   },
 });
 
+export const {setLineUser} = authSlice.actions;

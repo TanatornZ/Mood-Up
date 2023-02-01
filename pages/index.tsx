@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import Image from "next/image";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setLineUser } from "../store/auth-slice";
 export default function Home() {
+  const lineAuth = useSelector((state: any) => state.auth);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     import("@line/liff").then((liff) => {
       liff
@@ -9,12 +14,14 @@ export default function Home() {
         .then(async () => {
           if (liff.isLoggedIn()) {
             const profile = await liff.getProfile();
-            console.log("login");
-            console.log(`profile ${profile.userId}`);
-            console.log(`liff ${liff}`);
+            dispatch(
+              setLineUser({
+                line_id: profile.userId,
+                picture: profile.pictureUrl,
+              })
+            );
           } else {
             liff.login();
-            console.log("not login");
           }
         })
         .catch(() => {
@@ -28,7 +35,7 @@ export default function Home() {
     <div className="">
       {/* <h1>home</h1> */}
       <div className="flex flex-col justify-center items-center">
-        {/* <h1 className="text-2xl py-3">{line.userId}</h1> */}
+        <h1 className="text-2xl py-3">{lineAuth.line_id}</h1>
         <p className="text-xl ">อารมณ์ของคุณอยู่ในระดับ : 4</p>
         <div className="w-32 h-32 relative my-5">
           <Image src={`/images/emotion/4.png`} alt="emotion" layout="fill" />
