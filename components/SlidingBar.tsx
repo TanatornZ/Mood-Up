@@ -29,9 +29,7 @@ const SlidingBar = () => {
       <div className="flex flex-col items-center mt-12">
         <div className="relative w-32 h-32 rounded-full overflow-hidden">
           <Image
-            src={
-              "https://profile.line-scdn.net/0hi90K76b8NhYdMiPyUfxIaW1iNXw-Q28EZAQrdn0yPCEkUHVGZlZ_cio2aXZyBCFDNVEqdS40YSQRIUFwA2TKIhoCaCEkBHdJNVZx9g"
-            }
+            src={user.pictureUrl}
             layout="fill"
             objectFit="cover"
             alt="user"

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { setLineUser } from "../store/auth-slice";
@@ -82,7 +82,6 @@ export default function Home() {
   console.log("average " + average);
   return (
     <div className="">
-      {/* <h1>home</h1> */}
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-2xl py-3">{`${user.firstName} ${user.lastName}`}</h1>
         <p className="text-xl ">
@@ -99,7 +98,6 @@ export default function Home() {
           *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้ง
         </p>
       </div>
-      {/* {data && <Chart motion={data?.map((data: Data) => data.motion)} />} */}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
+import Image from "next/image";
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
@@ -78,6 +79,14 @@ function Register() {
   return (
     <div className="flex justify-center flex-col p-7">
       <h1 className="mx-auto text-2xl">กรุณากรอกข้อมูลเบื้องต้น</h1>
+      <div className="relative w-32 h-32 rounded-full overflow-hidden">
+        <Image
+          src={lineAuth.pictureUrl}
+          layout="fill"
+          objectFit="cover"
+          alt="user"
+        />
+      </div>
       <Form
         onSubmit={register}
         // validate={validationRegister}
