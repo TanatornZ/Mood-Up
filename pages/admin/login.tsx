@@ -1,46 +1,53 @@
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
-import TextField from "../inputField/TextField";
-import { getAuth, signInWithEmailAndPassword, User } from "firebase/auth";
-import PasswordField from "../inputField/PasswordField";
 import { useDispatch, useSelector } from "react-redux";
-import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
-import { useRouter } from "next/router";
-import { collection, getDocs } from "firebase/firestore";
+import PasswordField from "../../components/inputField/PasswordField";
+import TextField from "../../components/inputField/TextField";
 import { db } from "../../firebase/firebaseConfig";
+import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 
-function AdminLogin() {
+interface AuthEmail {
+  email: string;
+  password: string;
+}
+function Login() {
   const router = useRouter();
   const auth = getAuth();
   const [error, setError] = useState<boolean>(false);
-  const admin : AuthAdmin = useSelector((state: any) => state.adminAuth);
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    if (admin.companyId !== '') {
-      router.push("/admin/manage");
-    }
+    const auth = getAuth();
+
+    setTimeout(() => {
+      if (auth.currentUser) {
+        router.push("/admin");
+      }
+    }, 400);
   });
 
-  const getAdminId = async (user: string) => {
+  const getAdminId = async (userId: string) => {
     const querySnapshot = await getDocs(collection(db, "admin"));
     querySnapshot.forEach((doc) => {
       // check id
-      if (doc.data().UID === user) {
-        dispatch(setAdmin({ admin: user, company: doc.data().company_id }));
+      if (doc.data().UID === userId) {
+        dispatch(setAdmin({ admin: userId, company: doc.data().company_id }));
       }
     });
   };
 
-  const Login = async (values: any) => {
+  const Login = async (values: AuthEmail) => {
     await signInWithEmailAndPassword(auth, values.email, values.password)
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
         getAdminId(user.uid);
+        router.push("/admin");
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -49,7 +56,7 @@ function AdminLogin() {
   };
 
   return (
-    <div className="bg-secondary h-screen flex  items-center flex-col">
+    <div className="bg-gray-100 h-screen flex  items-center flex-col">
       <div className="w-60 h-72  relative mt-10">
         <Image src="/images/logo.png" layout="fill" alt="mood" />
       </div>
@@ -107,4 +114,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default Login;

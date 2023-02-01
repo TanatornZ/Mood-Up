@@ -2,27 +2,25 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { MenuSlideProvider } from "../context/MenuSlideProvider";
 import Layout from "../components/Layout";
-import { AuthContext, AuthProvider } from "../context/AuthProvider";
+import {  AuthProvider } from "../context/AuthProvider";
 import { Provider } from "react-redux";
 import store from "../store";
-import { SetStateAction, useContext, useEffect, useState } from "react";
 import Register from "./register";
 import First from "./first";
 
 import Admin from "./admin";
-import Manage from "./admin/manage";
 import Conclusion from "./admin/conclusion";
 import TeamMoodAdmin from "./admin/teammood";
+import Login from "./admin/login";
 
 export default function App({ Component, pageProps }: AppProps) {
-
   if (
     Component === Register ||
     Component === First ||
     Component === Admin ||
     Component === Conclusion ||
-    Component === Manage ||
-    Component === TeamMoodAdmin
+    Component === TeamMoodAdmin ||
+    Component === Login
   ) {
     return (
       <Provider store={store}>

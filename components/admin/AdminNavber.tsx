@@ -16,9 +16,6 @@ function AdminNavber() {
   const [path, setPath] = useState<string>("");
 
   useEffect(() => {
-    if (!getAuth().currentUser) {
-      Router.push("/admin");
-    }
     setPath(router.asPath.slice(7));
     const getCompanyName = async () => {
       const querySnapshot = await getDocs(collection(db, "company"));
@@ -32,9 +29,9 @@ function AdminNavber() {
   }, [admin.companyId, dispatch, path, router.asPath]);
 
   const logout = () => {
-    getAuth().signOut;
+    getAuth().signOut();
     dispatch(setAdmin({ admin: "", company: "" }));
-    Router.push("/admin");
+    Router.push("/admin/login");
   };
 
   return (
@@ -48,10 +45,7 @@ function AdminNavber() {
       </div>
       <ul className="text-center text-lg">
         <li className="hover:text-gray-300 cursor-pointer ">
-          <Link
-            href={"/admin/manage"}
-            className={`${path === "manage" ? "underline" : ""}`}
-          >
+          <Link href={"/admin"} className={`${path === "" ? "underline" : ""}`}>
             จัดการพนักงาน
           </Link>
         </li>

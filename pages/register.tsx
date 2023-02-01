@@ -1,4 +1,5 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
+import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import DateField from "../components/inputField/DateField";
@@ -15,8 +16,8 @@ function Register() {
       last_name: values.last_name,
       date_of_birth: values.date,
       job_position: values.job,
-      line_id: userContext?.user,
-      company: values.company,
+      line_id: 'id122',
+      company_id: values.company,
       gender: values.gender,
       accept_company: false,
     };
@@ -27,6 +28,7 @@ function Register() {
         accept_company: false,
       });
       console.log("Document written with ID: ", docRef.id);
+      Router.push('/')
     } catch (e) {
       setError("กรุณากรอกข้อมูลให้ครบถ้วนและสมัครอีกครั้ง");
     }
@@ -64,6 +66,19 @@ function Register() {
                 await handleSubmit(event);
               }}
             >
+              <Field name="line_id">
+                {({ input, meta }) => (
+                  <TextField
+                    name="line_id"
+                    key={"line_id"}
+                    label={"line_id"}
+                    input={input}
+                    placeholder="line_id"
+                    meta={meta}
+                    disable={true}
+                  />
+                )}
+              </Field>
               <Field name="first_name">
                 {({ input, meta }) => (
                   <TextField
