@@ -46,7 +46,9 @@ export default function Home() {
     });
   }, []);
 
-  setTimeout(() => checkUserRegister(lineAuth.userId), 1000);
+  if (lineAuth.userId !== "") {
+    checkUserRegister(lineAuth.userId);
+  }
   return (
     <div className="">
       {/* <h1>home</h1> */}
