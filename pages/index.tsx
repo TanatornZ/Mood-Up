@@ -18,7 +18,8 @@ export default function Home() {
             const profile = await liff.getProfile().then((profile: any) => {
               setLine(profile);
             });
-            console.log(profile)
+            console.log(`profile ${line}`)
+            console.log(`liff ${liff}`)
           } else {
             // liff.login();
             console.log("not login");
