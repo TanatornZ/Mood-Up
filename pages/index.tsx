@@ -85,9 +85,15 @@ export default function Home() {
       {/* <h1>home</h1> */}
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-2xl py-3">{`${user.firstName} ${user.lastName}`}</h1>
-        <p className="text-xl ">อารมณ์ของคุณอยู่ในระดับ : {average}</p>
+        <p className="text-xl ">
+          อารมณ์ของคุณอยู่ในระดับ : {Math.ceil(average)}
+        </p>
         <div className="w-32 h-32 relative my-5">
-          <Image src={`/images/emotion/4.png`} alt="emotion" layout="fill" />
+          <Image
+            src={`/images/emotion/${Math.ceil(average)}.png`}
+            alt="emotion"
+            layout="fill"
+          />
         </div>
         <p className="text-red-600">
           *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้ง
