@@ -5,10 +5,12 @@ import { setLineUser } from "../store/auth-slice";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useRouter } from "next/router";
+import { setUser } from "../store/user-slice";
 export default function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
 
   const checkUserRegister = async (lineId: string) => {
     const querySnapshot = await getDocs(collection(db, "user"));
@@ -17,13 +19,21 @@ export default function Home() {
       console.log(doc.data().line_id);
       // check id
       if (doc.data().line_id === lineId) {
+        dispatch(
+          setUser({
+            firstName: doc.data().first_name,
+            lastName: doc.data().last_name,
+            userId: doc.id,
+            pictureUrl: doc.data().pictureUrl,
+          })
+        );
         registered = true;
       }
     });
     if (registered) {
-      console.log("is registered")
+      console.log("is registered");
     } else {
-      router.push('/first')
+      router.push("/first");
     }
   };
 
@@ -58,7 +68,7 @@ export default function Home() {
     <div className="">
       {/* <h1>home</h1> */}
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-2xl py-3">user name</h1>
+        <h1 className="text-2xl py-3">{`${user.firstName} ${user.lastName}`}</h1>
         <p className="text-xl ">อารมณ์ของคุณอยู่ในระดับ : 4</p>
         <div className="w-32 h-32 relative my-5">
           <Image src={`/images/emotion/4.png`} alt="emotion" layout="fill" />
