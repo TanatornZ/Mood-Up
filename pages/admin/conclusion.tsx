@@ -4,20 +4,31 @@ import React, { useEffect, useState } from "react";
 import AdminNavber from "../../components/admin/AdminNavber";
 import { db } from "../../firebase/firebaseConfig";
 import { emotion } from "../../interface/interface";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut, Pie } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  BarElement,
+  LinearScale,
+  Title,
+} from "chart.js";
+import { Bar, Doughnut, Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 function Conclusion() {
   const [emotion, setEmotion] = useState<emotion[]>();
-  const [chartData, setChartData] = useState<
-    {
-      emotion: number;
-      count: number;
-    }[]
-  >();
 
-  ChartJS.register(ArcElement, Tooltip, Legend);
+  ChartJS.register(
+    CategoryScale,
+    BarElement,
+    LinearScale,
+    ArcElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
   const getEmotion = async () => {
     const querySnapshot = await getDocs(collection(db, "emotion"));
@@ -101,9 +112,7 @@ function Conclusion() {
               <p>ครั้ง</p>
             </div>
             <div className="bg-white h-52 rounded-xl flex flex-col pt-5 items-center">
-              <h1 className="text-xl">
-                การบันทึกระดับอารณ์ 
-              </h1>
+              <h1 className="text-xl">การบันทึกระดับอารณ์</h1>
               <div className="w-28 h-28 relative my-5">
                 <Doughnut
                   plugins={[ChartDataLabels]}
@@ -112,24 +121,12 @@ function Conclusion() {
                       legend: {
                         display: false,
                       },
-
-                      // datalabels: {
-                      //   formatter: (value, ctx) => {
-                      //     let sum = 0;
-
-                      //     chartData.map((data) => {
-                      //       sum += data.count;
-                      //     });
-                      //     let percentage =
-                      //       ((value * 100) / sum).toFixed(2) + "%";
-                      //     return percentage;
-                      //   },
-                      //   color: "#fff",
-                      // },
                     },
                   }}
                   data={{
-                    labels: chartData.map((data) => 'ระดับอารมณ์ ' + data.emotion),
+                    labels: chartData.map(
+                      (data) => "ระดับอารมณ์ " + data.emotion
+                    ),
                     datasets: [
                       {
                         label: "amount",
@@ -154,7 +151,28 @@ function Conclusion() {
                 />
               </div>
             </div>
-            <div className="bg-white col-span-3 h-[420px] rounded-xl"></div>
+            <div className="bg-white col-span-3 h-[420px] w-full rounded-xl p-5 flex justify-center">
+              <Bar
+                options={{
+                  indexAxis: "y" as const,
+                  plugins: {
+                    legend: { display: false },
+                  },
+                }}
+                data={{
+                  labels: chartData.map(
+                    (data) => "ระดับอารมณ์ " + data.emotion
+                  ),
+                  datasets: [
+                    {
+                      label: "amount",
+                      data: chartData.map((data) => data.count),
+                      backgroundColor: chartData.map((data) => data.color),
+                    },
+                  ],
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
