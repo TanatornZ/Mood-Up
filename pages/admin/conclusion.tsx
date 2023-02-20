@@ -1,4 +1,4 @@
-import { addDoc, collection, Firestore, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import AdminNavber from "../../components/admin/AdminNavber";
@@ -14,8 +14,11 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
-import { Bar, Doughnut, Pie } from "react-chartjs-2";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import DoughnutChart from "../../components/chart/DoughnutChart";
+import { ChartType } from "../../interface/chart";
+import BarChart from "../../components/chart/BarChart";
+import { getAuth } from "firebase/auth";
+import router from "next/router";
 
 function Conclusion() {
   const [emotion, setEmotion] = useState<emotion[]>();
@@ -41,7 +44,7 @@ function Conclusion() {
   };
 
   useEffect(() => {
-    getEmotion();
+    getEmotion();    
   }, []);
 
   const findAvrEmotion = (emotionArray: emotion[]) => {
@@ -87,7 +90,7 @@ function Conclusion() {
   };
 
   if (emotion) {
-    let chartData = makeChartData(emotion);
+    let chartData: ChartType[] = makeChartData(emotion);
     return (
       <div className="flex w-screen bg-gray-100">
         <AdminNavber />
@@ -113,66 +116,9 @@ function Conclusion() {
             </div>
             <div className="bg-white h-52 rounded-xl flex flex-col pt-5 items-center">
               <h1 className="text-xl">การบันทึกระดับอารณ์</h1>
-              <div className="w-28 h-28 relative my-5">
-                <Doughnut
-                  plugins={[ChartDataLabels]}
-                  options={{
-                    plugins: {
-                      legend: {
-                        display: false,
-                      },
-                    },
-                  }}
-                  data={{
-                    labels: chartData.map(
-                      (data) => "ระดับอารมณ์ " + data.emotion
-                    ),
-                    datasets: [
-                      {
-                        label: "amount",
-                        // datalabels: {
-                        //   formatter: (value, ctx) => {
-                        //     let sum = 0;
-
-                        //     chartData.map((data) => {
-                        //       sum += data.count;
-                        //     });
-                        //     let percentage =
-                        //       ((value * 100) / sum).toFixed(2) + "%";
-                        //     return percentage;
-                        //   },
-                        //   color: "#fff",
-                        // },
-                        data: chartData.map((data) => data.count),
-                        backgroundColor: chartData.map((data) => data.color),
-                      },
-                    ],
-                  }}
-                />
-              </div>
+              <DoughnutChart data={chartData} />
             </div>
-            <div className="bg-white col-span-3 h-[420px] w-full rounded-xl p-5 flex justify-center">
-              <Bar
-                options={{
-                  indexAxis: "y" as const,
-                  plugins: {
-                    legend: { display: false },
-                  },
-                }}
-                data={{
-                  labels: chartData.map(
-                    (data) => "ระดับอารมณ์ " + data.emotion
-                  ),
-                  datasets: [
-                    {
-                      label: "amount",
-                      data: chartData.map((data) => data.count),
-                      backgroundColor: chartData.map((data) => data.color),
-                    },
-                  ],
-                }}
-              />
-            </div>
+            <BarChart data={chartData} />
           </div>
         </div>
       </div>
