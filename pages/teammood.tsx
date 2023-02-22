@@ -16,7 +16,8 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
-import DatePicker from "react-date-picker";
+import DatePicker from "react-date-picker/dist/entry.nostyle";
+import Image from "next/image";
 
 const TeamMood = () => {
   ChartJS.register(
@@ -58,24 +59,58 @@ const TeamMood = () => {
     return userId;
   };
 
-  const getArrayEmotion = async (userArray: any[]) => {
+  // check day
+  const getArrayEmotion = async (userArray: any[], date: Date) => {
     const querySnapshot = await getDocs(collection(db, "emotion"));
     const emotionArray: emotion[] = [];
     querySnapshot.forEach((doc) => {
       // check id
       if (userArray.includes(doc.data().line_id)) {
-        emotionArray.push(doc.data() as emotion);
+        let ed = new Date(doc.data().date.secconds * 1000);
+        if (ed.toISOString().split("T")[0] === date.toISOString().split("T")[0]) {
+          emotionArray.push(doc.data() as emotion);
+        }
       }
     });
     return emotionArray;
   };
 
+  const thaiDate = date.toLocaleDateString("th-TH", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  });
+
   // if (emotionInCompany) {
   //   let chartData = makeChartData(emotionInCompany);
+
+  // console.log(date.toISOString().split("T")[0]);
   return (
     <div>
       <div className="mx-auto">
-        <DatePicker onChange={setDate} value={date} />
+        <div className="text-center bg-white relative rounded-full p-2 flex justify-between items-center">
+          <Image
+            src="/svg/arrow-left-circle-svgrepo-com.svg"
+            alt="arrow"
+            width={32}
+            height={32}
+            onClick={() => {
+              setDate(new Date(date.getTime() - 86400000));
+            }}
+          />
+
+          <h1 className="text-lg">{thaiDate}</h1>
+          <Image
+            src="/svg/arrow-right-circle-svgrepo-com.svg"
+            alt="arrow"
+            width={32}
+            height={32}
+            onClick={() => {
+              setDate(new Date(date.getTime() + 86400000));
+            }}
+          />
+        </div>
         <div className="">
           <h1 className="text-center text-2xl my-4">
             ผลรวมระดับอารมณ์ประจำวัน
