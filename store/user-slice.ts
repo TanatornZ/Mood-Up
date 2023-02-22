@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     lastName: "",
     userId: "",
     pictureUrl: "",
+    companyId: ''
   },
   reducers: {
     setUser(state, action) {
@@ -14,6 +15,7 @@ export const userSlice = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.pictureUrl = action.payload.pictureUrl;
+      state.companyId = action.payload.companyId
     },
   },
 });
