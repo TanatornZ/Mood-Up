@@ -37,7 +37,7 @@ const TeamMood = () => {
   };
 
   useEffect(() => {
-    console.log(userContext?.user)
+    console.log(userContext?.user);
     checkRegister(userContext?.user).then((value) => {
       setRegister(value);
       // console.log(`value ${value}`);
@@ -55,7 +55,27 @@ const TeamMood = () => {
     });
   };
 
-  return <div>{register ? <h1>pass</h1> : <h1>team</h1>}</div>;
+  return (
+    <div>
+      <div className="mx-auto">
+        <div className="">
+          <h1 className="text-center text-2xl my-4">
+            ผลรวมระดับอารมณ์ประจำวัน
+          </h1>
+          <div className=" h-[300px] bg-white rounded-lg">
+            <h1>ระดับอารมณ์โดยเฉลี่ย : {1}</h1>
+          </div>
+        </div>
+
+        <div className="">
+          <h1 className="text-center text-2xl my-4">
+            การบันทึก
+          </h1>
+          
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default TeamMood;
