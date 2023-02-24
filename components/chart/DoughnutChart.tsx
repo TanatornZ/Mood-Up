@@ -3,18 +3,21 @@ import { Doughnut } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ChartType } from "../../interface/chart";
 
-
-
 interface Props {
   data: ChartType[];
+  size: number
 }
 
-const DoughnutChart: FC<Props> = (props): JSX.Element => {
+const DoughnutChart: FC<Props> = (
+  props,
+  size = 28
+): JSX.Element => {
   const chartData = props.data;
 
-  console.log(chartData, " chart");
+  console.log(props.size);
+
   return (
-    <div className="w-28 h-28 relative my-5">
+    <div className={`w-[${size}] h-[${size}] relative my-5`}>
       <Doughnut
         plugins={[ChartDataLabels]}
         options={{

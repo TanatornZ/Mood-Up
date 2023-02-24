@@ -32,7 +32,7 @@ const TeamMood = () => {
   const user = useSelector((state: any) => state.user);
   const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
   const [date, setDate] = useState(new Date());
-  const [chartData, setChartData] = useState<any[]>([]);
+  // const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -40,9 +40,12 @@ const TeamMood = () => {
       const companyEmotion = await getArrayEmotion(userInCompany, date);
 
       setEmotionInCompany(companyEmotion);
+      // setChartData(makeChartData(emotionInCompany));
     };
     getUser();
   }, [user.companyId, date]);
+
+  const chartData = makeChartData(emotionInCompany);
 
   const getUserInCompany = async (companyId: string) => {
     //get data
@@ -74,6 +77,16 @@ const TeamMood = () => {
       }
     });
     return emotionArray;
+  };
+
+  const findAvrEmotion = (emotionArray: emotion[]) => {
+    let sumEmotion = emotionArray.reduce(function (prev, curr) {
+      return prev + curr.emotion;
+    }, 0);
+
+    let avr = sumEmotion / emotionArray?.length;
+
+    return Math.floor(avr);
   };
 
   const thaiDate = date.toLocaleDateString("th-TH", {
@@ -112,9 +125,14 @@ const TeamMood = () => {
           <h1 className="text-center text-2xl my-4">
             ผลรวมระดับอารมณ์ประจำวัน
           </h1>
-          <div className=" h-[300px] bg-white rounded-lg">
-            <DoughnutChart data={chartData} />
-            <h1>ระดับอารมณ์โดยเฉลี่ย : {1}</h1>
+          <div className=" h-[300px] bg-white rounded-lg flex flex-col justify-center items-center">
+            <DoughnutChart data={chartData} size={28}   />
+            <h1 className="text-xl">
+              ระดับอารมณ์โดยเฉลี่ย :{" "}
+              {emotionInCompany.length !== 0
+                ? findAvrEmotion(emotionInCompany)
+                : "ไม่มีการบันทึก"}
+            </h1>
           </div>
         </div>
 
