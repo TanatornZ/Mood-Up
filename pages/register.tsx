@@ -146,7 +146,7 @@ function Register() {
                 {genderOption.map((option: any) => {
                   return (
                     <>
-                      <option value={option}>{option}</option>
+                      <option value={option} key={option}>{option}</option>
                     </>
                   );
                 })}
@@ -173,7 +173,7 @@ function Register() {
                 {jobOption.map((option: any) => {
                   return (
                     <>
-                      <option value={option}>{option}</option>
+                      <option value={option} key={option}>{option}</option>
                     </>
                   );
                 })}
