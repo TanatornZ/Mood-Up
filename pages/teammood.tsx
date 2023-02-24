@@ -30,21 +30,19 @@ const TeamMood = () => {
     Legend
   );
   const user = useSelector((state: any) => state.user);
-  const [userInCompany, setUserInCompany] = useState<any[]>([]);
   const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
   const [date, setDate] = useState(new Date());
+  const [chartData, setChartData] = useState<any[]>([]);
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const userInCompany = await getUserInCompany(user.companyId);
-  //     const companyEmotion = await getArrayEmotion(userInCompany);
+  useEffect(() => {
+    const getUser = async () => {
+      const userInCompany = await getUserInCompany(user.companyId);
+      const companyEmotion = await getArrayEmotion(userInCompany, date);
 
-  //     setUserInCompany(userInCompany);
-  //     setEmotionInCompany(companyEmotion);
-  //   };
-  //   getUser();
-
-  // }, [user.companyId, userInCompany]);
+      setEmotionInCompany(companyEmotion);
+    };
+    getUser();
+  }, [user.companyId, date]);
 
   const getUserInCompany = async (companyId: string) => {
     //get data
@@ -64,10 +62,13 @@ const TeamMood = () => {
     const querySnapshot = await getDocs(collection(db, "emotion"));
     const emotionArray: emotion[] = [];
     querySnapshot.forEach((doc) => {
-      // check id
+      // check id.secconds * 1000.secconds * 1000
       if (userArray.includes(doc.data().line_id)) {
-        let ed = new Date(doc.data().date.secconds * 1000);
-        if (ed.toISOString().split("T")[0] === date.toISOString().split("T")[0]) {
+        let ed = new Date(doc.data().date.seconds * 1000);
+        console.log(ed);
+        if (
+          ed.toISOString().split("T")[0] === date.toISOString().split("T")[0]
+        ) {
           emotionArray.push(doc.data() as emotion);
         }
       }
@@ -82,10 +83,6 @@ const TeamMood = () => {
     weekday: "long",
   });
 
-  // if (emotionInCompany) {
-  //   let chartData = makeChartData(emotionInCompany);
-
-  // console.log(date.toISOString().split("T")[0]);
   return (
     <div>
       <div className="mx-auto">
@@ -116,7 +113,7 @@ const TeamMood = () => {
             ผลรวมระดับอารมณ์ประจำวัน
           </h1>
           <div className=" h-[300px] bg-white rounded-lg">
-            {/* <DoughnutChart data={chartData} /> */}
+            <DoughnutChart data={chartData} />
             <h1>ระดับอารมณ์โดยเฉลี่ย : {1}</h1>
           </div>
         </div>
