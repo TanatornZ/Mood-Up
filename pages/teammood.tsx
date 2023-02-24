@@ -16,10 +16,18 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
-import DatePicker from "react-date-picker/dist/entry.nostyle";
 import Image from "next/image";
+import {
+  findAvrEmotion,
+  getArrayEmotionWithDate,
+  getUserInCompany,
+} from "../utils/getEmotionInCompany";
 
 const TeamMood = () => {
+  const user = useSelector((state: any) => state.user);
+  const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
+  const [date, setDate] = useState(new Date());
+
   ChartJS.register(
     CategoryScale,
     BarElement,
@@ -29,65 +37,19 @@ const TeamMood = () => {
     Tooltip,
     Legend
   );
-  const user = useSelector((state: any) => state.user);
-  const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
-  const [date, setDate] = useState(new Date());
-  // const [chartData, setChartData] = useState<any[]>([]);
-
   useEffect(() => {
     const getUser = async () => {
       const userInCompany = await getUserInCompany(user.companyId);
-      const companyEmotion = await getArrayEmotion(userInCompany, date);
+      const companyEmotion = await getArrayEmotionWithDate(userInCompany, date);
 
       setEmotionInCompany(companyEmotion);
-      // setChartData(makeChartData(emotionInCompany));
     };
     getUser();
   }, [user.companyId, date]);
 
   const chartData = makeChartData(emotionInCompany);
 
-  const getUserInCompany = async (companyId: string) => {
-    //get data
-    console.log(companyId);
-    const querySnapshot = await getDocs(collection(db, "user"));
-    const userId: any[] = [];
-    querySnapshot.forEach((doc) => {
-      if (doc.data().company_id === companyId) {
-        userId.push(doc.data().line_id);
-      }
-    });
-    return userId;
-  };
-
   // check day
-  const getArrayEmotion = async (userArray: any[], date: Date) => {
-    const querySnapshot = await getDocs(collection(db, "emotion"));
-    const emotionArray: emotion[] = [];
-    querySnapshot.forEach((doc) => {
-      // check id.secconds * 1000.secconds * 1000
-      if (userArray.includes(doc.data().line_id)) {
-        let ed = new Date(doc.data().date.seconds * 1000);
-        console.log(ed);
-        if (
-          ed.toISOString().split("T")[0] === date.toISOString().split("T")[0]
-        ) {
-          emotionArray.push(doc.data() as emotion);
-        }
-      }
-    });
-    return emotionArray;
-  };
-
-  const findAvrEmotion = (emotionArray: emotion[]) => {
-    let sumEmotion = emotionArray.reduce(function (prev, curr) {
-      return prev + curr.emotion;
-    }, 0);
-
-    let avr = sumEmotion / emotionArray?.length;
-
-    return Math.floor(avr);
-  };
 
   const thaiDate = date.toLocaleDateString("th-TH", {
     year: "numeric",
@@ -126,7 +88,11 @@ const TeamMood = () => {
             ผลรวมระดับอารมณ์ประจำวัน
           </h1>
           <div className=" h-[300px] bg-white rounded-lg flex flex-col justify-center items-center">
-            <DoughnutChart data={chartData} size={28}   />
+            {emotionInCompany.length !== 0 ? (
+              <DoughnutChart data={chartData} size={48} />
+            ) : (
+              ""
+            )}
             <h1 className="text-xl">
               ระดับอารมณ์โดยเฉลี่ย :{" "}
               {emotionInCompany.length !== 0
@@ -138,11 +104,13 @@ const TeamMood = () => {
 
         <div className="">
           <h1 className="text-center text-2xl my-4">การบันทึก</h1>
-          {emotionInCompany
-            ? emotionInCompany.map((item: any, i: number) => (
-                <RecordItem id={`record ${i}`} key={i} item={item} />
-              ))
-            : ""}
+          {emotionInCompany.length !== 0 ? (
+            emotionInCompany.map((item: any, i: number) => (
+              <RecordItem id={`record ${i}`} key={i} item={item} />
+            ))
+          ) : (
+            <h1 className="text-center opacity-50">ไม่มีการบันทึก</h1>
+          )}
         </div>
       </div>
     </div>
