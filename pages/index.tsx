@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { setUser } from "../store/user-slice";
 import { emotion } from "../interface/interface";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
+import { findAvrEmotion } from "../utils/getEmotionInCompany";
 export default function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
   const router = useRouter();
@@ -84,22 +85,18 @@ export default function Home() {
     checkUserRegister(lineAuth.userId);
   }
 
-  const allEmotion = emotion.map((item) => item.emotion);
 
-  const average = allEmotion.reduce((a, b) => a + b, 0) / allEmotion.length;
 
-  console.log("allEmotion " + allEmotion);
-  console.log("average " + average);
   return (
     <div className="">
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-2xl py-3">{`${user.firstName} ${user.lastName}`}</h1>
         <p className="text-xl ">
-          อารมณ์ของคุณอยู่ในระดับ : {Math.ceil(average)}
+          อารมณ์ของคุณอยู่ในระดับ : {findAvrEmotion(emotion)}
         </p>
         <div className="w-32 h-32 relative my-5">
           <Image
-            src={`/images/emotion/${Math.ceil(average)}.png`}
+            src={`/images/emotion/${findAvrEmotion(emotion)}.png`}
             alt="emotion"
             layout="fill"
           />

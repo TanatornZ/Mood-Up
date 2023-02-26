@@ -5,15 +5,7 @@ import { db } from "../firebase/firebaseConfig";
 import { emotion } from "../interface/interface";
 
 const RecordItem: FC<any> = ({ item }) => {
-  // const date = new Date(item.date);
-  // console.log(item.date)
   const date = item.date.toDate();
-
-  console.log(item.id);
-
-  const DeleteDoc = async () => {
-    await deleteDoc(doc(db, "cities", item.id));
-  };
 
   const thaiDate = date.toLocaleDateString("th-TH", {
     year: "numeric",
@@ -23,12 +15,7 @@ const RecordItem: FC<any> = ({ item }) => {
   });
 
   return (
-    <div
-      className=" rounded-xl  mt-5 bg-white flex items-center justify-between p-2 drop-shadow-md"
-      onClick={() => {
-        DeleteDoc();
-      }}
-    >
+    <div className=" rounded-xl  mt-5 bg-white flex items-center justify-between p-2 drop-shadow-md">
       <div className="relative h-12 w-12 ml-2">
         <Image
           src={`/images/emotion/${item.emotion}.png`}

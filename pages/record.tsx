@@ -16,7 +16,7 @@ function Record() {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   return (
     <div>

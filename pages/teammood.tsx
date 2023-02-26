@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
 import { useSelector } from "react-redux";
-import { emotion } from "../interface/interface";
 import RecordItem from "../components/RecordItem";
 import { makeChartData } from "../utils/makeChartData";
 import DoughnutChart from "../components/chart/DoughnutChart";
@@ -49,8 +46,6 @@ const TeamMood = () => {
 
   const chartData = makeChartData(emotionInCompany);
 
-  // check day
-
   const thaiDate = date.toLocaleDateString("th-TH", {
     year: "numeric",
     month: "long",
@@ -89,7 +84,7 @@ const TeamMood = () => {
           </h1>
           <div className=" h-[300px] bg-white rounded-lg flex flex-col justify-center items-center">
             {emotionInCompany.length !== 0 ? (
-              <DoughnutChart data={chartData} size={44} />
+              <DoughnutChart data={chartData} size={32} />
             ) : (
               ""
             )}

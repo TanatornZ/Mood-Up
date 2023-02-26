@@ -1,6 +1,5 @@
 import { getAuth } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
-import { getRouteRegex } from "next/dist/shared/lib/router/utils/route-regex";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";

@@ -11,8 +11,6 @@ interface Props {
 const DoughnutChart: FC<Props> = (props): JSX.Element => {
   const chartData = props.data;
 
-  console.log(props.size);
-
   return (
     <div className={`w-${props.size} h-${props.size} relative my-5`}>
       <Doughnut
@@ -29,19 +27,6 @@ const DoughnutChart: FC<Props> = (props): JSX.Element => {
           datasets: [
             {
               label: "amount",
-              // datalabels: {
-              //   formatter: (value, ctx) => {
-              //     let sum = 0;
-
-              //     chartData.map((data) => {
-              //       sum += data.count;
-              //     });
-              //     let percentage =
-              //       ((value * 100) / sum).toFixed(2) + "%";
-              //     return percentage;
-              //   },
-              //   color: "#fff",
-              // },
               data: chartData.map((data) => data.count),
               backgroundColor: chartData.map((data) => data.color),
             },
