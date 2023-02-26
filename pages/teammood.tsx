@@ -89,7 +89,7 @@ const TeamMood = () => {
           </h1>
           <div className=" h-[300px] bg-white rounded-lg flex flex-col justify-center items-center">
             {emotionInCompany.length !== 0 ? (
-              <DoughnutChart data={chartData} size={48} />
+              <DoughnutChart data={chartData} size={44} />
             ) : (
               ""
             )}
@@ -103,7 +103,7 @@ const TeamMood = () => {
         </div>
 
         <div className="">
-          <h1 className="text-center text-2xl my-4">การบันทึก</h1>
+          <h1 className="text-center text-2xl my-4 w-">การบันทึก</h1>
           {emotionInCompany.length !== 0 ? (
             emotionInCompany.map((item: any, i: number) => (
               <RecordItem id={`record ${i}`} key={i} item={item} />

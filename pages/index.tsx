@@ -105,7 +105,7 @@ export default function Home() {
           />
         </div>
         <p className="text-red-600">
-          *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้งsdf
+          *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้ง
         </p>
       </div>
     </div>

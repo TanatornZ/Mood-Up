@@ -5,13 +5,10 @@ import { ChartType } from "../../interface/chart";
 
 interface Props {
   data: ChartType[];
-  size: number
+  size: number;
 }
 
-const DoughnutChart: FC<Props> = (
-  props,
-  size = 12
-): JSX.Element => {
+const DoughnutChart: FC<Props> = (props): JSX.Element => {
   const chartData = props.data;
 
   console.log(props.size);
