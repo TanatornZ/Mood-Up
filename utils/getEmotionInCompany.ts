@@ -31,14 +31,14 @@ const splitDate = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
 
-
-
 export const findAvrEmotion = (emotionArray: emotion[]) => {
   let sumEmotion = emotionArray.reduce(function (prev, curr) {
     return prev + curr.emotion;
   }, 0);
 
-  let avr = sumEmotion / emotionArray?.length;
+  const getAvr = () => {
+    return sumEmotion / emotionArray?.length;
+  };
 
-  return Math.floor(avr);
+  return Math.floor(getAvr());
 };
