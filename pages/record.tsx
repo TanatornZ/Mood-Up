@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import RecordItem from "../components/RecordItem";
 import { emotion } from "../interface/interface";
+import { RootState } from "../store";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
 
 
 function Record() {
   const [emotion, setEmotion] = useState<emotion[]>([]);
-  const user = useSelector((state: any) => state.auth.userId);
+  const user = useSelector((state: RootState) => state.auth.userId);
 
   useEffect(() => {
     const fetchData = async () => {

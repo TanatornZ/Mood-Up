@@ -4,7 +4,7 @@ import Image from "next/image";
 import { RxCross2 } from "react-icons/rx";
 interface Props {
   day: string;
-  emotion: any;
+  emotion: number;
 }
 const DetailDay: FC<Props> = (props) => {
   const parseThaiDate = (date: string) => {
