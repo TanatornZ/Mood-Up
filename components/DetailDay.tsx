@@ -17,11 +17,12 @@ const DetailDay: FC<Props> = (props) => {
     });
     if (Day.toDateString().slice(0, 3) === "Sat") {
       return "ส";
+    } else if (Day.toDateString().slice(0, 3) === "Sun") {
+      return "อา";
     } else {
       return thaiDate[3];
     }
   };
-
 
   return (
     <div className="flex flex-col items-center justify-center">
