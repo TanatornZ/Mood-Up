@@ -21,7 +21,6 @@ export default function Home() {
     const querySnapshot = await getDocs(collection(db, "user"));
     let registered = false;
     querySnapshot.forEach((doc) => {
-      console.log(doc.data().line_id);
       // check id
       if (doc.data().line_id === lineId) {
         dispatch(
@@ -37,7 +36,7 @@ export default function Home() {
       }
     });
     if (registered) {
-      console.log("is registered");
+
     } else {
       router.push("/first");
     }

@@ -20,9 +20,9 @@ export const getArrayEmotionWithDate = async (userArray: any[], date: Date) => {
     if (userArray.includes(doc.data().line_id)) {
       let ed = new Date(doc.data().date.seconds * 1000);
 
-      console.log(ed)
+      console.log(ed);
       if (splitDate(ed) === splitDate(date)) {
-        console.log('pass')
+        console.log("pass");
         emotionArray.push(doc.data() as emotion);
       }
     }
@@ -30,7 +30,7 @@ export const getArrayEmotionWithDate = async (userArray: any[], date: Date) => {
   return emotionArray;
 };
 
-const splitDate = (date: Date) => {
+export const splitDate = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
 

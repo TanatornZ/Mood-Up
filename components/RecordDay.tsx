@@ -1,38 +1,36 @@
 import { collection, getDocs } from "firebase/firestore";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { array } from "yup";
 import { db } from "../firebase/firebaseConfig";
 import { emotion } from "../interface/interface";
+import { splitDate } from "../utils/getEmotionInCompany";
 import DetailDay from "./DetailDay";
 
 function RecordDay() {
-  const dataDate: any = [];
-  let allDay: { emotion: number; day: Date }[] = [];
-  let states: any[] = [];
+  const [lastedDay, setLastedDay] = useState<any>();
 
-  let showDay: any[] = [];
+  useEffect(() => {
+    const fecthData = async () => {
+      let data = await getLastedEmotion("U03b155b3f617330ebe19fd13038964eb");
 
-  const getAllDay = () => {
+      setLastedDay(data);
+    };
+    fecthData();
+  }, []);
+
+  console.log(lastedDay);
+
+  const getLastedEmotion = async (LineId: string) => {
+    let dataDate: any = [];
+    let allDay: { emotion: number; day: Date }[] = [];
+    let states: any[] = [];
+    const arrayDay: string[] = [];
     let Day = new Date();
+
+    const querySnapshot = await getDocs(collection(db, "emotion"));
 
     for (let i = 0; i < 5; i++) {
       dataDate.push({ emotion: null, day: splitDate(Day) });
-      Day = new Date(Day.getTime() - 86400000);
-    }
-  };
-
-  const splitDate = (date: Date) => {
-    return date.toISOString().split("T")[0];
-  };
-
-  const getLastedEmotion = async (LineId: string, date: Date) => {
-    const querySnapshot = await getDocs(collection(db, "emotion"));
-    // querySnapshot
-    const arrayDay: string[] = [];
-
-    //get day to array
-    let Day = date;
-    for (let i = 0; i < 5; i++) {
       arrayDay.unshift(Day.toISOString().split("T")[0]);
       Day = new Date(Day.getTime() - 86400000);
     }
@@ -47,7 +45,7 @@ function RecordDay() {
       }
     });
 
-    allDay.forEach((item) => {
+    allDay.map((item) => {
       if (states.length > 0) {
         for (let state in states) {
           if (splitDate(states[state].day) === splitDate(item.day)) {
@@ -69,20 +67,19 @@ function RecordDay() {
         }
       }
     });
+
+    return dataDate;
   };
 
-  getAllDay();
-
-  getLastedEmotion("U03b155b3f617330ebe19fd13038964eb", new Date());
-
-  
   return (
     <div className="mt-5 p-5 bg-white rounded-lg">
       <h1 className="text-lg">ระดับอารมณ์ล่าสุดของวันที่ผ่านมา</h1>
       <div className="mt-5 grid grid-cols-5">
-        {dataDate.map((item: { day: string; emotion: number | null }) => (
-          <DetailDay key={item.day} day={item.day} emotion={3} />
-        ))}
+        {lastedDay
+          ? lastedDay.map((item: { day: string; emotion: number }) => (
+              <DetailDay key={item.day} day={item.day} emotion={item.emotion} />
+            ))
+          : ""}
       </div>
     </div>
   );

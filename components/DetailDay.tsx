@@ -1,9 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 
+import { RxCross2 } from "react-icons/rx";
 interface Props {
   day: string;
-  emotion: number | null;
+  emotion: any;
 }
 const DetailDay: FC<Props> = (props) => {
   const parseThaiDate = (date: string) => {
@@ -21,25 +22,24 @@ const DetailDay: FC<Props> = (props) => {
     }
   };
 
-  console.log("test");
-  console.log("props ", props);
+  console.log(props.emotion);
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {props.emotion !== null ? (
+      {props.emotion ? (
         <div className="rounded-full relative w-10 h-10">
           <Image
             src={`/images/emotion/${props.emotion}.png`}
             alt="emotion"
             layout="fill"
-           
           />
         </div>
       ) : (
-        <div className="rounded-full bg-slate-400 w-10 h-10"></div>
+        <div className="rounded-full bg-slate-100 w-10 h-10  relative">
+          <RxCross2 className="text-red-500 w-10 h-10" />
+        </div>
       )}
-
-      <h1 className="mt-1">{parseThaiDate(props.day)}</h1>
+      <h1 className="mt-1">{parseThaiDate(props.day)}.</h1>
     </div>
   );
 };
