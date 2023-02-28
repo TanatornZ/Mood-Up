@@ -22,7 +22,6 @@ const DetailDay: FC<Props> = (props) => {
     }
   };
 
-  console.log(props.emotion);
 
   return (
     <div className="flex flex-col items-center justify-center">
