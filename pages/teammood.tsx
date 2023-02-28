@@ -19,13 +19,7 @@ import {
   getArrayEmotionWithDate,
   getUserInCompany,
 } from "../utils/getEmotionInCompany";
-import {
-  collection,
-  CollectionReference,
-  DocumentData,
-  addDoc,
-} from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { CollectionReference, DocumentData } from "firebase/firestore";
 
 const TeamMood = () => {
   const user = useSelector((state: any) => state.user);
@@ -140,12 +134,4 @@ const TeamMood = () => {
 };
 
 export default TeamMood;
-function addDocs(arg0: any) {
-  throw new Error("Function not implemented.");
-}
-function setDocs(
-  arg0: CollectionReference<DocumentData>,
-  arg1: { date: Date; emotion: number; line: string }
-) {
-  throw new Error("Function not implemented.");
-}
+

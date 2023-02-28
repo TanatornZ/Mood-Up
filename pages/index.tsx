@@ -9,6 +9,7 @@ import { setUser } from "../store/user-slice";
 import { emotion } from "../interface/interface";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
 import { findAvrEmotion } from "../utils/getEmotionInCompany";
+import RecordDay from "../components/RecordDay";
 export default function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
   const router = useRouter();
@@ -85,8 +86,6 @@ export default function Home() {
     checkUserRegister(lineAuth.userId);
   }
 
-
-
   return (
     <div className="">
       <div className="flex flex-col justify-center items-center">
@@ -105,6 +104,8 @@ export default function Home() {
           *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้ง
         </p>
       </div>
+
+      <RecordDay />
     </div>
   );
 }
