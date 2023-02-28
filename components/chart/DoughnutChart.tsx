@@ -26,7 +26,7 @@ const DoughnutChart: FC<Props> = (props): JSX.Element => {
           labels: chartData.map((data) => "ระดับอารมณ์ " + data.emotion),
           datasets: [
             {
-              label: "amount",
+              label: "จำนวน",
               data: chartData.map((data) => data.count),
               backgroundColor: chartData.map((data) => data.color),
             },

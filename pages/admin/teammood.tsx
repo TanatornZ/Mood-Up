@@ -82,7 +82,7 @@ function TeamMoodAdmin() {
             <h1 className="text-xl">ภาพรวมของอารมณ์โดยเฉลี่ย</h1>
             <div className="h-[300px] flex flex-col justify-center items-center mt-5 rounded-xl bg-white w-3/4">
               {emotionInCompany.length !== 0 ? (
-                <DoughnutChart data={chartData} size={48} />
+                <DoughnutChart data={chartData} size={32} />
               ) : (
                 ""
               )}
@@ -96,7 +96,7 @@ function TeamMoodAdmin() {
           </div>
           <div className="w-1/2">
             <h1 className="text-xl">การบันทึกระดับอารมณ์</h1>
-            <div className="h-[500px] overflow-auto mt-5 rounded-xl bg-white w-3/4 p-3">
+            <div className="h-[500px] overflow-auto mt-5 rounded-xl bg-white w-3/4 p-5 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full scrollbar-track-rounded-full ">
               {emotionInCompany.length !== 0 ? (
                 emotionInCompany.map((item: any, i: number) => (
                   <RecordItem id={`record ${i}`} key={i} item={item} />

@@ -77,7 +77,7 @@ function Conclusion() {
             </div>
             <div className="bg-white h-52 rounded-xl flex flex-col pt-5 items-center">
               <h1 className="text-xl">การบันทึกระดับอารณ์</h1>
-              <DoughnutChart data={chartData}  size={28} />
+              <DoughnutChart data={chartData}  size={32} />
             </div>
             <BarChart data={chartData} />
           </div>

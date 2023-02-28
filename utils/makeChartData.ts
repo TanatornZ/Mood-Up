@@ -1,3 +1,5 @@
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 import { emotion } from "../interface/interface";
 
 export const makeChartData = (emotionArray: emotion[]) => {
@@ -10,24 +12,28 @@ export const makeChartData = (emotionArray: emotion[]) => {
   ];
 
   emotionArray.map((emotion) => {
-    switch (emotion.emotion) {
-      case 1:
-        data[0].count += 1;
-        break;
-      case 2:
-        data[1].count += 1;
-        break;
-      case 3:
-        data[2].count += 1;
-        break;
-      case 4:
-        data[3].count += 1;
-        break;
-      case 5:
-        data[4].count += 1;
-        break;
+    for (let dataItem in data) {
+      if (data[dataItem].emotion === emotion.emotion) {
+        data[dataItem].count += 1;
+      }
     }
   });
 
   return data;
 };
+
+
+
+function randomIntFromInterval(min: number, max: number) {
+  // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export const addEmotion = async () => {
+  addDoc(collection(db, "emotion"), {
+    date: new Date(),
+    emotion: randomIntFromInterval(1, 5),
+    line_id: "U03b155b3f617330ebe19fd13038964eb",
+  });
+};
+

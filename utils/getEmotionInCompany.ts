@@ -19,7 +19,10 @@ export const getArrayEmotionWithDate = async (userArray: any[], date: Date) => {
   querySnapshot.forEach((doc) => {
     if (userArray.includes(doc.data().line_id)) {
       let ed = new Date(doc.data().date.seconds * 1000);
+
+      console.log(ed)
       if (splitDate(ed) === splitDate(date)) {
+        console.log('pass')
         emotionArray.push(doc.data() as emotion);
       }
     }
