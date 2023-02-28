@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface Auth {
+export interface AuthRedux {
   userId: string;
   picture: string;
 }
@@ -15,5 +15,7 @@ export const authSlice = createSlice({
     },
   },
 });
+
+
 
 export const { setLineUser } = authSlice.actions;

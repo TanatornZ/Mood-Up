@@ -3,6 +3,7 @@ import { adminAuthSlice } from "./adminAuth-slice";
 import { authSlice } from "./auth-slice";
 import { userSlice } from "./user-slice";
 
+
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
@@ -10,5 +11,7 @@ const store = configureStore({
     user: userSlice.reducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>
 
 export default store;

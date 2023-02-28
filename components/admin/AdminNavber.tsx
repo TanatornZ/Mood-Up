@@ -5,10 +5,11 @@ import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../../firebase/firebaseConfig";
+import { RootState } from "../../store";
 import { setAdmin, setCompanyName } from "../../store/adminAuth-slice";
 
 function AdminNavber() {
-  const admin = useSelector((state: any) => state.adminAuth);
+  const admin = useSelector((state: RootState) => state.adminAuth);
 
   const dispatch = useDispatch();
   const router = useRouter();

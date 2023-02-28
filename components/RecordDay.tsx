@@ -1,26 +1,26 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { array } from "yup";
+
 import { db } from "../firebase/firebaseConfig";
-import { emotion } from "../interface/interface";
+import { RootState } from "../store";
+
 import { splitDate } from "../utils/getEmotionInCompany";
 import DetailDay from "./DetailDay";
 
 function RecordDay() {
   const [lastedDay, setLastedDay] = useState<any>();
-  const lineAuth = useSelector((state: any) => state.auth);
+  const lineAuth = useSelector((state: RootState) => state.auth);
 
   console.log("line ", lineAuth.userId);
   useEffect(() => {
     const fecthData = async () => {
-      let data = await getLastedEmotion("U03b155b3f617330ebe19fd13038964eb");
+      let data = await getLastedEmotion(lineAuth.userId);
 
       setLastedDay(data);
     };
     fecthData();
   }, []);
-
 
   const getLastedEmotion = async (LineId: string) => {
     let dataDate: any = [];
@@ -51,8 +51,9 @@ function RecordDay() {
       if (states.length > 0) {
         for (let state in states) {
           if (splitDate(states[state].day) === splitDate(item.day)) {
-            states[state].emotion =
-              Math.floor(states[state].emotion + item.emotion) / 2;
+            states[state].emotion = Math.floor(
+              (states[state].emotion + item.emotion) / 2
+            );
             break;
           }
           states.push(item);

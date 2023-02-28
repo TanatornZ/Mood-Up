@@ -1,18 +1,25 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import Router from "next/router";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import DateField from "../components/inputField/DateField";
 import TextField from "../components/inputField/TextField";
 import { db } from "../firebase/firebaseConfig";
+import { RootState } from "../store";
 import { setUser } from "../store/user-slice";
 
+interface Company {
+  id: string;
+  name: string;
+}
 function Register() {
-  const lineAuth = useSelector((state: any) => state.auth);
+  const lineAuth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  const [company, setCompany] = useState<Company[]>([]);
+
   const register = async (values: any): Promise<void> => {
     const data = {
       first_name: values.first_name,
@@ -46,11 +53,9 @@ function Register() {
     }
   };
 
-  const [company, setCompany] = useState<any>([]);
-
   const getCompany = async () => {
     const querySnapshot = await getDocs(collection(db, "company"));
-    const arrayCompany: { id: string; name: string }[] = [];
+    const arrayCompany: Company[] = [];
     querySnapshot.forEach((doc) => {
       let id = doc.id;
       let name: string = doc.get("name");
@@ -146,7 +151,9 @@ function Register() {
                 {genderOption.map((option: any) => {
                   return (
                     <>
-                      <option value={option} key={option}>{option}</option>
+                      <option value={option} key={option}>
+                        {option}
+                      </option>
                     </>
                   );
                 })}
@@ -173,7 +180,9 @@ function Register() {
                 {jobOption.map((option: any) => {
                   return (
                     <>
-                      <option value={option} key={option}>{option}</option>
+                      <option value={option} key={option}>
+                        {option}
+                      </option>
                     </>
                   );
                 })}

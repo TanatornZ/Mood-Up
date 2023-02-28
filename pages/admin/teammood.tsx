@@ -23,13 +23,14 @@ import {
   Title,
 } from "chart.js";
 import { makeChartData } from "../../utils/makeChartData";
+import { RootState } from "../../store";
 
 function TeamMoodAdmin() {
   const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
 
   const [date, setDate] = useState(new Date());
   const dateRef = useRef<any>(null);
-  const admin: AuthAdmin = useSelector((state: any) => state.adminAuth);
+  const admin = useSelector((state: RootState) => state.adminAuth);
 
   ChartJS.register(
     CategoryScale,

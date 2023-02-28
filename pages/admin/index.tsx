@@ -16,11 +16,12 @@ import EmployeeList from "../../components/admin/EmployeeList";
 import PopupAccept from "../../components/admin/PopupAccept";
 import { db } from "../../firebase/firebaseConfig";
 import { employee, employeeNid } from "../../interface/interface";
+import { RootState } from "../../store";
 import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 
 export default function Admin() {
   const [showAccept, setShowAccept] = useState<boolean>(false);
-  const admin: AuthAdmin = useSelector((state: any) => state.adminAuth);
+  const admin = useSelector((state: RootState) => state.adminAuth);
   const auth = getAuth();
   const dispatch = useDispatch();
   const router = useRouter();

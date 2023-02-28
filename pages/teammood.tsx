@@ -19,11 +19,12 @@ import {
   getArrayEmotionWithDate,
   getUserInCompany,
 } from "../utils/getEmotionInCompany";
-import { CollectionReference, DocumentData } from "firebase/firestore";
+import { RootState } from "../store";
+import { emotion } from "../interface/interface";
 
 const TeamMood = () => {
-  const user = useSelector((state: any) => state.user);
-  const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
+  const user = useSelector((state: RootState) => state.user);
+  const [emotionInCompany, setEmotionInCompany] = useState<emotion[]>([]);
   const [date, setDate] = useState(new Date());
   const dateRef = useRef<any>(null);
 
@@ -119,7 +120,7 @@ const TeamMood = () => {
         </div>
 
         <div className="">
-          <h1 className="text-center text-2xl my-4 w-">การบันทึก</h1>
+          <h1 className="text-center text-2xl my-4">การบันทึก</h1>
           {emotionInCompany.length !== 0 ? (
             emotionInCompany.map((item: any, i: number) => (
               <RecordItem id={`record ${i}`} key={i} item={item} />
@@ -134,4 +135,3 @@ const TeamMood = () => {
 };
 
 export default TeamMood;
-

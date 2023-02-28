@@ -5,6 +5,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
+import { RootState } from "../store";
 
 interface SlidingBarType {
   showSlide: boolean;
@@ -13,7 +14,7 @@ interface SlidingBarType {
 
 const SlidingBar = () => {
   const { isOpen, closeMenu } = useContext<MenuSlide>(MenuSlideContext);
-  const user = useSelector((state: any) => state.user);
+  const user = useSelector((state: RootState) => state.user);
 
   return (
     <div
