@@ -18,6 +18,7 @@ import DoughnutChart from "../../components/chart/DoughnutChart";
 import { ChartType } from "../../interface/chart";
 import BarChart from "../../components/chart/BarChart";
 import { makeChartData } from "../../utils/makeChartData";
+import { findAvrEmotion } from "../../utils/getEmotionInCompany";
 
 
 function Conclusion() {
@@ -47,15 +48,6 @@ function Conclusion() {
     getEmotion();    
   }, []);
 
-  const findAvrEmotion = (emotionArray: emotion[]) => {
-    let sumEmotion = emotionArray.reduce(function (prev, curr) {
-      return prev + curr.emotion;
-    }, 0);
-
-    let avr = sumEmotion / emotionArray?.length;
-
-    return Math.floor(avr);
-  };
 
   
   if (emotion) {
@@ -85,7 +77,7 @@ function Conclusion() {
             </div>
             <div className="bg-white h-52 rounded-xl flex flex-col pt-5 items-center">
               <h1 className="text-xl">การบันทึกระดับอารณ์</h1>
-              <DoughnutChart data={chartData}  size={28} />
+              <DoughnutChart data={chartData}  size={32} />
             </div>
             <BarChart data={chartData} />
           </div>

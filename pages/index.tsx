@@ -9,6 +9,7 @@ import { setUser } from "../store/user-slice";
 import { emotion } from "../interface/interface";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
 import { findAvrEmotion } from "../utils/getEmotionInCompany";
+import RecordDay from "../components/RecordDay";
 export default function Home() {
   const lineAuth = useSelector((state: any) => state.auth);
   const router = useRouter();
@@ -20,7 +21,6 @@ export default function Home() {
     const querySnapshot = await getDocs(collection(db, "user"));
     let registered = false;
     querySnapshot.forEach((doc) => {
-      console.log(doc.data().line_id);
       // check id
       if (doc.data().line_id === lineId) {
         dispatch(
@@ -36,42 +36,41 @@ export default function Home() {
       }
     });
     if (registered) {
-      console.log("is registered");
     } else {
       router.push("/first");
     }
   };
 
   useEffect(() => {
-    // import("@line/liff").then((liff) => {
-    //   liff
-    //     .init({ liffId: "1657785397-LVBe6BkX" })
-    //     .then(async () => {
-    //       if (liff.isLoggedIn()) {
-    //         const profile = await liff.getProfile();
+    import("@line/liff").then((liff) => {
+      liff
+        .init({ liffId: "1657785397-LVBe6BkX" })
+        .then(async () => {
+          if (liff.isLoggedIn()) {
+            const profile = await liff.getProfile();
 
-    //         dispatch(
-    //           setLineUser({
-    //             userId: profile.userId as string,
-    //             pictureUrl: profile.pictureUrl,
-    //           })
-    //         );
-    //       } else {
-    //         liff.login();
-    //       }
-    //     })
-    //     .catch(() => {
-    //       console.log("error");
-    //     });
-    // });
+            dispatch(
+              setLineUser({
+                userId: profile.userId as string,
+                pictureUrl: profile.pictureUrl,
+              })
+            );
+          } else {
+            liff.login();
+          }
+        })
+        .catch(() => {
+          console.log("error");
+        });
+    });
 
-    dispatch(
-      setLineUser({
-        userId: "U03b155b3f617330ebe19fd13038964eb",
-        pictureUrl:
-          "https://profile.line-scdn.net/0hi90K76b8NhYdMiPyUfxIaW1iNXw-Q28EZAQrdn0yPCEkUHVGZlZ_cio2aXZyBCFDNVEqdS40YSQRIUFwA2TKIhoCaCEkBHdJNVZx9g",
-      })
-    );
+    // dispatch(
+    //   setLineUser({
+    //     userId: "U03b155b3f617330ebe19fd13038964eb",
+    //     pictureUrl:
+    //       "https://profile.line-scdn.net/0hi90K76b8NhYdMiPyUfxIaW1iNXw-Q28EZAQrdn0yPCEkUHVGZlZ_cio2aXZyBCFDNVEqdS40YSQRIUFwA2TKIhoCaCEkBHdJNVZx9g",
+    //   })
+    // );
 
     const fetchData = async () => {
       const data = await getArrayEmotion(lineAuth.userId);
@@ -84,8 +83,6 @@ export default function Home() {
   if (lineAuth.userId !== "") {
     checkUserRegister(lineAuth.userId);
   }
-
-
 
   return (
     <div className="">
@@ -105,6 +102,8 @@ export default function Home() {
           *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้ง
         </p>
       </div>
+
+      <RecordDay />
     </div>
   );
 }

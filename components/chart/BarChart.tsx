@@ -8,6 +8,7 @@ interface Props {
 const BarChart: FC<Props> = (props): JSX.Element => {
 
   let chartData = props.data
+  
   return (
     <div className="bg-white col-span-3 h-[420px] w-full rounded-xl p-5 flex justify-center">
       <Bar

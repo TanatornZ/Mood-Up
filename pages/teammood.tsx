@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import RecordItem from "../components/RecordItem";
-import { makeChartData } from "../utils/makeChartData";
+import { addEmotion, makeChartData } from "../utils/makeChartData";
 import DoughnutChart from "../components/chart/DoughnutChart";
 import {
   Chart as ChartJS,
@@ -19,11 +19,13 @@ import {
   getArrayEmotionWithDate,
   getUserInCompany,
 } from "../utils/getEmotionInCompany";
+import { CollectionReference, DocumentData } from "firebase/firestore";
 
 const TeamMood = () => {
   const user = useSelector((state: any) => state.user);
   const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
   const [date, setDate] = useState(new Date());
+  const dateRef = useRef<any>(null);
 
   ChartJS.register(
     CategoryScale,
@@ -37,6 +39,7 @@ const TeamMood = () => {
   useEffect(() => {
     const getUser = async () => {
       const userInCompany = await getUserInCompany(user.companyId);
+
       const companyEmotion = await getArrayEmotionWithDate(userInCompany, date);
 
       setEmotionInCompany(companyEmotion);
@@ -67,7 +70,20 @@ const TeamMood = () => {
             }}
           />
 
-          <h1 className="text-lg">{thaiDate}</h1>
+          <h1
+            className="text-lg text-center  w-full"
+            onClick={() => {
+              dateRef.current.showPicker();
+            }}
+          >
+            <input
+              type="date"
+              onChange={(event) => setDate(new Date(event.target.value))}
+              className="absolute opacity-0"
+              ref={dateRef}
+            />
+            {thaiDate}
+          </h1>
           <Image
             src="/svg/arrow-right-circle-svgrepo-com.svg"
             alt="arrow"
@@ -79,7 +95,12 @@ const TeamMood = () => {
           />
         </div>
         <div className="">
-          <h1 className="text-center text-2xl my-4">
+          <h1
+            className="text-center text-2xl my-4"
+            onClick={() => {
+              addEmotion();
+            }}
+          >
             ผลรวมระดับอารมณ์ประจำวัน
           </h1>
           <div className=" h-[300px] bg-white rounded-lg flex flex-col justify-center items-center">
@@ -113,3 +134,4 @@ const TeamMood = () => {
 };
 
 export default TeamMood;
+

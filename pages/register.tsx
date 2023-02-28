@@ -1,7 +1,7 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import Router from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import DateField from "../components/inputField/DateField";
@@ -31,7 +31,7 @@ function Register() {
         ...data,
         accept_company: false,
       });
-      console.log("Document written with ID: ", docRef.id);
+
       dispatch(
         setUser({
           firstName: values.first_name,
