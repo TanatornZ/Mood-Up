@@ -78,17 +78,21 @@ function Summarize() {
 
         <div className="flex mt-5 justify-between">
           <FromCard>
-            <ConcludeEmotion emotion={4} />
+            <ConcludeEmotion emotion={3} />
           </FromCard>
           <FromCard>
             <TotalRecord totalRecord={50} />
           </FromCard>
           <FromCard>
-            <CheckEmployee totalEmployee={50} totalRecord={30}/>
+            <CheckEmployee totalEmployee={50} totalRecord={30} />
           </FromCard>
           <FromCard>
             <PercentChart />
           </FromCard>
+        </div>
+
+        <div className="h-[55%] mt-5">
+            <div className="bg-white h-full"></div>
         </div>
       </div>
     </div>
