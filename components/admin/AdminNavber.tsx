@@ -51,7 +51,7 @@ function AdminNavber() {
         </li>
         <li className="my-12 hover:text-gray-300 cursor-pointer">
           <Link
-            href={"/admin/conclusion"}
+            href={"/admin/summarize"}
             className={`${path === "conclusion" ? "underline" : ""}`}
           >
             การสรุปผล

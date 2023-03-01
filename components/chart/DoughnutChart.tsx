@@ -11,6 +11,7 @@ interface Props {
 const DoughnutChart: FC<Props> = (props): JSX.Element => {
   const chartData = props.data;
 
+  console.log(chartData)
   return (
     <div className={`w-${props.size} h-${props.size} relative my-5`}>
       <Doughnut
