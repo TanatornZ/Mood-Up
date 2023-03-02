@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import PasswordField from "../../components/inputField/PasswordField";
 import TextField from "../../components/inputField/TextField";
 import { db } from "../../firebase/firebaseConfig";

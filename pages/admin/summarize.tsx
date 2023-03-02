@@ -166,11 +166,10 @@ function Summarize() {
     const querySnapshot = await getDocs(collection(db, "user"));
     let totalUser: number = 0;
     querySnapshot.forEach((doc) => {
-      if (doc.data().company_id === admin.companyId) {
+      if (doc.data().company_id === company_id) {
         totalUser += 1;
       }
     });
-    console.log(totalUser);
     return totalUser;
   };
 
@@ -189,8 +188,6 @@ function Summarize() {
     switch (typeShow) {
       case "All":
         getEmotion();
-        // setEmotionInCompany(testData);
-
         break;
       case "Month":
         const getEmotionMonth = async () => {
@@ -221,9 +218,7 @@ function Summarize() {
       setAllUser(user);
     };
     fecthUser();
-    console.log("emotion ", emotionInCompany);
-
-    // return setEmotionInCompany([]);
+    
   }, [typeShow, day, month]);
 
   const findUserRecord = (emotionArray: emotion[]) => {
