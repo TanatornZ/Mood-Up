@@ -15,8 +15,6 @@ function AdminNavber() {
   const router = useRouter();
   const [path, setPath] = useState<string>("");
 
-  
-
   useEffect(() => {
     setPath(router.asPath.slice(7));
     const getCompanyName = async () => {
@@ -54,19 +52,12 @@ function AdminNavber() {
         <li className="my-12 hover:text-gray-300 cursor-pointer">
           <Link
             href={"/admin/summarize"}
-            className={`${path === "conclusion" ? "underline" : ""}`}
+            className={`${path === "summarize" ? "underline" : ""}`}
           >
             การสรุปผล
           </Link>
         </li>
-        <li className="hover:text-gray-300 cursor-pointer">
-          <Link
-            href={"/admin/teammood"}
-            className={`${path === "teammood" ? "underline" : ""}`}
-          >
-            อารมณ์ประจำวัน
-          </Link>
-        </li>
+        
       </ul>
       <button
         className="text-lg text-white bg-red-600 p-3 rounded-xl shadow-lg hover:bg-red-700"

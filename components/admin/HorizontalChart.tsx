@@ -1,5 +1,5 @@
 import React from "react";
-import BarChart from "../chart/BarChart";
+
 import {
   Chart as ChartJS,
   ArcElement,
