@@ -26,10 +26,12 @@ function Register() {
       last_name: values.last_name,
       date_of_birth: values.date,
       job_position: values.job,
+
       line_id: lineAuth.userId,
       company_id: values.company,
       gender: values.gender,
       accept_company: false,
+
       pictureUrl: lineAuth.pictureUrl,
     };
 

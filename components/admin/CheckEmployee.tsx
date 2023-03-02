@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 interface Props {
-  totalEmployee: number;
+  totalEmployee: number | undefined;
   totalRecord: number;
 }
 const CheckEmployee: FC<Props> = (props) => {

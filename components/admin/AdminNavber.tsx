@@ -15,6 +15,8 @@ function AdminNavber() {
   const router = useRouter();
   const [path, setPath] = useState<string>("");
 
+  
+
   useEffect(() => {
     setPath(router.asPath.slice(7));
     const getCompanyName = async () => {

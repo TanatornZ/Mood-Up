@@ -1,16 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import AdminNavber from "../../components/admin/AdminNavber";
 import CheckEmployee from "../../components/admin/CheckEmployee";
 import ConcludeEmotion from "../../components/admin/ConcludeEmotion";
 import FromCard from "../../components/admin/FromCard";
 import PercentChart from "../../components/admin/PercentChart";
+import ReasonIntoEmotion from "../../components/admin/ReasonIntoEmotion";
 import TotalRecord from "../../components/admin/TotalRecord";
 import { RootState } from "../../store";
-import { splitDate } from "../../utils/getEmotionInCompany";
+import { findAvrEmotion, splitDate } from "../../utils/getEmotionInCompany";
+import HorizontalChart from "../../components/admin/HorizontalChart";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
+import { emotion } from "../../interface/interface";
+import { ChartType } from "chart.js";
+import { makeChartData } from "../../utils/makeChartData";
 
 function Summarize() {
   const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
+  const [userInCompany, setUserInCompany] = useState<number>();
   const admin = useSelector((state: RootState) => state.adminAuth);
 
   const getMonth = (date: Date) => {
@@ -23,8 +31,60 @@ function Summarize() {
   const monthRef = useRef(null);
   const dayRef = useRef(null);
 
+  const getUserInCompany = async (company_id: string) => {
+    const querySnapshot = await getDocs(collection(db, "user"));
+    let totalUser: number = 0;
+    querySnapshot.forEach((doc) => {
+      if (doc.data().company_id === admin.companyId) {
+        totalUser += 1;
+      }
+    });
+    console.log(totalUser);
+    return totalUser;
+  };
+
+  const getEmotion = async () => {
+    const querySnapshot = await getDocs(collection(db, "emotion"));
+
+    const emotionArray: emotion[] = [];
+    querySnapshot.forEach((doc) => {
+      if (doc.data().line_id !== undefined) {
+        emotionArray.push(doc.data() as emotion);
+      }
+    });
+
+    setEmotionInCompany(emotionArray);
+  };
+
+  useEffect(() => {
+    getEmotion();
+    const fecthUser = async () => {
+      const user = await getUserInCompany(admin.companyId);
+      setUserInCompany(user);
+    };
+    fecthUser();
+    return setEmotionInCompany([]);
+  }, []);
+
+  const findUserRecord = (emotionArray: emotion[]) => {
+    const userRecord: string[] = [];
+
+    emotionArray.map((emotion) => [userRecord.push(emotion.line_id)]);
+
+    console.log("user all ", userRecord);
+    const result = [new Set(userRecord)];
+
+    return result;
+  };
+
+  let userRecord = findUserRecord(emotionInCompany);
+  // console.log("split user ", findUserRecord(emotionInCompany));
+  let chartData = makeChartData(emotionInCompany);
+  console.log(chartData);
+
+
   return (
-    <div className="flex w-screen bg-gray-100">
+    <div className="flex w-screen bg-gray-100 h-screen">
       <AdminNavber />
       <div className="p-8 w-[80%]">
         <h1 className="text-3xl text-center">สรุปผลอารมณ์</h1>
@@ -78,22 +138,28 @@ function Summarize() {
 
         <div className="flex  mt-5 justify-between  items-center">
           <FromCard>
-            <ConcludeEmotion emotion={3} />
+            <ConcludeEmotion emotion={findAvrEmotion(emotionInCompany)} />
           </FromCard>
           <FromCard>
-            <TotalRecord totalRecord={50} />
+            <TotalRecord totalRecord={emotionInCompany.length} />
           </FromCard>
           <FromCard>
-            <CheckEmployee totalEmployee={50} totalRecord={30} />
+            <CheckEmployee
+              totalEmployee={userInCompany}
+              totalRecord={userRecord.length}
+            
+            />
           </FromCard>
           <FromCard>
-            <PercentChart />
+            <PercentChart chartData={chartData} />
           </FromCard>
         </div>
 
-        <div className="h-[55%] mt-5 flex justify-between">
-          <div className="w-[32%] h-full bg-white rounded-xl"></div>
-          <div className="w-[65%] h-full bg-white rounded-xl" ></div>
+        <div className="h-[55%] mt-5 flex justify-between ">
+          <ReasonIntoEmotion />
+          <div className="w-[60%]  min-h-fit bg-white rounded-xl ">
+            <HorizontalChart chartData={chartData} />
+          </div>
         </div>
       </div>
     </div>
@@ -101,3 +167,6 @@ function Summarize() {
 }
 
 export default Summarize;
+function aynsc() {
+  throw new Error("Function not implemented.");
+}

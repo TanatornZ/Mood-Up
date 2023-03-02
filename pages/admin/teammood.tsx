@@ -100,7 +100,7 @@ function TeamMoodAdmin() {
             <div className="h-[500px] overflow-auto mt-5 rounded-xl bg-white w-3/4 p-5 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full scrollbar-track-rounded-full ">
               {emotionInCompany.length !== 0 ? (
                 emotionInCompany.map((item: any, i: number) => (
-                  <RecordItem id={`record ${i}`} key={i} item={item} />
+                  <RecordItem showDate key={i} item={item} />
                 ))
               ) : (
                 <h1 className="text-center opacity-50 text-xl mt-5">

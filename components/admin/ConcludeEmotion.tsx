@@ -6,7 +6,7 @@ interface Props {
 }
 
 const ConcludeEmotion: FC<Props> = (props) => {
-    console.log(props)
+
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-lg text-center">

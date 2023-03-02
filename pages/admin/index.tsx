@@ -49,6 +49,7 @@ export default function Admin() {
     });
   };
 
+  
   useEffect(() => {
     const data = getUser();
     data.then((item) => {
@@ -57,14 +58,14 @@ export default function Admin() {
     const auth = getAuth();
     setTimeout(() => {
       if (!auth.currentUser) {
-        router.push('/admin/login')
+        router.push("/admin/login");
       }
-    },500)
+    }, 500);
   }, [auth.currentUser, getUser, router]);
 
   if (auth.currentUser?.uid) {
     getAdminId(auth.currentUser?.uid);
-  } 
+  }
 
   return (
     <div className="flex bg-gray-100 w-screen">
@@ -74,7 +75,6 @@ export default function Admin() {
       <AdminNavber />
       <div className="p-8 w-[80%]">
         <h1 className="text-3xl text-center">จัดการพนักงาน</h1>
-       
 
         <div className="bg-white rounded-xl mt-8 ">
           {user.map((employee: any) => {
