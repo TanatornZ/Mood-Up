@@ -50,7 +50,7 @@ function PercentChart() {
   return (
     <div className="flex flex-col justify-center items-center">
       <DoughnutChart data={chartData} size={32} />
-      <h1 className="text-md text-center -mt-2"> ระดับอารมณ์โดยเฉลี่ย : 2</h1>
+      <h1 className="text-sm">อัตราส่วนการบันทึก</h1>
     </div>
   );
 }

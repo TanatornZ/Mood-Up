@@ -5,7 +5,7 @@ interface Props {
 }
 const FromCard: FC<Props> = ({ children }) => {
   return (
-    <div className=" w-64 justify-center items-center p-5 bg-white rounded-xl">
+    <div className=" w-64 h-52 flex flex-col justify-center items-center p-5 bg-white rounded-xl">
       {children}
     </div>
   );

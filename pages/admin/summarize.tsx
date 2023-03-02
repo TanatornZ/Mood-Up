@@ -76,7 +76,7 @@ function Summarize() {
           )}
         </div>
 
-        <div className="flex mt-5 justify-between">
+        <div className="flex  mt-5 justify-between  items-center">
           <FromCard>
             <ConcludeEmotion emotion={3} />
           </FromCard>
@@ -91,8 +91,9 @@ function Summarize() {
           </FromCard>
         </div>
 
-        <div className="h-[55%] mt-5">
-            <div className="bg-white h-full"></div>
+        <div className="h-[55%] mt-5 flex justify-between">
+          <div className="w-[32%] h-full bg-white rounded-xl"></div>
+          <div className="w-[65%] h-full bg-white rounded-xl" ></div>
         </div>
       </div>
     </div>

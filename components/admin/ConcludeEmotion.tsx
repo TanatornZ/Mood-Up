@@ -9,7 +9,7 @@ const ConcludeEmotion: FC<Props> = (props) => {
     console.log(props)
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className="text-md text-center">
+      <h1 className="text-lg text-center">
         อารมณ์ของพนักงานเฉลี่ยอยู่ในระดับ : {props.emotion}
       </h1>
       <div className="relative w-24 h-24 mt-5 ">

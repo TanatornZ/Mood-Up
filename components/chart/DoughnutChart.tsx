@@ -15,7 +15,7 @@ const DoughnutChart: FC<Props> = (props): JSX.Element => {
   return (
     <div className={`w-${props.size} h-${props.size} relative my-5`}>
       <Doughnut
-        plugins={[ChartDataLabels]}
+        // plugins={[ChartDataLabels]}
         options={{
           plugins: {
             legend: {
