@@ -24,7 +24,7 @@ function Record() {
       <h1 className="text-center text-xl font-bold">ประวัติการบันทึก</h1>
       {emotion
         ? emotion.map((item: any, i: number) => (
-            <RecordItem key={i} item={item} />
+            <RecordItem key={i} item={item} showDate />
           ))
         : "test2"}
     </div>

@@ -8,9 +8,40 @@ import { useRouter } from "next/router";
 import { setUser } from "../store/user-slice";
 import { emotion } from "../interface/interface";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
-import { findAvrEmotion } from "../utils/getEmotionInCompany";
-import RecordDay from "../components/RecordDay";
+import { findAvrEmotion, splitSliceDate } from "../utils/getEmotionInCompany";
+
 import { RootState } from "../store";
+
+import FullCalendar from "@fullcalendar/react"; // must go before plugins
+import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import styled from "@emotion/styled";
+
+export const StlyeWrapper = styled.div`
+  .fc .fc-toolbar-title {
+    font-size: 1.5em;
+  }
+  .fc-daygrid-block-event .fc-event-time,
+  .fc-daygrid-block-event .fc-event-title {
+    padding: 1px;
+    font-size: 20px;
+    color: black;
+  }
+  .fc-h-event {
+    background-color: inherit;
+    border: none;
+    display: block;
+  }
+  .fc-h-event .fc-event-main-frame {
+    display: flex;
+    justify-content: center;
+  }
+  .fc-h-event .fc-event-title-container {
+    flex-grow: 0;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+`;
+
 export default function Home() {
   const lineAuth = useSelector((state: RootState) => state.auth);
   const router = useRouter();
@@ -81,6 +112,46 @@ export default function Home() {
     fetchData();
   }, [dispatch, lineAuth.userId]);
 
+  const convertEmotionToCalendar = (EmotionArray: emotion[]) => {
+    const ArrayforCalendar: { emotion: number; date: String }[] = [];
+    const Day: any = [];
+
+    const result: any = [];
+    EmotionArray.map((emotion) => {
+      let ed = new Date(emotion.date.seconds * 1000);
+      let date = splitSliceDate(ed);
+
+      ArrayforCalendar.push({
+        emotion: emotion.emotion,
+        date: date,
+      });
+    });
+
+    ArrayforCalendar.map((item) => {
+      Day.push(item.date);
+    });
+    const AllDay = [...new Set(Day)];
+
+    AllDay.map((day) => {
+      let emotion = 0;
+      for (let i in ArrayforCalendar) {
+        if (ArrayforCalendar[i].date === day) {
+          if (emotion === 0) {
+            emotion = ArrayforCalendar[i].emotion;
+          } else {
+            emotion = Math.ceil((emotion + ArrayforCalendar[i].emotion) / 2);
+          }
+        }
+      }
+
+      result.push({ date: day, title: emotion });
+    });
+
+    return result;
+  };
+
+  let calandarData = convertEmotionToCalendar(emotion);
+
   if (lineAuth.userId !== "") {
     checkUserRegister(lineAuth.userId);
   }
@@ -104,7 +175,20 @@ export default function Home() {
         </p>
       </div>
 
-      <RecordDay />
+      <div className="mt-5 h-full">
+        <h1 className="text-xl text-center font-semibold my-5">
+          การบันทึกระดับอารมณ์
+        </h1>
+        <StlyeWrapper>
+          <FullCalendar
+            height={600}
+            locale={"th"}
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
+            events={calandarData}
+          />
+        </StlyeWrapper>
+      </div>
     </div>
   );
 }
