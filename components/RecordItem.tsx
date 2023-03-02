@@ -1,11 +1,12 @@
-import { deleteDoc, doc } from "firebase/firestore";
 import Image from "next/image";
 import React, { FC, useEffect } from "react";
-import { db } from "../firebase/firebaseConfig";
-import { emotion } from "../interface/interface";
 
-const RecordItem: FC<any> = ({ item }) => {
-  const date = item.date.toDate();
+interface Props {
+  item: any;
+  showDate: boolean;
+}
+const RecordItem: FC<Props> = (props) => {
+  const date = props.item.date.toDate();
 
   const thaiDate = date.toLocaleDateString("th-TH", {
     year: "numeric",
@@ -15,22 +16,22 @@ const RecordItem: FC<any> = ({ item }) => {
   });
 
   return (
-    <div className=" rounded-xl  mt-5 bg-white flex items-center justify-between p-2 drop-shadow-md">
+    <div className=" rounded-xl  mt-5 bg-white flex items-center justify-between p-3 drop-shadow-md">
       <div className="relative h-12 w-12 ml-2">
         <Image
-          src={`/images/emotion/${item.emotion}.png`}
+          src={`/images/emotion/${props.item.emotion}.png`}
           alt="emotion"
           layout="fill"
         />
       </div>
       <div className="grow p-3">
-        <p className="text-md font-bold">{thaiDate}</p>
+        {props.showDate ? <p className="text-md font-bold">{thaiDate}</p> : ""}
 
         <p>
-          อารมณ์ : <span className="font-semibold">{item.emotion}</span>
+          อารมณ์ : <span className="font-bold ">{props.item.emotion}</span>
         </p>
 
-        {item.comment && <p>{item.comment}</p>}
+        {props.item.comment && <p>{props.item.comment}</p>}
       </div>
     </div>
   );

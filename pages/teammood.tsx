@@ -123,7 +123,7 @@ const TeamMood = () => {
           <h1 className="text-center text-2xl my-4">การบันทึก</h1>
           {emotionInCompany.length !== 0 ? (
             emotionInCompany.map((item: any, i: number) => (
-              <RecordItem id={`record ${i}`} key={i} item={item} />
+              <RecordItem  key={i} item={item} showDate={false}/>
             ))
           ) : (
             <h1 className="text-center opacity-50">ไม่มีการบันทึก</h1>

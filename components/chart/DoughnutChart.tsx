@@ -11,10 +11,11 @@ interface Props {
 const DoughnutChart: FC<Props> = (props): JSX.Element => {
   const chartData = props.data;
 
+ 
   return (
     <div className={`w-${props.size} h-${props.size} relative my-5`}>
       <Doughnut
-        plugins={[ChartDataLabels]}
+        // plugins={[ChartDataLabels]}
         options={{
           plugins: {
             legend: {
