@@ -21,6 +21,8 @@ import {
 } from "../utils/getEmotionInCompany";
 import { RootState } from "../store";
 import { emotion } from "../interface/interface";
+import ReasonIntoEmotion from "../components/admin/ReasonIntoEmotion";
+import CountEmotion from "../components/CountEmotion";
 
 const TeamMood = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -56,6 +58,8 @@ const TeamMood = () => {
     day: "numeric",
     weekday: "long",
   });
+
+  console.log(chartData);
 
   return (
     <div>
@@ -119,15 +123,11 @@ const TeamMood = () => {
           </div>
         </div>
 
-        <div className="">
-          <h1 className="text-center text-2xl my-4">การบันทึก</h1>
-          {emotionInCompany.length !== 0 ? (
-            emotionInCompany.map((item: any, i: number) => (
-              <RecordItem  key={i} item={item} showDate={true}/>
-            ))
-          ) : (
-            <h1 className="text-center opacity-50">ไม่มีการบันทึก</h1>
-          )}
+        <div className="mt-5">
+          <CountEmotion emotion={chartData} />
+          
+          <div className="mt-4"></div>
+          <ReasonIntoEmotion width={100} emotion={emotionInCompany} />
         </div>
       </div>
     </div>

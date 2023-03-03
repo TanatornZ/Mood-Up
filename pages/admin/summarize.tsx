@@ -199,7 +199,7 @@ function Summarize() {
               </FromCard>
             </div>
             <div className="h-[55%] mt-5 flex justify-between ">
-              <ReasonIntoEmotion emotion={emotionInCompany} />
+              <ReasonIntoEmotion emotion={emotionInCompany} width={35}/>
               <div className="w-[60%]  min-h-fit bg-white rounded-xl ">
                 <HorizontalChart chartData={chartData} />
               </div>
