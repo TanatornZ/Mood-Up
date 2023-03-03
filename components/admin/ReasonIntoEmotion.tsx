@@ -5,21 +5,24 @@ import { BsTypeH1 } from "react-icons/bs";
 
 type Props = {
   emotion: emotion[];
+  width: number;
 };
 
 const ReasonIntoEmotion = (props: Props) => {
   let checkComment = props.emotion.filter((item) => item.comment);
 
-
   return (
-    <div className="w-[35%] h-full overflow-auto scrollbar-thin scrollbar-thumb-gray-300  bg-white rounded-xl p-5 scrollbar-thumb-rounded-full scrollbar-track-rounded-full shadow-md">
+    <div
+      className={`w-[${props.width}%] h-full overflow-auto scrollbar-thin scrollbar-thumb-gray-300  bg-white rounded-xl p-5 scrollbar-thumb-rounded-full scrollbar-track-rounded-full shadow-md`}
+    >
       <h1 className="text-xl text-center">เหตุผลที่ทำให้เกิดอารมณ์</h1>
       <table className="border w-full text-center mt-3 p-3 ">
-      {checkComment.length!== 0 && 
-        <tr>
-          <th>อารมณ์</th>
-          <th>เหตุผล</th>
-        </tr>}
+        {checkComment.length !== 0 && (
+          <tr>
+            <th>อารมณ์</th>
+            <th>เหตุผล</th>
+          </tr>
+        )}
 
         {checkComment.length !== 0 ? (
           props.emotion.map((emotion) => {
