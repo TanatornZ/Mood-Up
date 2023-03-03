@@ -22,7 +22,6 @@ import { emotion } from "../../interface/interface";
 
 import { makeChartData } from "../../utils/makeChartData";
 
-
 function Summarize() {
   const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
   const [allUser, setAllUser] = useState<number>();
@@ -35,7 +34,7 @@ function Summarize() {
   const [day, setDay] = useState(splitDate(new Date()));
   const [month, setMonth] = useState(getMonth(new Date()));
   const [typeShow, setTypeShow] = useState<string>("All");
-  const monthRef = useRef(null);
+  const monthRef = useRef<HTMLInputElement | null>(null);
   const dayRef = useRef(null);
 
   const getAllUserInCompany = async (company_id: string) => {
@@ -94,7 +93,6 @@ function Summarize() {
       setAllUser(user);
     };
     fecthUser();
-    
   }, [typeShow, day, month]);
 
   const findUserRecord = (emotionArray: emotion[]) => {

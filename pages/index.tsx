@@ -18,7 +18,7 @@ import styled from "@emotion/styled";
 
 export const StlyeWrapper = styled.div`
   .fc .fc-toolbar-title {
-    font-size: 1.5em;
+    font-size: 1.25em;
   }
   .fc-daygrid-block-event .fc-event-time,
   .fc-daygrid-block-event .fc-event-title {
@@ -177,7 +177,7 @@ export default function Home() {
 
       <div className="mt-5 h-full">
         <h1 className="text-xl text-center font-semibold my-5">
-          การบันทึกระดับอารมณ์
+          ระดับอารมณ์เฉลี่ยในแต่ละวัน
         </h1>
         <StlyeWrapper>
           <FullCalendar
