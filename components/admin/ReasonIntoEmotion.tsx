@@ -41,7 +41,7 @@ const ReasonIntoEmotion = (props: Props) => {
             }
           })
         ) : (
-          <h1 className="text-xl">ไม่มีการบันทึก</h1>
+          <h1 className="text-xl">ไม่มีการบันทึกเหตุผล</h1>
         )}
       </table>
     </div>

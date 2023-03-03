@@ -18,7 +18,7 @@ const SlidingBar = () => {
 
   return (
     <div
-      className={`bg-secondary w-7/12 h-screen absolute top-0 transition-all duration-300	 ${
+      className={`bg-secondary w-8/12 h-screen absolute top-0 transition-all duration-300	 ${
         isOpen ? "right-0" : " right-[-100%]"
       } p-5 items-center flex flex-col text-dark `}
     >
@@ -38,7 +38,7 @@ const SlidingBar = () => {
         </div>
         <h1 className="text-xl p-5 mb-5 font-bold">{user.firstName}</h1>
       </div>
-      <ul className="leading-[5em] text-center text-md">
+      <ul className="leading-[5em] text-center text-sm">
         <li>
           <Link href={"/"}>ผลสุปการบันทึก</Link>
         </li>
