@@ -38,7 +38,7 @@ const SlidingBar = () => {
         </div>
         <h1 className="text-xl p-5 mb-5 font-bold">{user.firstName}</h1>
       </div>
-      <ul className="leading-[5em] text-center text-sm">
+      <ul className="leading-[5em] text-center text-md">
         <li>
           <Link href={"/"}>ผลสุปการบันทึก</Link>
         </li>
