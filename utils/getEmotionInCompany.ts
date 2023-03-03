@@ -56,6 +56,10 @@ export const splitDate = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
 
+export const splitSliceDate = (date: Date) => {
+  return date.toISOString().slice(0,10);
+};
+
 export const findAvrEmotion = (emotionArray: emotion[]) => {
   let sumEmotion = emotionArray.reduce(function (prev, curr) {
     return prev + curr.emotion;
@@ -65,5 +69,5 @@ export const findAvrEmotion = (emotionArray: emotion[]) => {
     return sumEmotion / emotionArray?.length;
   };
 
-  return Math.floor(getAvr());
+  return Math.ceil(getAvr());
 };
