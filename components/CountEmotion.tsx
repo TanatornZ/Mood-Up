@@ -6,7 +6,7 @@ type Props = {
 };
 
 const CountEmotion = (props: Props) => {
-  let emotions = props.emotion.reverse();
+  let emotions = props.emotion;
 
   console.log(emotions);
   return (

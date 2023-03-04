@@ -1,5 +1,3 @@
-import { DocumentData } from "firebase/firestore";
-
 export interface employee {
   accept_company: boolean;
   company_id: string;

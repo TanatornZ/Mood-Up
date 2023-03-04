@@ -41,8 +41,11 @@ function Summarize() {
     const querySnapshot = await getDocs(collection(db, "user"));
     let totalUser: number = 0;
     querySnapshot.forEach((doc) => {
+      console.log(doc.data());
       if (doc.data().company_id === company_id) {
-        totalUser += 1;
+        if (doc.data().accept_company) {
+          totalUser += 1;
+        }
       }
     });
     return totalUser;
@@ -199,7 +202,9 @@ function Summarize() {
               </FromCard>
             </div>
             <div className="h-[55%] mt-5 flex justify-between ">
-              <ReasonIntoEmotion emotion={emotionInCompany} width={35}/>
+              <div className="w-[35%]">
+                <ReasonIntoEmotion emotion={emotionInCompany} />
+              </div>
               <div className="w-[60%]  min-h-fit bg-white rounded-xl ">
                 <HorizontalChart chartData={chartData} />
               </div>
