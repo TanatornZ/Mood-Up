@@ -2,15 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 import { RootState } from "../store";
-
-interface SlidingBarType {
-  showSlide: boolean;
-  setShowSlide: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
 
 const SlidingBar = () => {
   const { isOpen, closeMenu } = useContext<MenuSlide>(MenuSlideContext);

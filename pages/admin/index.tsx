@@ -15,7 +15,7 @@ import AdminNavber from "../../components/admin/AdminNavber";
 import EmployeeList from "../../components/admin/EmployeeList";
 import PopupAccept from "../../components/admin/PopupAccept";
 import { db } from "../../firebase/firebaseConfig";
-import { employee, employeeNid } from "../../interface/interface";
+import { employee, employeeNid } from "../../interface/employyee";
 import { RootState } from "../../store";
 import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
 

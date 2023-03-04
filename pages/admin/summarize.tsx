@@ -18,7 +18,7 @@ import {
 import HorizontalChart from "../../components/admin/HorizontalChart";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
-import { emotion } from "../../interface/interface";
+import { emotion } from "../../interface/emotion";
 
 import { makeChartData } from "../../utils/makeChartData";
 
@@ -107,15 +107,11 @@ function Summarize() {
 
   function format(inputDate: Date) {
     let date, month, year;
-
     date = inputDate.getDate();
     month = inputDate.getMonth() + 1;
     year = inputDate.getFullYear();
-
     date = date.toString().padStart(2, "0");
-
     month = month.toString().padStart(2, "0");
-
     return `${date}/${month}/${year}`;
   }
 

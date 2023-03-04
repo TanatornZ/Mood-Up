@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { emotion } from "../../interface/interface";
+import { emotion } from "../../interface/emotion";
 import { BsTypeH1 } from "react-icons/bs";
 
 type Props = {

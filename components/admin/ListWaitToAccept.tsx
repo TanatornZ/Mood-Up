@@ -3,7 +3,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { db } from "../../firebase/firebaseConfig";
-import { employee } from "../../interface/interface";
+import { employee } from "../../interface/employyee";
 
 interface Props {
   information: employee;

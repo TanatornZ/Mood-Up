@@ -1,5 +1,5 @@
 import React from "react";
-import { employee } from "../../interface/interface";
+import { employee } from "../../interface/employyee";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { toast } from "react-hot-toast";

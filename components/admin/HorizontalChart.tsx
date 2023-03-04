@@ -11,15 +11,12 @@ import {
   Title,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { ChartType } from "../../interface/chart";
 type Props = {
   chartData: any;
 };
 
-interface ChartData {
-  emotion : string 
-  count: number
-  color: string
-}
+
 
 const HorizontalChart = (props: Props) => {
   ChartJS.register(
@@ -42,12 +39,12 @@ const HorizontalChart = (props: Props) => {
             },
           }}
           data={{
-            labels: chartData.map((data: ChartData) => "ระดับอารมณ์ " + data.emotion),
+            labels: chartData.map((data: ChartType) => "ระดับอารมณ์ " + data.emotion),
             datasets: [
               {
                 label: "amount",
-                data: chartData.map((data: ChartData) => data.count),
-                backgroundColor: chartData.map((data: ChartData) => data.color),
+                data: chartData.map((data: ChartType) => data.count),
+                backgroundColor: chartData.map((data: ChartType) => data.color),
               },
             ],
           }}
