@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import RecordItem from "../components/RecordItem";
+
 import { addEmotion, makeChartData } from "../utils/makeChartData";
 import DoughnutChart from "../components/chart/DoughnutChart";
 import {
@@ -20,9 +20,10 @@ import {
   getUserInCompany,
 } from "../utils/getEmotionInCompany";
 import { RootState } from "../store";
-import { emotion } from "../interface/interface";
+import { emotion } from "../interface/emotion";
 import ReasonIntoEmotion from "../components/admin/ReasonIntoEmotion";
 import CountEmotion from "../components/CountEmotion";
+import { ChartType } from "../interface/chart";
 
 const TeamMood = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -50,7 +51,7 @@ const TeamMood = () => {
     getUser();
   }, [user.companyId, date]);
 
-  const chartData = makeChartData(emotionInCompany);
+  const chartData: any[] = makeChartData(emotionInCompany);
 
   const thaiDate = date.toLocaleDateString("th-TH", {
     year: "numeric",
@@ -58,8 +59,6 @@ const TeamMood = () => {
     day: "numeric",
     weekday: "long",
   });
-
-  console.log(chartData);
 
   return (
     <div>
@@ -125,9 +124,9 @@ const TeamMood = () => {
 
         <div className="mt-5">
           <CountEmotion emotion={chartData} />
-          
+
           <div className="mt-4"></div>
-          <ReasonIntoEmotion width={100} emotion={emotionInCompany} />
+          <ReasonIntoEmotion emotion={emotionInCompany} />
         </div>
       </div>
     </div>

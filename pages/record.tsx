@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import RecordItem from "../components/RecordItem";
-import { emotion } from "../interface/interface";
+import { emotion } from "../interface/emotion";
 import { RootState } from "../store";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
 

@@ -10,9 +10,10 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
+import { ChartType } from "../../interface/chart";
 
 type Props = {
-  chartData: any;
+  chartData: ChartType[];
 };
 function PercentChart(props: Props) {
   ChartJS.register(
@@ -24,7 +25,7 @@ function PercentChart(props: Props) {
     Tooltip,
     Legend
   );
-  
+
   return (
     <div className="flex flex-col justify-center items-center">
       <DoughnutChart data={props.chartData} size={32} />

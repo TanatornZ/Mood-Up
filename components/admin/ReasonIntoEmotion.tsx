@@ -1,31 +1,57 @@
 import Image from "next/image";
-import React from "react";
-import { emotion } from "../../interface/interface";
+import React, { useEffect, useState } from "react";
+import { emotion } from "../../interface/emotion";
 import { BsTypeH1 } from "react-icons/bs";
 
 type Props = {
   emotion: emotion[];
-  width: number;
 };
 
 const ReasonIntoEmotion = (props: Props) => {
-  let checkComment = props.emotion.filter((item) => item.comment);
+  const [emotionHaveComment, setEmotionHaveComment] = useState<emotion[]>([]);
+
+  const sortingByEmotion = (arrayEmotionHaveComment: emotion[]) => {
+    let result = [];
+    for (let i in arrayEmotionHaveComment) {
+      result.push(arrayEmotionHaveComment[i]);
+    }
+
+    result.sort((a, b) => {
+      return a.emotion - b.emotion;
+    });
+
+    return result;
+  };
+
+  useEffect(() => {
+    let ignore = false;
+    setEmotionHaveComment([]);
+    if (!ignore) {
+      let checkComment = props.emotion.filter((item) => item.comment);
+      let commentEmotion = sortingByEmotion(checkComment);
+      setEmotionHaveComment(commentEmotion);
+    }
+
+    return () => {
+      ignore = true;
+    };
+  }, [props.emotion]);
 
   return (
     <div
-      className={`w-[${props.width}%] h-full overflow-auto scrollbar-thin scrollbar-thumb-gray-300  bg-white rounded-xl p-5 scrollbar-thumb-rounded-full scrollbar-track-rounded-full shadow-md`}
+      className={`w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-gray-300  bg-white rounded-xl p-5 scrollbar-thumb-rounded-full scrollbar-track-rounded-full shadow-md`}
     >
       <h1 className="text-xl text-center">เหตุผลที่ทำให้เกิดอารมณ์</h1>
       <table className="border w-full text-center mt-3 p-3 ">
-        {checkComment.length !== 0 && (
+        {emotionHaveComment.length !== 0 && (
           <tr>
             <th>อารมณ์</th>
             <th>เหตุผล</th>
           </tr>
         )}
 
-        {checkComment.length !== 0 ? (
-          props.emotion.map((emotion) => {
+        {emotionHaveComment.length !== 0 ? (
+          emotionHaveComment.map((emotion) => {
             if (emotion.comment) {
               return (
                 <tr className="p-5 " key={emotion.comment + emotion.line_id}>

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import { MenuSlide, MenuSlideContext } from "../context/MenuSlideProvider";
-import Navbar from "./Navbar";
+
+import Navbar from "../Navbar";
+import { MenuSlide, MenuSlideContext } from "../../context/MenuSlideProvider";
 
 type layoutProp = {
   children: React.ReactNode;

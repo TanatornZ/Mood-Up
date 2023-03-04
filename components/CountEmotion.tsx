@@ -1,14 +1,14 @@
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
+import { ChartType } from "../interface/chart";
 
 type Props = {
-  emotion: any[];
+  emotion: ChartType[];
 };
 
-const CountEmotion = (props: Props) => {
-  let emotions = props.emotion.reverse();
+const CountEmotion: FC<Props> = (props) => {
+  let emotions = props.emotion;
 
-  console.log(emotions);
   return (
     <div>
       <h1 className="text-xl font-semibold text-center">จำนวนการบันทึก</h1>
@@ -16,7 +16,11 @@ const CountEmotion = (props: Props) => {
         {emotions.length
           ? emotions.map((emotion) => (
               <div className="" key={emotion.id}>
-                <div className={`relative w-12 h-12 ${emotion.count !== 0 ? '' : "opacity-50"}`}>
+                <div
+                  className={`relative w-12 h-12 ${
+                    emotion.count !== 0 ? "" : "opacity-50"
+                  }`}
+                >
                   <Image
                     src={`/images/emotion/${emotion.emotion}.png`}
                     layout="fill"

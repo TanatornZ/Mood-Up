@@ -6,12 +6,10 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useRouter } from "next/router";
 import { setUser } from "../store/user-slice";
-import { emotion } from "../interface/interface";
+import { emotion } from "../interface/emotion";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
 import { findAvrEmotion, splitSliceDate } from "../utils/getEmotionInCompany";
-
 import { RootState } from "../store";
-
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import styled from "@emotion/styled";
@@ -114,9 +112,9 @@ export default function Home() {
 
   const convertEmotionToCalendar = (EmotionArray: emotion[]) => {
     const ArrayforCalendar: { emotion: number; date: String }[] = [];
-    const Day: any = [];
+    const Day: String[] = [];
 
-    const result: any = [];
+    const result: { date: String; title: number }[] = [];
     EmotionArray.map((emotion) => {
       let ed = new Date(emotion.date.seconds * 1000);
       let date = splitSliceDate(ed);
@@ -150,7 +148,7 @@ export default function Home() {
     return result;
   };
 
-  let calandarData = convertEmotionToCalendar(emotion);
+  let calandarData: { date: String; title: number }[] = convertEmotionToCalendar(emotion);
 
   if (lineAuth.userId !== "") {
     checkUserRegister(lineAuth.userId);

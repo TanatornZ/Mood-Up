@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebaseConfig";
-import { employee, employeeNid } from "../../interface/interface";
+import { employee, employeeNid } from "../../interface/employyee";
 import ListWaitToAccept from "./ListWaitToAccept";
 
 
