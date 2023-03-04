@@ -49,7 +49,6 @@ export default function Admin() {
     });
   };
 
-  
   useEffect(() => {
     const data = getUser();
     data.then((item) => {
@@ -66,6 +65,12 @@ export default function Admin() {
   if (auth.currentUser?.uid) {
     getAdminId(auth.currentUser?.uid);
   }
+
+  const unAcceptUser = user.filter(
+    (u) => u.information.accept_company === false
+  );
+
+  console.log("un user ", unAcceptUser);
 
   return (
     <div className="flex bg-gray-100 w-screen">
@@ -96,9 +101,11 @@ export default function Admin() {
         onClick={() => setShowAccept(!showAccept)}
       >
         <AiOutlineBell size={40} />
-        <div className="bg-red-600 rounded-full w-5 h-5 absolute top-0 right-[-0.2em]">
-          <h1 className="text-center text-sm text-white">!</h1>
-        </div>
+        {unAcceptUser.length !== 0 && (
+          <div className="bg-red-600 rounded-full w-5 h-5 absolute top-0 right-[-0.2em]">
+            <h1 className="text-center text-sm text-white">!</h1>
+          </div>
+        )}
       </div>
 
       <PopupAccept showAccept={showAccept} user={user} />
