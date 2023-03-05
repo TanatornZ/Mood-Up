@@ -1,9 +1,7 @@
-import { collection, doc, DocumentData, getDocs } from "firebase/firestore";
+
 import React, { useCallback, useEffect, useState } from "react";
-import { AiFillCheckCircle } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import { db } from "../../firebase/firebaseConfig";
-import { employee, employeeNid } from "../../interface/employyee";
+
+import {  employeeNid } from "../../interface/employyee";
 import ListWaitToAccept from "./ListWaitToAccept";
 
 
