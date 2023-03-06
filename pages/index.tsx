@@ -60,6 +60,7 @@ export default function Home() {
             userId: doc.id,
             companyId: doc.data().company_id,
             pictureUrl: doc.data().pictureUrl,
+            accept_company: doc.data().accept_company,
           })
         );
         registered = true;

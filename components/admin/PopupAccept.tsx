@@ -1,6 +1,4 @@
-
 import React, { useCallback, useEffect, useState } from "react";
-
 import {  employeeNid } from "../../interface/employyee";
 import ListWaitToAccept from "./ListWaitToAccept";
 

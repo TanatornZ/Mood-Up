@@ -4,7 +4,7 @@ import AdminNavber from "../../components/admin/AdminNavber";
 import CheckEmployee from "../../components/admin/CheckEmployee";
 import ConcludeEmotion from "../../components/admin/ConcludeEmotion";
 import FromCard from "../../components/admin/FromCard";
-import PercentChart from "../../components/admin/PercentChart";
+import PercentChart from "../../components/chart/PercentChart";
 import ReasonIntoEmotion from "../../components/admin/ReasonIntoEmotion";
 import TotalRecord from "../../components/admin/TotalRecord";
 import { RootState } from "../../store";
@@ -15,7 +15,7 @@ import {
   getUserInCompany,
   splitDate,
 } from "../../utils/getEmotionInCompany";
-import HorizontalChart from "../../components/admin/HorizontalChart";
+import HorizontalChart from "../../components/chart/HorizontalChart";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { emotion } from "../../interface/emotion";

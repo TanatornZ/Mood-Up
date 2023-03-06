@@ -9,12 +9,15 @@ import TextField from "../components/inputField/TextField";
 import { db } from "../firebase/firebaseConfig";
 import { RootState } from "../store";
 import { setUser } from "../store/user-slice";
+import { setLineUser } from "../store/auth-slice";
 
 interface Company {
   id: string;
   name: string;
 }
 function Register() {
+
+  
   const lineAuth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [error, setError] = useState("");

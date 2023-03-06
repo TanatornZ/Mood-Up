@@ -1,6 +1,6 @@
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { emotion } from "../interface/interface";
+import { emotion } from "../interface/emotion";
 
 export const makeChartData = (emotionArray: emotion[]) => {
   let data = [
