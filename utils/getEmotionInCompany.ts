@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { emotion } from "../interface/interface";
+import { emotion } from "../interface/emotion";
 
 export const getUserInCompany = async (companyId: string) => {
   const querySnapshot = await getDocs(collection(db, "user"));

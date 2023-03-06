@@ -1,5 +1,5 @@
 import React from "react";
-import DoughnutChart from "../chart/DoughnutChart";
+import DoughnutChart from "./DoughnutChart";
 import {
   Chart as ChartJS,
   ArcElement,

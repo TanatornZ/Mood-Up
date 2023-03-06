@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { addEmotion, makeChartData } from "../utils/makeChartData";
@@ -51,6 +51,8 @@ const TeamMood = () => {
     getUser();
   }, [user.companyId, date]);
 
+  console.log(user)
+
   const chartData: any[] = makeChartData(emotionInCompany);
 
   const thaiDate = date.toLocaleDateString("th-TH", {
@@ -59,6 +61,10 @@ const TeamMood = () => {
     day: "numeric",
     weekday: "long",
   });
+
+  if (!user.accept_company) {
+    return <h1 className="text-xl text-center">รอการยืนยันจากผู้ดูแลองค์กร</h1>
+  }
 
   return (
     <div>
