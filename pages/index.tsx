@@ -75,7 +75,7 @@ export default function Home() {
   useEffect(() => {
     import("@line/liff").then((liff) => {
       liff
-        .init({ liffId: "1657785397-LVBe6BkX" })
+        .init({ liffId: "1660709285-D5QggOXl" })
         .then(async () => {
           if (liff.isLoggedIn()) {
             const profile = await liff.getProfile();
