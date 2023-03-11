@@ -51,7 +51,7 @@ const TeamMood = () => {
     getUser();
   }, [user.companyId, date]);
 
-  console.log(user)
+
 
   const chartData: any[] = makeChartData(emotionInCompany);
 

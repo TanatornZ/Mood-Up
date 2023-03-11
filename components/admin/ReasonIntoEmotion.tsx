@@ -63,6 +63,7 @@ const ReasonIntoEmotion = (props: Props) => {
                         alt="emotion for reason"
                       />
                     </div>
+                      <p className="text-sm mt-2  np">ระดับ {emotion.emotion}</p>
                   </td>
                   <td className="truncate  ">{emotion.comment}</td>
                 </tr>

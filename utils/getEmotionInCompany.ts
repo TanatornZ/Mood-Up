@@ -46,7 +46,7 @@ export const getArrayEmotionWithMonth = async (
   return emotionArray;
 };
 
-const splitMonth = (date: Date) => {
+export const splitMonth = (date: Date) => {
   const month = date.toISOString().slice(0, 7);
   return month;
 };

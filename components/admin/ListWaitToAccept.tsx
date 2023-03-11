@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { db } from "../../firebase/firebaseConfig";
 import { employee } from "../../interface/employyee";
+import Popup from "reactjs-popup";
+
 
 interface Props {
   information: employee;
@@ -34,10 +36,37 @@ function ListWaitToAccept(props: Props) {
         <h1>ตำแหน่ง : {information.job_position} </h1>
       </div>
 
-      <AiFillCheckCircle
-        className="w-10 h-10 text-green-500 cursor-pointer hover:text-green-600"
-        onClick={acceptUser}
-      />
+      <Popup
+        trigger={
+          <button className="p-3 bg-green-600 text-center rounded-xl cursor-pointer text-white">
+            ยืนยัน
+          </button>
+        }
+        modal
+      >
+        {(close) => (
+          <div className="rounded-lg bg-white flex flex-col justify-center items-center">
+            <h1 className="text-xl">การตอบรับพนักงาน</h1>
+            <p className="mt-5 text-lg ">
+              ต้องการยืนยันให้{' '}{information.first_name} {information.last_name}{' '}
+              เข้าสู่องค์กรใช่หรือไม่
+            </p>
+            <div className="mt-5" onClick={acceptUser}>
+              <button className="bg-green-500 text-white text-lg p-3 rounded-lg">
+              ยืนยัน
+              </button>
+              <button
+                className="bg-gray-500 ml-5 text-white text-lg p-3 rounded-lg"
+                onClick={() => close()}
+              >
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        )}
+      </Popup>
+
+
     </div>
   );
 }

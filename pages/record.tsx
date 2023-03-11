@@ -4,7 +4,8 @@ import RecordItem from "../components/RecordItem";
 import { emotion } from "../interface/emotion";
 import { RootState } from "../store";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
-
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
 function Record() {
   const [emotion, setEmotion] = useState<emotion[]>([]);
@@ -19,9 +20,12 @@ function Record() {
     fetchData();
   }, [user]);
 
+
   return (
     <div>
-      <h1 className="text-center text-xl font-bold">ประวัติการบันทึก</h1>
+      <h1 className="text-center text-xl font-bold">
+        ประวัติการบันทึก
+      </h1>
       {emotion
         ? emotion.map((item: any, i: number) => (
             <RecordItem key={i} item={item} showDate />
