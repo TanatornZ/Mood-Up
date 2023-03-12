@@ -14,18 +14,17 @@ function Record() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getArrayEmotion(user);
-      setEmotion(data);
+      setEmotion(data.reverse());
     };
 
     fetchData();
   }, [user]);
 
 
+
   return (
     <div>
-      <h1 className="text-center text-xl font-bold">
-        ประวัติการบันทึก
-      </h1>
+      <h1 className="text-center text-xl font-bold">ประวัติการบันทึก</h1>
       {emotion
         ? emotion.map((item: any, i: number) => (
             <RecordItem key={i} item={item} showDate />

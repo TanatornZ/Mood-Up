@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { FC, useEffect } from "react";
 
-
 interface Props {
   item: any;
   showDate: boolean;
@@ -15,6 +14,8 @@ const RecordItem: FC<Props> = (props) => {
     day: "numeric",
     weekday: "long",
   });
+
+  
 
   return (
     <div className=" rounded-xl  mt-5 bg-white flex items-center justify-between p-3 drop-shadow-md">

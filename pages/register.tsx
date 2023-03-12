@@ -16,20 +16,23 @@ interface Company {
   name: string;
 }
 function Register() {
-
-  
   const lineAuth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const [company, setCompany] = useState<Company[]>([]);
 
   const register = async (values: any): Promise<void> => {
+    let position;
+    if (values.Anoter_position) {
+      position = values.Anoter_position;
+    } else {
+      position = values.job;
+    }
     const data = {
       first_name: values.first_name,
       last_name: values.last_name,
       date_of_birth: values.date,
-      job_position: values.job,
-
+      job_position: position,
       line_id: lineAuth.userId,
       company_id: values.company,
       gender: values.gender,
@@ -80,6 +83,7 @@ function Register() {
     "Fullstack developer",
     "Software Engineer",
     "HR",
+    "Anoter",
   ];
 
   useEffect(() => {
@@ -108,7 +112,7 @@ function Register() {
               }}
             >
               <Field name="line_id">
-                {({ input, meta  }) => (
+                {({ input, meta }) => (
                   <TextField
                     name="line_id"
                     key={"line_id"}
@@ -192,6 +196,22 @@ function Register() {
                   );
                 })}
               </Field>
+              {values.job === "Anoter" ? (
+                <Field name="Anoter_position">
+                  {({ input, meta }) => (
+                    <TextField
+                      name="Anoter_position"
+                      key={"Anoter_position"}
+                      label={"โปรดระบุ"}
+                      input={input}
+                      placeholder="โปรดระบุ"
+                      meta={meta}
+                    />
+                  )}
+                </Field>
+              ) : (
+                ""
+              )}
               <p className="mt-4  py-2 px-2 text-xl ">บริษัท</p>
               <Field
                 key={"company"}
