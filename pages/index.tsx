@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { setLineUser } from "../store/auth-slice";
@@ -13,6 +13,7 @@ import { RootState } from "../store";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import styled from "@emotion/styled";
+import AverageEmotion from "../components/AverageEmotion";
 
 export const StlyeWrapper = styled.div`
   .fc .fc-toolbar-title {
@@ -45,7 +46,15 @@ export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+
+  const getMonth = (date: Date) => {
+    return date.toISOString().slice(0, 7);
+  };
+
   const [emotion, setEmotion] = useState<emotion[]>([]);
+  const [month, setMonth] = useState(getMonth(new Date()));
+  const [typeShow, setTypeShow] = useState<string>("All");
+  const monthRef = useRef<HTMLInputElement | null>(null);
 
   const checkUserRegister = async (lineId: string) => {
     const querySnapshot = await getDocs(collection(db, "user"));
@@ -97,7 +106,7 @@ export default function Home() {
 
     // dispatch(
     //   setLineUser({
-    //     userId: "U03b155b3f617330ebe19fd13038964eb",
+    //     userId: "Uba6456fab4bdf32fa052d2c49f9c53cd",
     //     pictureUrl:
     //       "https://profile.line-scdn.net/0hi90K76b8NhYdMiPyUfxIaW1iNXw-Q28EZAQrdn0yPCEkUHVGZlZ_cio2aXZyBCFDNVEqdS40YSQRIUFwA2TKIhoCaCEkBHdJNVZx9g",
     //   })
@@ -149,7 +158,8 @@ export default function Home() {
     return result;
   };
 
-  let calandarData: { date: String; title: number }[] = convertEmotionToCalendar(emotion);
+  let calandarData: { date: String; title: number }[] =
+    convertEmotionToCalendar(emotion);
 
   if (lineAuth.userId !== "") {
     checkUserRegister(lineAuth.userId);
@@ -157,26 +167,47 @@ export default function Home() {
 
   return (
     <div className="">
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-2xl py-3">{`${user.firstName} ${user.lastName}`}</h1>
-        <p className="text-xl ">
-          อารมณ์ของคุณอยู่ในระดับ : {findAvrEmotion(emotion)}
-        </p>
-        <div className="w-32 h-32 relative my-5">
-          <Image
-            src={`/images/emotion/${findAvrEmotion(emotion)}.png`}
-            alt="emotion"
-            layout="fill"
-          />
+      <div className="text-center">
+        <h1 className="text-2xl py-3 text-center">{`${user.firstName} ${user.lastName}`}</h1>
+        <div className=" mr-3">
+          <label htmlFor="job_select ">รูปแบบแสดงระดับอารมณ์</label>
+          <select
+            id="job_select"
+            className="ml-3 bg-white border rounded-lg p-1 "
+            onChange={(e) => setTypeShow(e.target.value)}
+          >
+            <option value="All"> ทั้งหมด </option>
+            <option value="Month"> เดือน </option>
+          </select>
         </div>
-        <p className="text-red-600">
-          *เฉลี่ยจากการบันทึกจำนวน {emotion.length} ครั้ง
-        </p>
+
+        {typeShow === "Month" && (
+          <div
+            className="flex relative justify-center items-center cursor-pointer transition-all mt-3"
+            onChange={() => setMonth(monthRef.current.value)}
+            onClick={() => {
+              monthRef.current.showPicker();
+            }}
+          >
+            <label htmlFor="Month_select">เลือกเดือน</label>
+            <input
+              type="month"
+              className="bg-white rounded-lg ml-3 text-center  opacity-0 cursor-pointer absolute left-0"
+              id="Month_select"
+              name="Month_select"
+              ref={monthRef}
+              value={month}
+            />
+            <h1 className="bg-white p-2 border rounded-lg ml-3">{month}</h1>
+          </div>
+        )}
       </div>
 
-      <div className="mt-5 h-full">
-        <h1 className="text-xl text-center font-semibold my-5">
-          ระดับอารมณ์เฉลี่ยในแต่ละวัน
+      <AverageEmotion showType={typeShow} month={month} />
+
+      <div className="mt-5 h-full p-3 bg-white rounded-lg shadow-lg">
+        <h1 className="text-xl text-center font-semibold mb-3">
+          ปฏิทินระดับอารมณ์เฉลี่ย
         </h1>
         <StlyeWrapper>
           <FullCalendar

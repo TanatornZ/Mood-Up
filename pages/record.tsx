@@ -4,7 +4,8 @@ import RecordItem from "../components/RecordItem";
 import { emotion } from "../interface/emotion";
 import { RootState } from "../store";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
-
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
 function Record() {
   const [emotion, setEmotion] = useState<emotion[]>([]);
@@ -13,11 +14,13 @@ function Record() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getArrayEmotion(user);
-      setEmotion(data);
+      setEmotion(data.reverse());
     };
 
     fetchData();
   }, [user]);
+
+
 
   return (
     <div>

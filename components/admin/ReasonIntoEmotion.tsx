@@ -41,7 +41,9 @@ const ReasonIntoEmotion = (props: Props) => {
     <div
       className={`w-full h-full overflow-auto scrollbar-thin scrollbar-thumb-gray-300  bg-white rounded-xl p-5 scrollbar-thumb-rounded-full scrollbar-track-rounded-full shadow-md`}
     >
-      <h1 className="text-xl text-center">เหตุผลที่ทำให้เกิดอารมณ์</h1>
+      <h1 className="text-xl text-center font-semibold">
+        เหตุผลที่ทำให้เกิดอารมณ์
+      </h1>
       <table className="border w-full text-center mt-3 p-3 ">
         {emotionHaveComment.length !== 0 && (
           <tr>
@@ -63,6 +65,7 @@ const ReasonIntoEmotion = (props: Props) => {
                         alt="emotion for reason"
                       />
                     </div>
+                    <p className="text-sm mt-2  np">ระดับ {emotion.emotion}</p>
                   </td>
                   <td className="truncate  ">{emotion.comment}</td>
                 </tr>
