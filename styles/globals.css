@@ -52,3 +52,8 @@ td {
   border: 1px solid;
   padding: 10px;
 }
+
+.popup-content {
+  width: 20%;
+  border-radius: 1em 1em;
+}

@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import PercentChart from "./chart/PercentChart";
 import { makeChartData } from "../utils/makeChartData";
+import CountEmotion from "./CountEmotion";
+import ReasonIntoEmotion from "./admin/ReasonIntoEmotion";
 
 type Props = {
   showType: string;
@@ -73,9 +75,13 @@ const AverageEmotion = (props: Props) => {
           )}
         </div>
         {emotion?.length != 0 ? (
-          <div className="bg-white p-5 rounded-lg shadow-md">
-            <PercentChart chartData={chartData} />
-          </div>
+          <>
+            <div className="bg-white p-5 rounded-lg shadow-md">
+              <CountEmotion emotion={chartData} />
+            </div>
+            <div className="mt-4"></div>
+            <ReasonIntoEmotion emotion={emotion} />
+          </>
         ) : (
           ""
         )}

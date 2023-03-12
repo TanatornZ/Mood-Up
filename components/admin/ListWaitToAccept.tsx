@@ -6,7 +6,6 @@ import { db } from "../../firebase/firebaseConfig";
 import { employee } from "../../interface/employyee";
 import Popup from "reactjs-popup";
 
-
 interface Props {
   information: employee;
   docId: string;
@@ -45,15 +44,18 @@ function ListWaitToAccept(props: Props) {
         modal
       >
         {(close) => (
-          <div className="rounded-lg bg-white flex flex-col justify-center items-center">
-            <h1 className="text-xl">การตอบรับพนักงาน</h1>
+          <div className="rounded-lg bg-white flex flex-col justify-center items-center my-5">
+            <h1 className="text-2xl font-semibold">การตอบรับพนักงาน</h1>
             <p className="mt-5 text-lg ">
-              ต้องการยืนยันให้{' '}{information.first_name} {information.last_name}{' '}
+              ต้องการยืนยันให้ {information.first_name} {information.last_name}{" "}
               เข้าสู่องค์กรใช่หรือไม่
             </p>
-            <div className="mt-5" onClick={acceptUser}>
-              <button className="bg-green-500 text-white text-lg p-3 rounded-lg">
-              ยืนยัน
+            <div className="mt-5">
+              <button
+                className="bg-green-500 text-white text-lg p-3 rounded-lg"
+                onClick={acceptUser}
+              >
+                ยืนยัน
               </button>
               <button
                 className="bg-gray-500 ml-5 text-white text-lg p-3 rounded-lg"
@@ -65,8 +67,6 @@ function ListWaitToAccept(props: Props) {
           </div>
         )}
       </Popup>
-
-
     </div>
   );
 }

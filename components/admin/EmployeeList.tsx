@@ -5,11 +5,21 @@ import { db } from "../../firebase/firebaseConfig";
 import { toast } from "react-hot-toast";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import styled from "@emotion/styled";
 
 interface Props {
   information: employee;
   docId: string;
 }
+
+//
+
+const StlyeWrapper = styled.div`
+  .popup-content {
+    width: 30%;
+    border-radius: 1em 1em;
+  }
+`;
 
 function EmployeeList(props: Props) {
   const information = props.information;
@@ -34,7 +44,9 @@ function EmployeeList(props: Props) {
         </h1>
         <h1 className="mt-2">position : {information.job_position}</h1>
       </div>
+
       <Popup
+        className="rounded-lg"
         trigger={
           <button className="p-3 bg-red-600 text-center rounded-xl cursor-pointer text-white">
             ลบ
@@ -43,14 +55,17 @@ function EmployeeList(props: Props) {
         modal
       >
         {(close) => (
-          <div className="rounded-lg bg-white flex flex-col justify-center items-center">
-            <h1 className="text-xl">ยืนยันการลบ</h1>
+          <div className="rounded-lg bg-white flex flex-col justify-center items-center my-5">
+            <h1 className="text-2xl font-semibold">ยืนยันการลบ</h1>
             <p className="mt-5 text-lg ">
-              ต้องการลบ{' '}{information.first_name} {information.last_name}{' '}
+              ต้องการลบ {information.first_name} {information.last_name}{" "}
               ออกจากองค์กรใช่หรือไม่
             </p>
-            <div className="mt-5" onClick={deleteUser}>
-              <button className="bg-red-500 text-white text-lg p-3 rounded-lg">
+            <div className="mt-5">
+              <button
+                className="bg-red-500 text-white text-lg p-3 rounded-lg"
+                onClick={deleteUser}
+              >
                 ลบ
               </button>
               <button
