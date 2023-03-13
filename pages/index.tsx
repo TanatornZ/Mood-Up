@@ -89,35 +89,29 @@ export default function Home() {
   };
 
   useEffect(() => {
-    import("@line/liff").then((liff) => {
-      liff
-        .init({ liffId: "1660709285-D5QggOXl" })
-        .then(async () => {
-          if (liff.isLoggedIn()) {
-            const profile = await liff.getProfile();
+    // import("@line/liff").then((liff) => {
+    //   liff
+    //     .init({ liffId: "1660709285-D5QggOXl" })
+    //     .then(async () => {
+    //       if (liff.isLoggedIn()) {
+    //         const profile = await liff.getProfile();
 
-            dispatch(
-              setLineUser({
-                userId: profile.userId as string,
-                pictureUrl: profile.pictureUrl,
-              })
-            );
-          } else {
-            liff.login();
-          }
-        })
-        .catch(() => {
-          console.log("error");
-        });
-    });
+    //         dispatch(
+    //           setLineUser({
+    //             userId: profile.userId as string,
+    //             pictureUrl: profile.pictureUrl,
+    //           })
+    //         );
+    //       } else {
+    //         liff.login();
+    //       }
+    //     })
+    //     .catch(() => {
+    //       console.log("error");
+    //     });
+    // });
 
-    // dispatch(
-    //   setLineUser({
-    //     userId: "Uba6456fab4bdf32fa052d2c49f9c53cd",
-    //     pictureUrl:
-    //       "https://profile.line-scdn.net/0hi90K76b8NhYdMiPyUfxIaW1iNXw-Q28EZAQrdn0yPCEkUHVGZlZ_cio2aXZyBCFDNVEqdS40YSQRIUFwA2TKIhoCaCEkBHdJNVZx9g",
-    //   })
-    // );
+   
 
     const fetchData = async () => {
       const data = await getArrayEmotion(lineAuth.userId);
@@ -168,10 +162,7 @@ export default function Home() {
   let calandarData: { date: String; title: number }[] =
     convertEmotionToCalendar(emotion);
 
-  if (lineAuth.userId !== "") {
-    checkUserRegister(lineAuth.userId);
-  }
-
+ 
   function format(inputDate: Date) {
     let date, month, year;
     date = inputDate.getDate();
