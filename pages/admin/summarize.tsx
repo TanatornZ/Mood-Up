@@ -156,7 +156,7 @@ function Summarize() {
             </div>
           )}
           {typeShow === "Day" && (
-            <div className="flex relative justify-center items-center cursor-pointer">
+            <div className="flex relative justify-center items-center cursor-pointer ">
               <label id="Day_select">เลือกวัน</label>
               <input
                 type="date"

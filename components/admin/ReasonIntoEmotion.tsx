@@ -2,10 +2,13 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { emotion } from "../../interface/emotion";
 import { BsTypeH1 } from "react-icons/bs";
+import styled from "@emotion/styled";
 
 type Props = {
   emotion: emotion[];
 };
+
+
 
 const ReasonIntoEmotion = (props: Props) => {
   const [emotionHaveComment, setEmotionHaveComment] = useState<emotion[]>([]);

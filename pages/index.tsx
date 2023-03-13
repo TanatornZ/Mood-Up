@@ -8,12 +8,17 @@ import { useRouter } from "next/router";
 import { setUser } from "../store/user-slice";
 import { emotion } from "../interface/emotion";
 import { getArrayEmotion } from "../utils/getArrayEmotion";
-import { findAvrEmotion, splitSliceDate } from "../utils/getEmotionInCompany";
+import {
+  findAvrEmotion,
+  splitDate,
+  splitSliceDate,
+} from "../utils/getEmotionInCompany";
 import { RootState } from "../store";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import styled from "@emotion/styled";
 import AverageEmotion from "../components/AverageEmotion";
+import { Toaster } from "react-hot-toast";
 
 export const StlyeWrapper = styled.div`
   .fc .fc-toolbar-title {
@@ -53,6 +58,8 @@ export default function Home() {
 
   const [emotion, setEmotion] = useState<emotion[]>([]);
   const [month, setMonth] = useState(getMonth(new Date()));
+  const [day, setDay] = useState(splitDate(new Date()));
+  const dayRef = useRef(null);
   const [typeShow, setTypeShow] = useState<string>("All");
   const monthRef = useRef<HTMLInputElement | null>(null);
 
@@ -165,8 +172,19 @@ export default function Home() {
     checkUserRegister(lineAuth.userId);
   }
 
+  function format(inputDate: Date) {
+    let date, month, year;
+    date = inputDate.getDate();
+    month = inputDate.getMonth() + 1;
+    year = inputDate.getFullYear();
+    date = date.toString().padStart(2, "0");
+    month = month.toString().padStart(2, "0");
+    return `${date}/${month}/${year}`;
+  }
+
   return (
     <div className="">
+      
       <div className="text-center">
         <h1 className="text-2xl py-3 text-center">{`${user.firstName} ${user.lastName}`}</h1>
         <div className=" mr-3">
@@ -178,6 +196,7 @@ export default function Home() {
           >
             <option value="All"> ทั้งหมด </option>
             <option value="Month"> เดือน </option>
+            <option value="Day"> วัน </option>
           </select>
         </div>
 
@@ -201,9 +220,31 @@ export default function Home() {
             <h1 className="bg-white p-2 border rounded-lg ml-3">{month}</h1>
           </div>
         )}
+
+        {typeShow === "Day" && (
+          <div className="flex relative justify-center items-center cursor-pointer mt-5">
+            <label id="Day_select">เลือกวัน</label>
+            <input
+              type="date"
+              className="bg-white rounded-lg ml-3 text-center absolute opacity-0"
+              id="Day_select"
+              name="Day_select"
+              ref={dayRef}
+              value={day}
+              onClick={() => {
+                dayRef.current.showPicker();
+              }}
+              onChange={() => setDay(dayRef.current.value)}
+            />
+
+            <h1 className="bg-white p-2 border rounded-lg ml-3">
+              {format(new Date(day))}
+            </h1>
+          </div>
+        )}
       </div>
 
-      <AverageEmotion showType={typeShow} month={month} />
+      <AverageEmotion showType={typeShow} month={month} day={day} />
 
       <div className="mt-5 h-full p-3 bg-white rounded-lg shadow-lg">
         <h1 className="text-xl text-center font-semibold mb-3">
