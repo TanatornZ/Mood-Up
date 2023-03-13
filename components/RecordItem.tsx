@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
 import React, { FC, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -24,9 +24,7 @@ const RecordItem: FC<Props> = (props) => {
 
   const deleteEmotion = async () => {
     const docRef = doc(db, "emotion", props.id);
-    await updateDoc(docRef, {
-      accept_company: false,
-    }).then(() => {
+    await deleteDoc(docRef).then(() => {
       toast.error("ลบเรียบร้อย");
       setTimeout(() => {
         window.location.reload();
