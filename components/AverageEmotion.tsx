@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { findAvrEmotion, splitMonth } from "../utils/getEmotionInCompany";
+import {
+  findAvrEmotion,
+  getArrayEmotionWithDate,
+  splitDate,
+  splitMonth,
+} from "../utils/getEmotionInCompany";
 import Image from "next/image";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
@@ -15,12 +20,17 @@ import ReasonIntoEmotion from "./admin/ReasonIntoEmotion";
 type Props = {
   showType: string;
   month: string | null;
+  day: string | null;
 };
 
 const AverageEmotion = (props: Props) => {
   const user = useSelector((state: RootState) => state.auth);
   const [emotion, setEmotion] = useState<emotion[]>();
-  const getArrayEmotionWithMonth = async (lineId: string, month: string) => {
+
+  const getArrayEmotionWithMonthEmployyee = async (
+    lineId: string,
+    month: string
+  ) => {
     const querySnapshot = await getDocs(collection(db, "emotion"));
     const emotionArray: emotion[] = [];
     querySnapshot.forEach((doc) => {
@@ -35,19 +45,48 @@ const AverageEmotion = (props: Props) => {
     return emotionArray;
   };
 
+  const getArrayEmotionWithDateUser = async (line_id: string, date: Date) => {
+    const querySnapshot = await getDocs(collection(db, "emotion"));
+    const emotionArray: emotion[] = [];
+    querySnapshot.forEach((doc) => {
+      if (doc.data().line_id === line_id) {
+        let ed = new Date(doc.data().date.seconds * 1000);
+        console.log("date ", date);
+        console.log("ed ", splitDate(ed));
+        if (splitDate(ed) === date) {
+          emotionArray.push(doc.data() as emotion);
+        }
+      }
+    });
+    return emotionArray;
+  };
+
   useEffect(() => {
     const fecthData = async () => {
-      if (props.showType === "All") {
-        let data = await getArrayEmotion(user.userId);
-        setEmotion(data);
-      } else {
-        let data = await getArrayEmotionWithMonth(user.userId, props.month);
-        setEmotion(data);
+      switch (props.showType) {
+        case "All":
+          let data = await getArrayEmotion(user.userId);
+          setEmotion(data);
+          break;
+        case "Month":
+          let monthdata = await getArrayEmotionWithMonthEmployyee(
+            user.userId,
+            props.month
+          );
+          setEmotion(monthdata);
+          break;
+        case "Day":
+          let Daydata = await getArrayEmotionWithDateUser(
+            user.userId,
+            props.day
+          );
+          setEmotion(Daydata);
+          break;
       }
     };
 
     fecthData();
-  }, [props.showType, props.month, user.userId]);
+  }, [props.showType, props.month, user.userId, props.day]);
 
   if (emotion) {
     const chartData = makeChartData(emotion);
