@@ -18,6 +18,7 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import styled from "@emotion/styled";
 import AverageEmotion from "../components/AverageEmotion";
+import { Toaster } from "react-hot-toast";
 
 export const StlyeWrapper = styled.div`
   .fc .fc-toolbar-title {
@@ -183,6 +184,7 @@ export default function Home() {
 
   return (
     <div className="">
+      
       <div className="text-center">
         <h1 className="text-2xl py-3 text-center">{`${user.firstName} ${user.lastName}`}</h1>
         <div className=" mr-3">

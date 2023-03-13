@@ -14,13 +14,6 @@ interface Props {
 
 //
 
-const StlyeWrapper = styled.div`
-  .popup-content {
-    width: 30%;
-    border-radius: 1em 1em;
-  }
-`;
-
 function EmployeeList(props: Props) {
   const information = props.information;
 
