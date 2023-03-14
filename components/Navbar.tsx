@@ -17,35 +17,29 @@ const Navbar = () => {
   const { openMenu } = useContext<MenuSlide>(MenuSlideContext);
 
   useEffect(() => {
-    // import("@line/liff").then((liff) => {
-    //   liff
-    //     .init({ liffId: "1660709285-D5QggOXl" })
-    //     .then(async () => {
-    //       if (liff.isLoggedIn()) {
-    //         const profile = await liff.getProfile();
+    import("@line/liff").then((liff) => {
+      liff
+        .init({ liffId: "1660709285-D5QggOXl" })
+        .then(async () => {
+          if (liff.isLoggedIn()) {
+            const profile = await liff.getProfile();
 
-    //         dispatch(
-    //           setLineUser({
-    //             userId: profile.userId as string,
-    //             pictureUrl: profile.pictureUrl,
-    //           })
-    //         );
-    //       } else {
-    //         liff.login();
-    //       }
-    //     })
-    //     .catch(() => {
-    //       console.log("error");
-    //     });
-    // });
+            dispatch(
+              setLineUser({
+                userId: profile.userId as string,
+                pictureUrl: profile.pictureUrl,
+              })
+            );
+          } else {
+            liff.login();
+          }
+        })
+        .catch(() => {
+          console.log("error");
+        });
+    });
 
-    dispatch(
-      setLineUser({
-        userId: "Uba6456fab4bdf32fa052d2c49f9c53cd",
-        pictureUrl:
-          "https:/profile.line-scdn.net/0hi90KElhQNhYdMiPyUfxIaW1iNXw-Q28EZAQrdn0yPCEkUHVGZlZ_cio2aXZyBCFDNVEqdS40YSQRIUFwA2TKIhoCaCEnA3dBOVdw9A",
-      })
-    );
+    
   }, []);
 
   const lineAuth = useSelector((state: RootState) => state.auth);
