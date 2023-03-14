@@ -10,6 +10,7 @@ import TotalRecord from "../../components/admin/TotalRecord";
 import { RootState } from "../../store";
 import {
   findAvrEmotion,
+  findAvrEmotionDecimal,
   getArrayEmotionWithDate,
   getArrayEmotionWithMonth,
   getUserInCompany,
@@ -182,7 +183,10 @@ function Summarize() {
           <>
             <div className="flex  mt-5 justify-between  items-center">
               <FromCard>
-                <ConcludeEmotion emotion={findAvrEmotion(emotionInCompany)} />
+                <ConcludeEmotion
+                  emotion={findAvrEmotion(emotionInCompany)}
+                  decimal={findAvrEmotionDecimal(emotionInCompany)}
+                />
               </FromCard>
               <FromCard>
                 <TotalRecord totalRecord={emotionInCompany.length} />

@@ -51,13 +51,12 @@ export const splitMonth = (date: Date) => {
   return month;
 };
 
-
 export const splitDate = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
 
 export const splitSliceDate = (date: Date) => {
-  return date.toISOString().slice(0,10);
+  return date.toISOString().slice(0, 10);
 };
 
 export const findAvrEmotion = (emotionArray: emotion[]) => {
@@ -70,4 +69,16 @@ export const findAvrEmotion = (emotionArray: emotion[]) => {
   };
 
   return Math.ceil(getAvr());
+};
+
+export const findAvrEmotionDecimal = (emotionArray: emotion[]) => {
+  let sumEmotion = emotionArray.reduce(function (prev, curr) {
+    return prev + curr.emotion;
+  }, 0);
+
+  const getAvr = () => {
+    return sumEmotion / emotionArray?.length;
+  };
+
+  return getAvr().toFixed(2);
 };
