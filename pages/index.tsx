@@ -89,30 +89,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // import("@line/liff").then((liff) => {
-    //   liff
-    //     .init({ liffId: "1660709285-D5QggOXl" })
-    //     .then(async () => {
-    //       if (liff.isLoggedIn()) {
-    //         const profile = await liff.getProfile();
-
-    //         dispatch(
-    //           setLineUser({
-    //             userId: profile.userId as string,
-    //             pictureUrl: profile.pictureUrl,
-    //           })
-    //         );
-    //       } else {
-    //         liff.login();
-    //       }
-    //     })
-    //     .catch(() => {
-    //       console.log("error");
-    //     });
-    // });
-
-   
-
     const fetchData = async () => {
       const data = await getArrayEmotion(lineAuth.userId);
       setEmotion(data);

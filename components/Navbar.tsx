@@ -38,6 +38,8 @@ const Navbar = () => {
           console.log("error");
         });
     });
+
+    
   }, []);
 
   const lineAuth = useSelector((state: RootState) => state.auth);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   findAvrEmotion,
+  findAvrEmotionDecimal,
   getArrayEmotionWithDate,
   splitDate,
   splitMonth,
@@ -96,7 +97,7 @@ const AverageEmotion = (props: Props) => {
           {emotion?.length != 0 ? (
             <>
               <p className="text-xl ">
-                อารมณ์ของคุณอยู่ในระดับ : {findAvrEmotion(emotion)}
+                อารมณ์ของคุณอยู่ในระดับ : {findAvrEmotionDecimal(emotion)}
               </p>
               <div className="w-32 h-32 relative my-5">
                 <Image
