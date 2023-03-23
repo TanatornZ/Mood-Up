@@ -10,10 +10,21 @@ import { setAdmin, setCompanyName } from "../../store/adminAuth-slice";
 
 function AdminNavber() {
   const admin = useSelector((state: RootState) => state.adminAuth);
+  const auth = getAuth();
 
   const dispatch = useDispatch();
   const router = useRouter();
   const [path, setPath] = useState<string>("");
+
+  const getAdminId = async (user: string) => {
+    const querySnapshot = await getDocs(collection(db, "admin"));
+    querySnapshot.forEach((doc) => {
+      // check id
+      if (doc.data().UID === user) {
+        dispatch(setAdmin({ admin: user, company: doc.data().company_id }));
+      }
+    });
+  };
 
   useEffect(() => {
     setPath(router.asPath.slice(7));
@@ -27,6 +38,10 @@ function AdminNavber() {
     };
     getCompanyName();
   }, [admin.companyId, dispatch, path, router.asPath]);
+
+  if (auth.currentUser?.uid) {
+    getAdminId(auth.currentUser?.uid);
+  }
 
   const logout = () => {
     getAuth().signOut();
@@ -57,7 +72,6 @@ function AdminNavber() {
             การสรุปผล
           </Link>
         </li>
-        
       </ul>
       <button
         className="text-lg text-white bg-red-600 p-3 rounded-xl shadow-lg hover:bg-red-700"

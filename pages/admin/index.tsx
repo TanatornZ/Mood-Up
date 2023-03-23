@@ -3,6 +3,7 @@ import { collection, DocumentData, getDocs } from "firebase/firestore";
 import Router, { useRouter } from "next/router";
 import React, {
   ReactElement,
+  Suspense,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -18,6 +19,7 @@ import { db } from "../../firebase/firebaseConfig";
 import { employee, employeeNid } from "../../interface/employyee";
 import { RootState } from "../../store";
 import { AuthAdmin, setAdmin } from "../../store/adminAuth-slice";
+import Spinner from "../../components/Spinner";
 
 export default function Admin() {
   const [showAccept, setShowAccept] = useState<boolean>(false);
@@ -39,16 +41,6 @@ export default function Admin() {
     return data;
   }, [admin.companyId]);
 
-  const getAdminId = async (user: string) => {
-    const querySnapshot = await getDocs(collection(db, "admin"));
-    querySnapshot.forEach((doc) => {
-      // check id
-      if (doc.data().UID === user) {
-        dispatch(setAdmin({ admin: user, company: doc.data().company_id }));
-      }
-    });
-  };
-
   useEffect(() => {
     const data = getUser();
     data.then((item) => {
@@ -61,10 +53,6 @@ export default function Admin() {
       }
     }, 500);
   }, [auth.currentUser, getUser, router]);
-
-  if (auth.currentUser?.uid) {
-    getAdminId(auth.currentUser?.uid);
-  }
 
   const unAcceptUser = user.filter(
     (u) => u.information.accept_company === false
@@ -81,19 +69,21 @@ export default function Admin() {
       <div className="p-8 w-[80%]">
         <h1 className="text-3xl text-center">จัดการพนักงาน</h1>
 
-        <div className="bg-white rounded-xl mt-8 ">
-          {user.map((employee: any) => {
-            if (employee.information.accept_company) {
-              return (
-                <EmployeeList
-                  key={employee.id}
-                  information={employee.information}
-                  docId={employee.id}
-                />
-              );
-            }
-          })}
-        </div>
+        <Suspense fallback={<Spinner />}>
+          <div className="bg-white rounded-xl mt-8 ">
+            {user.map((employee: any) => {
+              if (employee.information.accept_company) {
+                return (
+                  <EmployeeList
+                    key={employee.id}
+                    information={employee.information}
+                    docId={employee.id}
+                  />
+                );
+              }
+            })}
+          </div>
+        </Suspense>
       </div>
 
       <div
