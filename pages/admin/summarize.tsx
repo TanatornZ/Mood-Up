@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import AdminNavber from "../../components/admin/AdminNavber";
 import CheckEmployee from "../../components/admin/CheckEmployee";
@@ -20,8 +20,8 @@ import HorizontalChart from "../../components/chart/HorizontalChart";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { emotion } from "../../interface/emotion";
-
 import { makeChartData } from "../../utils/makeChartData";
+import Spinner from "../../components/Spinner";
 
 function Summarize() {
   const [emotionInCompany, setEmotionInCompany] = useState<any[]>([]);
@@ -42,7 +42,6 @@ function Summarize() {
     const querySnapshot = await getDocs(collection(db, "user"));
     let totalUser: number = 0;
     querySnapshot.forEach((doc) => {
-      console.log(doc.data());
       if (doc.data().company_id === company_id) {
         if (doc.data().accept_company) {
           totalUser += 1;
@@ -66,7 +65,12 @@ function Summarize() {
   useEffect(() => {
     switch (typeShow) {
       case "All":
-        getEmotion();
+        const getAllEmotion = async () => {
+          getEmotion();
+          const user = await getAllUserInCompany(admin.companyId);
+          setAllUser(user);
+        };
+        getAllEmotion();
         break;
       case "Month":
         const getEmotionMonth = async () => {
@@ -75,6 +79,8 @@ function Summarize() {
             userInCompany,
             new Date(month)
           );
+          const user = await getAllUserInCompany(admin.companyId);
+          setAllUser(user);
           setEmotionInCompany(companyEmotion);
         };
         getEmotionMonth();
@@ -86,18 +92,14 @@ function Summarize() {
             userInCompany,
             new Date(day)
           );
+          const user = await getAllUserInCompany(admin.companyId);
+          setAllUser(user);
           setEmotionInCompany(companyEmotion);
         };
         getEmotionDay();
         break;
     }
-
-    const fecthUser = async () => {
-      const user = await getAllUserInCompany(admin.companyId);
-      setAllUser(user);
-    };
-    fecthUser();
-  }, [typeShow, day, month]);
+  }, [typeShow, day, month, admin.companyId]);
 
   const findUserRecord = (emotionArray: emotion[]) => {
     const userRecord: string[] = [];
@@ -117,7 +119,6 @@ function Summarize() {
   }
 
   let userRecord = findUserRecord(emotionInCompany);
-
   let chartData = makeChartData(emotionInCompany);
 
   return (
@@ -181,34 +182,34 @@ function Summarize() {
 
         {emotionInCompany.length !== 0 ? (
           <>
-            <div className="flex  mt-5 justify-between  items-center">
-              <FromCard>
-                <ConcludeEmotion
-                  emotion={findAvrEmotion(emotionInCompany)}
-                  decimal={findAvrEmotionDecimal(emotionInCompany)}
-                />
-              </FromCard>
-              <FromCard>
-                <TotalRecord totalRecord={emotionInCompany.length} />
-              </FromCard>
-              <FromCard>
-                <CheckEmployee
-                  totalRecord={userRecord.length}
-                  totalEmployee={allUser}
-                />
-              </FromCard>
-              <FromCard>
-                <PercentChart chartData={chartData} />
-              </FromCard>
-            </div>
-            <div className="h-[55%] mt-5 flex justify-between ">
-              <div className="w-[35%]">
-                <ReasonIntoEmotion emotion={emotionInCompany} />
+              <div className="flex  mt-5 justify-between  items-center">
+                <FromCard>
+                  <ConcludeEmotion
+                    emotion={findAvrEmotion(emotionInCompany)}
+                    decimal={findAvrEmotionDecimal(emotionInCompany)}
+                  />
+                </FromCard>
+                <FromCard>
+                  <TotalRecord totalRecord={emotionInCompany.length} />
+                </FromCard>
+                <FromCard>
+                  <CheckEmployee
+                    totalRecord={userRecord.length}
+                    totalEmployee={allUser}
+                  />
+                </FromCard>
+                <FromCard>
+                  <PercentChart chartData={chartData} />
+                </FromCard>
               </div>
-              <div className="w-[60%]  min-h-fit bg-white rounded-xl ">
-                <HorizontalChart chartData={chartData} />
+              <div className="h-[55%] mt-5 flex justify-between ">
+                <div className="w-[35%]">
+                  <ReasonIntoEmotion emotion={emotionInCompany} />
+                </div>
+                <div className="w-[60%]  min-h-fit bg-white rounded-xl ">
+                  <HorizontalChart chartData={chartData} />
+                </div>
               </div>
-            </div>
           </>
         ) : (
           <div className="flex mt-12 justify-center items-center">
